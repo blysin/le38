@@ -1,0 +1,41 @@
+<div class="J_Module" data-module-name="auxiliary-title">
+    <div class="module md-auxiliary-title type-{{type}}" style="background-color: {{color}}; border-color: {{color}};">
+        <a href="/m/secondsKill/toSecondsKill?promotionId={{activity.selectProId}}">
+            <span class="txt">{{title}}</span>
+            <div class="count-down">
+                <div class="c countdown" data-countdown="flash_sale" data-id="{{activity.selectProId}}" data-end="{{activity.data-end}}" data-start="{{activity.data-start}}">
+                    <span class="t_desc"></span>
+                    <em class="days_1">0</em><span class="days_2">天</span>
+                    <em class="hours_1">0</em><span class="hours_2">时</span>
+                    <em class="minutes_1">0</em><span class="minutes_2">分</span>
+                    <em class="seconds_1 qgseconds">0</em><span class="seconds_2">秒</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="J_Module" data-module-name="product-col2">
+    <div class="module md-product-col2"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
+        <div class="mod-list">
+            {{#each list}}
+                <ul>
+                    {{#each .}}
+                    <li>
+                        <a href="{{#if link}}/m{{link}}{{else}}javascript:void(0){{/if}}">
+                            <div class="pic"><img class="lazyload" src="/static/mobile/images/blank.gif" data-src="{{img}}" /></div>
+                            <div class="info">
+                                <div class="goodsname">{{name}}</div>
+                                <div class="goodsprice">
+                                    <span class="price-real"><span class="txt-rmb">¥</span><em>{{priceReal}}</em></span>
+                                    <!--<span class="price-origin"><span class="txt-rmb">¥</span><em>{{priceOrigin}}</em></span>-->
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            {{/each}}
+        </div>
+    </div>
+</div>

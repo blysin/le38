@@ -1,0 +1,27 @@
+.loginform {padding:20px 36px 0;}
+.loginform ul {overflow: hidden;}
+.loginform li {line-height:30px;padding:9px 0;border-bottom: 1px solid $border-color;font-size: 14px;@include display-flex;
+  &:after {display: block; clear: both; content: ""; height: 0;}
+  .input-wrap {@include flex(1);}
+  .r {margin-left: 10px;}
+  .icon-eye {width: 30px;line-height: 30px;height: 30px;text-align: center;
+    &:after {font-family: "iconfont";content: "\e7dd";font-size: 28px;color: $border-color;}
+    &.selected {
+      &:after {color: $public-color;}
+    }
+  }
+  .toobtain {height:30px;display: block;width:100px;text-align: center;border-left:1px solid $border-color;color: $public-color;padding-left: 10px;}
+  .toobtain.disabled {color: #999999;}
+  .code {max-width: 100px;margin-left:10px;}
+  .code img {width: 100%;}
+}
+.loginform input[type=text], .loginform input[type=password], .loginform input[type=number], .loginform input[type=tel]{border: 0;padding:9px 30px 9px 0;margin:-9px -30px -9px 0;vertical-align: top;height: 48px;line-height:30px;font-size: 14px;background: none;}
+.input-wrap {position: relative;}
+.input-wrap .delete {display: none;position: absolute;top: 0;right:0;width:30px;height: 100%;}
+.input-wrap .delete:before {font-family: "iconfont";content: "\e62f";font-size: 20px;position: absolute;top: 50%;left: 50%;width: 20px;height: 20px;line-height: 20px;margin: -10px 0 0 -10px;text-align: center;color: #fff;background: #cccccc;@include border-radius(50%);}
+
+.loginForget {overflow: hidden;padding: 0 36px;}
+
+.agreement {padding:15px 36px 0;
+  &.aligncenter {text-align: center;}
+}

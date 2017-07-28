@@ -1,0 +1,65 @@
+<div class="form-horizontal">
+    <div class="row-fluid">
+        <div class="span24">
+            <div class="control-group">
+                <label class="control-label">公告图标</label>
+                <div class="controls control-row-auto">
+                    <div class="comboList" data-tag="type" data-value="{{type}}">
+                        <div class="comboListTitle">公告图标</div>
+                        <div class="comboListMenu">
+                            <ul>
+                                <li value="0">无</li>
+                                <li value="1">图标一</li>
+                                <li value="2">图标二</li>
+                                <li value="3">图标三</li>
+                                <li value="4">图标四</li>
+                                <li value="5">图标五</li>
+                                <li value="6">图标六</li>
+                                <li value="7">图标七</li>
+                                <li value="8">图标八</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">边框颜色</label>
+                <div class="controls control-row-auto">
+                    <div class="colorSelect" data-value="{{modBorderColor}}" data-tag="modBorderColor"></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">背景颜色</label>
+                <div class="controls control-row-auto">
+                    <div class="colorSelect" data-value="{{modBGColor}}" data-tag="modBGColor"></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">图标颜色</label>
+                <div class="controls control-row-auto">
+                    <div class="colorSelect" data-value="{{icoColor}}" data-tag="icoColor"></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">滚动方向</label>
+                <div class="controls control-row-auto">
+                    <label><input type="radio" data-tag="direction" name="direction" value="left"{{#ifCond direction '==' 'left'}} checked {{/ifCond}}/> 从右向左</label>
+                    <label class="ml"><input type="radio" data-tag="direction" name="direction" value="right"{{#ifCond direction '==' 'right'}} checked {{/ifCond}}/> 从左向右</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-vertical">
+    <div class="row-fluid">
+        <div class="span24">
+            <div class="control-group">
+                <label class="control-label">文本内容</label>
+                <div class="controls control-row-auto">
+                    <textarea data-tag="content" placeholder="请输入文本内容">{{content}}</textarea>
+                    <div class="fontStyler" data-tag="font" data-value='{{json font}}'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

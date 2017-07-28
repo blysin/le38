@@ -1,0 +1,54 @@
+@mixin break-word{
+  -ms-word-break: break-all; word-break: break-all; word-wrap: break-word;
+}
+@mixin overflow-ellipsis{
+  white-space: nowrap; overflow: hidden; display: block; -ms-text-overflow: ellipsis; text-overflow: ellipsis;
+}
+@mixin display-flex{
+  display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: box;
+}
+@mixin flex($flex:1){
+  -webkit-box-flex: $flex; -moz-box-flex: $flex;  -ms-box-flex: $flex; box-flex: $flex;
+}
+@mixin background-size($size){
+  -webkit-background-size: $size;
+  background-size: $size;
+}
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+@mixin gradient($from, $to){
+  background-color: $from;
+  background-image: -moz-linear-gradient($from, $to);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($from), to($to));
+  background-image: -webkit-linear-gradient($from, $to);
+}
+@mixin box-sizing($box-sizing:border-box){
+  -webkit-box-sizing: $box-sizing;
+  -moz-box-sizing: $box-sizing;
+  box-sizing: $box-sizing;
+}
+@mixin box-shadow($shadow){
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+@mixin transform($transform){
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -ms-transform: $transform;
+  transform: $transform;
+}
+@mixin transition($prop){
+  -webkit-transition: $prop;
+  -moz-transition: $prop;
+  -ms-transition: $prop;
+  transition: $prop;
+}
+@mixin animation($anim){
+  -webkit-animation: $anim;
+  animation: $anim;
+}

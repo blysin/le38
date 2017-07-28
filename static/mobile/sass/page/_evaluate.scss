@@ -1,0 +1,25 @@
+/*evaluate*/
+.orderevaluate {overflow: hidden;
+  li {width: 100%;background-color: $color_white;float:left;margin-bottom: 10px;}
+  .items {padding:10px;overflow: hidden;
+    .img {width: 60px;height: 60px;background-color: $color_white;background-repeat: no-repeat;background-position: center;background-size: cover;float: left;}
+    .info {margin-left: 70px;line-height:20px;
+      h3 {@include overflow-ellipsis();}
+      .specifications {color: $color_grey9;font-size: 12px;}
+      .price {overflow: hidden;
+        span {display: block;float: right;}
+        em {display: block;@include overflow-ellipsis();}
+      }
+    }
+  }
+  .evaluate {padding:0 15px;border-top:1px solid $color_grey_bg;
+    h3 {padding:6px 0;line-height: 26px;}
+    .instructions {padding-bottom: 10px;
+      textarea {border:1px dashed $color_border;padding:10px;}
+    }
+    button {
+      border: 0;
+    }
+    .mui-inline {margin-left: 10px;margin-top: -2px;}
+  }
+}

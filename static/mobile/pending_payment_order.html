@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="css/yrmobile.css" />
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">待付款</h1>
+        <a class="mui-icon"></a>
+    </header>
+    <div class="mui-content">
+        <div class="prompt-order"><i></i>请在30分00秒内完成付款</div>
+        <div class="addressWrap">
+            <div class="deliverymode">配送方式<span>快递领取</span></div>
+            <div class="order-address">
+                <span class="name">林淼淼</span>
+                <span class="phone">15900000123</span>
+                <address>福建省  厦门市  思明区莲前街道软件园二期</address>
+            </div>
+        </div>
+
+        <div class="addressWrap">
+            <div class="deliverymode">配送方式<span>到店领取</span></div>
+            <div class="sincebox">
+                <div class="con">37546388</div>
+                <p>取货码有效期为<i class="public-color">30</i>天，请尽快提货</p>
+            </div>
+        </div>
+
+        <div class="buyer_message">
+            <h3>买家留言：</h3>
+            <p>粉色的瓶子和盒子。</p>
+        </div>
+        <div class="orderList">
+            <ul>
+                <li>
+                    <div class="t"><p>订单商品</p></div>
+                    <div class="itemsWrap">
+                        <div class="items">
+                            <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                            <div class="info">
+                                <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                <p class="specifications">50ML</p>
+                                <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                            </div>
+                        </div>
+                        <div class="items">
+                            <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                            <div class="info">
+                                <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                <p class="specifications">50ML</p>
+                                <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="ft">实付款：<span class="public-color">￥1154.00</span></p>
+                </li>
+            </ul>
+        </div>
+        <div class="borderbox">
+            <div class="order-info">
+                <ul>
+                    <li><p>订单号:</p><span>2011603254281956</span></li>
+                    <li><p>创建时间:</p><span>2017-04-13 11:34:12</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="fbbwrap">
+            <div class="ftbtnbar">
+                <div class="button-wrap button-wrap-expand">
+                    <a href="javascript:void(0)" class="button whiteBtn cancelbtn">取消订单</a>
+                    <a href="javascript:void(0)" class="button" id="paymentBtn">付款</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--取消订单-->
+    <div class="show-abnormal-bg"></div>
+    <div class="mui-abnormal">
+        <div class="ordercancel">
+            <div class="info">
+                <h3>请填写原因：</h3>
+                <div class="inputbox">
+                    <input type="text">
+                </div>
+                <h3>备注：</h3>
+                <textarea></textarea>
+            </div>
+            <div class="refundbtn">
+                <a href="javascript:void(0);" id="submit">提交</a>
+                <a href="javascript:void(0);" id="change">取消</a>
+            </div>
+        </div>
+    </div>
+
+    <!--付款-->
+    <div id="methodpayment" class="actionsheet-spec">
+        <div class="close"></div>
+        <div class="prod-info">
+            <div class="tit">付款详情</div>
+        </div>
+        <ul class="tbviewlist">
+            <li>
+                <a href="javascript:void(0)" class="itemlink">
+                    <div class="r public-color">￥1154.00</div>
+                    <div class="c">微信支付</div>
+                </a>
+            </li>
+        </ul>
+        <div class="fbbwrap nofixed">
+            <div class="ftbtnbar">
+                <div class="button-wrap button-wrap-expand">
+                    <a href="javascript:void(0)" class="button btn-buy">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script>
+    $(function(){
+        /*取消订单*/
+        $(".cancelbtn").on("click",function(){
+            $(".show-abnormal-bg").addClass("mui-active");
+            $(".mui-abnormal").addClass("mui-popup-in");
+            $(document).bind("touchmove",function(e){
+                e.preventDefault();
+            });
+        })
+
+        $("#submit,#change").on("click",function(){
+            $(".show-abnormal-bg").removeClass("mui-active");
+            $(".mui-abnormal").removeClass("mui-popup-in");
+            $(document).unbind("touchmove");
+        })
+
+
+        /*付款*/
+        var specASMask = $("<div style='display: none;' class='mask'></div>").on("click", function (e) {
+                    hideSpecAS();
+                }).appendTo(document.body),
+                specAS = $("#methodpayment");
+
+        $("#paymentBtn").on("click", function () {
+            showSpecAS();
+        });
+        specAS.find(".close").on("click", function () {
+            hideSpecAS();
+        });
+
+        $(".btn-buy").on("click", function () {
+            hideSpecAS();
+        });
+
+        function showSpecAS(){
+            specASMask.show().animate({opacity:1},{
+                duration:80,
+                complete: function () {
+                    specAS.css({
+                        top : "100%",
+                        opacity : 0,
+                        display : "block"
+                    }).animate({
+                        opacity : 1,
+                        translateY:"-"+specAS.height() +"px"
+                    },{
+                        duration : 200,
+                        easing : "ease-in-out"
+                    });
+                }
+            });
+            $(document).bind("touchmove",function(e){
+                e.preventDefault();
+            });
+        }
+
+        function hideSpecAS(){
+            specAS.animate({
+                opacity : 0,
+                translateY:0
+            },{
+                duration : 200,
+                easing : "ease-in-out",
+                complete : function () {
+                    specAS.hide();
+                    specASMask.animate({opacity:0},{
+                        duration : 80,
+                        complete: function () {
+                            specASMask.hide();
+                        }
+                    });
+                }
+            });
+            $(document).unbind("touchmove");
+        }
+    })
+</script>
+</body>
+</html>

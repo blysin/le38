@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div id="tab">
+
+        </div>
+    </div>
+    <div class="content-body">
+        <div class="title-bar-side">
+            <div class="search-bar">
+                <form>
+                    <input class="control-text" type="text" placeholder="用户名"/>
+                    <button></button>
+                </form>
+            </div>
+            <div class="search-content">
+                <form id="searchForm" class="form-horizontal search-form">
+                    <div class="row">
+                        <div class="control-group">
+                            <label class="control-label">手机号：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group">
+                            <label class="control-label">状态：</label>
+                            <div class="controls">
+                                <select>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group">
+                            <label class="control-label">银行类型：</label>
+                            <div class="controls">
+                                <select>
+                                    <option></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="control-label">申请时间：</label>
+                            <div class="controls bui-form-group" data-rules="{dateRange : true}">
+                                <input name="applyStartDate" class="control-text input-small calendar" type="text"><label>&nbsp;-&nbsp;</label>
+                                <input name="applyEndDate" class="control-text input-small calendar" type="text">
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-actions offset3">
+                            <button id="btnSearch" type="submit" class="button button-primary">搜索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="grid"></div>
+    </div>
+
+    <div id="batchReview" class="hide">
+        <form class="form-horizontal">
+            <div class="form-content">
+                <div class="row">
+                    <div class="control-group">
+                        <label class="control-label">备注：</label>
+                        <div class="controls control-row-auto">
+                            <textarea name="remarkAgree" class="span6"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="withdrawal" class="hide">
+        <form class="form-horizontal" method="post">
+            <div  class="form-content">
+                <div class="row">
+                    <div class="control-group">
+                        <label class="control-label">提现最小金额：</label>
+                        <div class="controls">
+                            <input name="accountBalance" class="input-normal control-text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui-min.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript">
+    var Tab = BUI.Tab;
+    var tab = new Tab.Tab({
+        render : '#tab',
+        elCls : 'nav-tabs',
+        autoRender: true,
+        children:[
+            {text:'待审核提现列表',value:'1'},
+            {text:'已审核提现列表',value:'2'},
+            {text:'完成提现列表',value:'3'}
+        ]
+    });
+    tab.on('selectedchange',function (ev) {
+        var item = ev.item;
+        $('#log').text(item.get('text') + ' ' + item.get('value'));
+    });
+    tab.setSelected(tab.getItemAt(0));
+
+    var Grid = BUI.Grid,
+        Toolbar = BUI.Toolbar,
+        Data = BUI.Data;
+    var Grid = Grid,
+        Store = Data.Store,
+        columns = [{
+            title : '操作',
+            dataIndex :'a',
+            width:100
+        },{
+            title : '手机号',
+            dataIndex :'b',
+            width:150
+        },{
+            title : '姓名',
+            dataIndex : 'c',
+            width:100
+        },{
+            title : '银行类型',
+            dataIndex : 'd',
+            width:100
+        },{
+            title : '开户行名称',
+            dataIndex : 'e',
+            width:100
+        },{
+            title : '开户名',
+            dataIndex : 'f',
+            width:100
+        },{
+            title : '账号',
+            dataIndex : 'g',
+            width:120
+        },{
+            title : '收款人身份证账号',
+            dataIndex : 'h',
+            width:200
+        },{
+            title : '提现对象',
+            dataIndex : 'i',
+            width:100
+        },{
+            title : '提现金额',
+            dataIndex : 'j',
+            width:100
+        },{
+            title : '申请日期',
+            dataIndex : 'k',
+            width:200
+        }],
+        data = [{a:'<a href="javascript:void(0)">审核</a>'},{a:'cdd',b:'edd'},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2}];
+
+    var store = new Store({
+            data : data,
+            autoLoad:true,
+            pageSize:'20'
+        }),
+        grid = new Grid.Grid({
+            width: '100%',
+            height: getContentHeight(),
+            render:'#grid',
+            columns : columns,
+            // 顶部工具栏
+            tbar:{
+                // items:工具栏的项， 可以是按钮(bar-item-button)、 文本(bar-item-text)、 默认(bar-item)、 分隔符(bar-item-separator)以及自定义项
+                items:[{
+                    //xclass:'bar-item-button',默认的是按钮
+                    btnCls : 'button button-small',
+                    text:'批量审核',
+                    handler:batchReview
+                },{
+                    btnCls : 'button button-small',
+                    text:'设置提现金额',
+                    handler:withdrawal
+                },{
+                    btnCls : 'button button-small',
+                    text:'导出'
+                }]
+            },
+            // 底部工具栏
+            bbar:{
+                // pagingBar:表明包含分页栏
+                pagingBar:true
+            },
+            store : store,
+            plugins : [Grid.Plugins.CheckSelection]
+        });
+    grid.render();
+
+    var mask;
+    $('.title-bar-side .search-bar input').on('focus',function(){
+        var $this = $(this);
+        var searchCon = $this.closest('.title-bar-side').find('.search-content');
+        $this.addClass("focused");
+        if(!mask)
+            mask = $('<div></div>').css({
+                'position':'absolute',
+                'left':0,
+                'top':0,
+                'width':'100%',
+                'height':'100%'
+            }).appendTo(document.body);
+        searchCon.show(400);
+        mask.on('click',function(){
+            $this.removeClass("focused");
+            mask.remove();
+            mask = null;
+            searchCon.hide(400);
+        });
+    });
+
+    BUI.use('bui/calendar',function(Calendar){
+        var datepicker = new Calendar.DatePicker({
+
+            //delegateTrigger : true, //如果设置此参数，那么新增加的.calendar元素也会支持日历选择
+            autoRender : true,
+            align :{
+                node: 'trigger',     // 参考元素, falsy 或 window 为可视区域, 'trigger' 为触发元素, 其他为指定元素
+                points: ['tl','tl'], // ['tr', 'tl'] 表示 overlay 的 tl 与参考节点的 tr 对齐
+                offset: [-122, 30]    // 有效值为 [n, m]
+            },
+            trigger:'.calendar'
+        });
+    });
+
+    function batchReview(){
+        dialogbatchReview.show();
+    }
+
+    function withdrawal(){
+        dialogwithdrawal.show();
+    }
+
+    BUI.use('bui/overlay',function(Overlay){
+        dialogbatchReview = new Overlay.Dialog({
+            title:'批量审核',
+            width:500,
+            mask:true,
+            buttons:[
+                {
+                    text:'同意',
+                    elCls : 'button button-primary',
+                    handler : function(){
+                        this.close();
+                    }
+                },{
+                    text:'拒绝',
+                    elCls : 'button',
+                    handler : function(){
+                        this.close();
+                    }
+                },{
+                    text:'取消',
+                    elCls : 'button',
+                    handler : function(){
+                        this.close();
+                    }
+                }
+            ],
+            contentId : 'batchReview'
+        });
+        dialogwithdrawal = new Overlay.Dialog({
+            title:'设置提现金额',
+            width:340,
+            mask:true,
+            buttons:[
+                {
+                    text:'确定',
+                    elCls : 'button button-primary',
+                    handler : function(){
+                    	$("[name='accountBalance']").val('');
+                        this.close();
+                    }
+                },{
+                    text:'取消',
+                    elCls : 'button',
+                    handler : function(){
+                        this.close();
+                    }
+                }
+            ],
+            contentId : 'withdrawal'
+        });
+    });
+
+
+</script>
+</body>
+</html>  

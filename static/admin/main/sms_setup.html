@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div class="title-bar">
+            <ul class="bui-tab nav-tabs">
+                <li class="bui-tab-item bui-tab-item-selected"><span class="bui-tab-item-text">短信推送模板</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-top">
+        <div class="tips tips-small tips-notice bui-inline-block mb0">
+            <span class="x-icon x-icon-small x-icon-warning"><i class="icon icon-volume-up"></i></span>
+            <div class="tips-content">
+                要使用短信推送.请先接入短信运营商.如需帮助.请联系逸锐科技售后
+            </div>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <form class="form-horizontal" method="post">
+            <div class="title-text">提现审核短信</div>
+            <div class="row mb10">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">提现审核失败：</label>
+                    <div class="controls control-row-auto">
+                        <label>
+                            <input type="radio" name="active" value="1" checked="checked" />开启
+                        </label>
+                        <span class="offset1" style="width: 440px;display: inline-block;">开启提现审核失败推送</span><a class="button" onclick="editTemplate();">编辑模板</a><br>
+                        <label>
+                            <input type="radio" name="active" value="0" />关闭
+                        </label>
+                    </div>
+                </div>
+            </div>
+        <div class="actions-bar"></div>
+        <div class="title-text">订单短信</div>
+        <div class="row mb10">
+            <div class="control-group">
+                <label class="control-label control-label-maxlong">礼包发货：</label>
+                <div class="controls control-row-auto">
+                    <label>
+                        <input type="radio" name="active8" value="1" checked="checked" />开启
+                    </label>
+                    <span class="offset1" style="width: 440px;display: inline-block;">开启后礼包发货推送短信</span><a class="button">编辑模板</a><br>
+                    <label>
+                        <input type="radio" name="active8" value="0" />关闭
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="actions-bar-fixed">
+            <div class="actions-bar">
+                <div class="form-actions">
+                    <button type="submit" class="button button-large button-primary">保存</button>
+                    <button type="reset" class="button button-large">重置</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <div id="editTemplate" class="hide">
+        <div class="editTemplate-title">
+            <P>根据用户手机号系统给手机发送一条验证信息进行密码重置</P>
+            <textarea placeholder="【洋河1号】恭喜您加入洋河1号，验证码为:{verify},请在10分钟内填写.为保障账号安全.请勿泄露验证码."></textarea>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script>
+    function editTemplate(){
+        dialogeditTemplate.show();
+    }
+
+    BUI.use('bui/overlay',function(Overlay){
+        dialogeditTemplate = new Overlay.Dialog({
+            title:'短信验证',
+            width:500,
+            mask:true,
+            buttons:[
+                {
+                    text:'保存',
+                    elCls : 'button button-primary',
+                    handler : function(){
+                        this.close();
+                    }
+                },{
+                    text:'取消',
+                    elCls : 'button',
+                    handler : function(){
+                        this.close();
+                    }
+                }
+            ],
+            contentId : 'editTemplate'
+        });
+    });
+</script>
+</body>
+</html>  

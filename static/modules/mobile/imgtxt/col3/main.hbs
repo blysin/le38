@@ -1,0 +1,13 @@
+<div class="J_Module" data-module-name="imgtxt-col3">
+    <div class="module md-imgtxt-col3"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
+        <div class="mod-row size-{{size}}">
+            <ul>
+                {{#each list}}
+                    <li>
+                        <div class="pic"><a href="{{#if link.url}}{{link.url}}{{else}}javascript:void(0){{/if}}"><img class="lazyload" src="/static/mobile/images/blank.gif" data-src="{{img}}"/></a></div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

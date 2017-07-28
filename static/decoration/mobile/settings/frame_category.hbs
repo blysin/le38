@@ -1,0 +1,52 @@
+{{#with frame_setting}}
+{{#with category_head.data}}
+<div class="setting-tab-item" data-setting-title="头部设置">
+    <div class="setting-body-top">
+        <ul>
+            <li><label><input id="hideInWechat_checkbox" data-tag="category_head.hideInWechat" type="checkbox" {{#if hideInWechat}}checked{{/if}}/>&nbsp;微信下不显示该头部 <span class="auxiliary-text">（单独浏览器访问依然存在头部）</span></label></li>
+        </ul>
+    </div>
+    <div class="setting-body-in">
+        <div class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">背景色</label>
+                        <div class="controls">
+                            <div class="colorSelect" data-name="category_head.bgcolor" data-value="{{bgcolor}}" data-tag="category_head.bgcolor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{!--<div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">搜索框</label>
+                        <div class="controls">
+                            <input type="checkbox" data-tag="category_head.showSearch" {{#if showSearch}}checked{{/if}}/>
+                        </div>
+                    </div>
+                </div>
+            </div>--}}
+        </div>
+        <div class="form-vertical">
+
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">右侧图标
+                            <span class="auxiliary-text">每个图标2个字以内</span>
+                        </label>
+
+                        <div class="controls control-row-auto">
+                            <div class="colorSelect" data-name="category_head.icoColor" data-value="{{icoColor}}" data-tag="category_head.icoColor"></div>
+                            <div class="settingTable" data-max-count="2" data-name="category_head.icoList" data-tag="category_head.icoList" data-value='{{{json icoList}}}'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/with}}
+{{/with}}

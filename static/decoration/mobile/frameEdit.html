@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>手机首页装修</title>
+    <link rel="stylesheet" href="../../mobile/css/global.css"/>
+    <link rel="stylesheet" href="../../mobile/css/mobile.css"/>
+    <link rel="stylesheet" href="../../mobile/css/frames.css"/>
+    <link rel="stylesheet" href="css/decoration.css"/>
+</head>
+<body>
+<div class="dcm-page">
+    <div class="dcm-header">
+        <div class="dcm-logo"><img src="images/logo.png" alt="手机模板中心"/><span>- 框架</span></div>
+        <div class="dcm-logo-extra"></div>
+        <div class="dcm-header-btns">
+            <a id="J_btn_back" href="javascript:void(0)">返回</a>
+            <a id="J_btn_save" href="javascript:void(0)">保存</a>
+        </div>
+    </div>
+    <div class="dcm-container dcm-container-frameedit">
+        <div class="dcm-main">
+            <div class="dcm-preview-wrap">
+                <div class="dcm-preview">
+                    <div class="dcm-preview-top">
+                        <a id="J_btn_revert" class="btn-revert" href="javascript:void(0)">恢复默认</a>
+                    </div>
+                    <div class="dcm-preview-box">
+                        <div class="dcm-preview-box-page"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dcm-setting-wrap">
+                <div class="dcm-setting">
+                    <div class="dcm-setting-title">
+                        <div class="setting-tab">
+                            <b></b>
+                        </div>
+                    </div>
+                    <div class="dcm-setting-body">
+                        <div class="setting-tab-wrap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../js/require.js"></script>
+<script>
+    var frameConfigUrl = "config/frameConfig.json";
+    var getLinkUrl = "config/linksData.json";
+    var frameEditBaseUrl = "settings/";
+    window.UEDITOR_HOME_URL = "../../admin/js/ueditor/";
+    require.config({
+        baseUrl: '../../js'
+    });
+    require(["decoration/config"], function () {
+        require(["decoration/mobile/frameEdit"]);
+    });
+</script>
+</html>

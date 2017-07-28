@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我分分润</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="css/yrmobile.css" />
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">我的分润</h1>
+        <a class="mui-icon"></a>
+    </header>
+    <div class="mui-content">
+        <div class="myliptop">
+            <p><span><a href="cash_register.html">历史提现记录</a></span><em>当前剩余分润 (元)</em></p>
+            <h3 class="fz-32 mb10">260</h3>
+            <p><em class="color-gray">累积分润 (元)</em></p>
+            <h3 class="fz-14">260</h3>
+            <a class="btn" href="withdrawals.html">提现</a>
+        </div>
+        <div class="iconinfo">
+            <i class="ico ico-info"></i>
+            <strong>你还没有分润，要努力哦！</strong>
+            <div class="btnbar">
+                <a class="mui-btn mui-btn-block mui-btn-primary" href="my_code.html">去推广</a>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="lip-list">
+                <ul>
+                    <!---->
+                    <li>
+                        <div class="hd" style="background-image: url(images/header_img.png);"></div>
+                        <div class="bd">
+                            <div class="t"><span class="public-color">+10</span><p>180****1234</p></div>
+                            <div class="b"><p>注册：2017-04-24 15:53</p></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/dropload.js"></script>
+<script>
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+        // dropload
+        $('.wrap').dropload({
+            scrollArea : window,
+            domDown : {
+                domClass   : 'dropload-down',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData  : '<div class="dropload-noData">暂无数据</div>'
+            },
+            loadDownFn : function(me){
+                page++;
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: 'json/lipList.json?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.lists.length;
+                        if(arrLen > 0){
+                            for(var i=0; i<data.lists.length; i++){
+                                result += '<li>' +
+                                        '<div class="hd" style="background-image: url('+data.lists[i].img+');"></div>' +
+                                        '<div class="bd">' +
+                                            '<div class="t"><span class="public-color">+'+data.lists[i].price+'</span><p>'+data.lists[i].name+'</p></div>' +
+                                            '<div class="b"><p>注册时间:'+data.lists[i].time+'</p></div>' +
+                                        '</div>' +
+                                        '</li>';
+                            }
+                        }else{
+                            me.lock();
+                            me.noData();
+                        }
+                        setTimeout(function(){
+                            $('.lip-list ul').append(result);
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        me.resetload();
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

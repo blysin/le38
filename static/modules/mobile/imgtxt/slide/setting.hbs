@@ -1,0 +1,33 @@
+<div class="form-horizontal">
+    <div class="row-fluid">
+        <div class="span24">
+            <div class="control-group">
+                <label class="control-label">模块背景色</label>
+                <div class="controls control-row-auto">
+                    <div class="colorSelect" data-value="{{modBGColor}}" data-tag="modBGColor"></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">图片尺寸</label>
+
+                <div class="controls control-row-auto">
+                    <label><input type="radio" data-tag="size" name="nav_slide_size" value="large"{{#ifCond size '==' 'large'}} checked {{/ifCond}}/> 640x400</label>
+                    <label class="ml"><input type="radio" data-tag="size" name="nav_slide_size" value="normal"{{#ifCond size '==' 'normal'}} checked {{/ifCond}}/> 640x300</label>
+                    <label class="ml"><input type="radio" data-tag="size" name="nav_slide_size" value="small"{{#ifCond size '==' 'small'}} checked {{/ifCond}}/> 640x200</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-vertical">
+    <div class="row-fluid">
+        <div class="span24">
+            <div class="control-group">
+                <label class="control-label">图片上传</label>
+                <div class="controls control-row-auto">
+                    <div class="imageList" data-multiple="1" data-tag="list" data-value="{{json list}}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

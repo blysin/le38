@@ -1,0 +1,17 @@
+<div class="J_Module" data-module-name="imgtxt-imgtxt">
+    <div class="module md-imgtxt-imgtxt size-{{size}}"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
+        <div class="mod-row mod-row-type-{{type}}">
+            <div class="img">
+                <a href="{{link.url}}"><img class="lazyload" src="/static/mobile/images/blank.gif" data-src="{{img}}"/></a>
+            </div>
+            <div class="txt">
+                <a href="{{#if link.url}}{{link.url}}{{else}}javascript:void(0){{/if}}">
+                    {{#if title}}
+                        <h3 style="font-size: {{titleFont.fontSize}}; font-weight: {{titleFont.fontWeight}}; color: {{titleFont.color}};">{{title}}</h3>
+                    {{/if}}
+                    <p style="font-size: {{contentFont.fontSize}}; font-weight: {{contentFont.fontWeight}}; color: {{contentFont.color}};">{{content}}</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

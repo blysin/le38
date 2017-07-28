@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <ul class="breadcrumb">
+        <li><a href="#">门店评价管理</a> <span class="divider">&gt;&gt;</span></li>
+        <li class="active">评价</li>
+    </ul>
+    <form class="form-horizontal" method="post">
+        <div id="edit-div" class="form-content">
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">会员手机号：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-normal control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">会员名称：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-normal control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">宝贝与描述相符：</label>
+                    <div class="controls">
+                        <div class="consistent"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">卖家的服务态度：</label>
+                    <div class="controls">
+                        <div class="serviceAttitude"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">卖家的发货速度：</label>
+                    <div class="controls">
+                        <div class="serviceSpeed"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">评价时间：</label>
+                    <div class="controls">
+                        <input type="text" class="calendar control-text input-datelarge">
+                    </div>
+                </div>
+            </div>
+            <div class="row mb10">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">评价内容：</label>
+                    <div class="controls control-row-auto">
+                        <textarea name="description" class="control-row4 input-large"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb10">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">回复内容：</label>
+                    <div class="controls control-row-auto">
+                        <textarea name="description" class="control-row4 input-large"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-row-auto">回复时间：</label>
+                    <div class="controls">
+                        <input type="text" class="calendar control-text input-datelarge">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-actions actions-bar">
+            <div class="span13">
+                <button type="submit" class="button button-primary">保存</button>
+                <button type="reset" class="button">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript" src="/static/js/lib/jquery.raty.min.js"></script>
+<script>
+    BUI.use('bui/calendar',function(Calendar){
+        var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            //delegateTrigger : true, //如果设置此参数，那么新增加的.calendar元素也会支持日历选择
+            autoRender : true,
+            align :{
+                node: 'trigger',     // 参考元素, falsy 或 window 为可视区域, 'trigger' 为触发元素, 其他为指定元素
+                points: ['tl','tl'], // ['tr', 'tl'] 表示 overlay 的 tl 与参考节点的 tr 对齐
+                offset: [0, 30]    // 有效值为 [n, m]
+            }
+        });
+    });
+
+    $(function(){
+        $.fn.raty.defaults.path = '/static/images';
+        $('.consistent').raty({
+            score: 5,
+            hints: ['一星', '二星', '三星', '四星', '五星'],
+            width : 120,
+            click: function(score, evt) {
+                var itemId =  $(this).attr('itemId');
+            }
+        });
+        $('.serviceAttitude').raty({
+            score: 5,
+            hints: ['一星', '二星', '三星', '四星', '五星'],
+            width : 120,
+            click: function(score, evt) {
+                var itemId =  $(this).attr('itemId');
+            }
+        });
+        $('.serviceSpeed').raty({
+            score: 5,
+            hints: ['一星', '二星', '三星', '四星', '五星'],
+            width : 120,
+            click: function(score, evt) {
+                var itemId =  $(this).attr('itemId');
+            }
+        });
+    })
+</script>
+</body>
+</html>  

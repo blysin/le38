@@ -1,0 +1,21 @@
+/*prodlist*/
+.prd-list-grid{ margin:7px 7px 0;
+  ul{ margin: 0 -4px;}
+  li{ float: left; width: 50%; margin-bottom: 7px;
+    > a{ position: relative; width: 7.5rem; margin: auto; display: block; border: 1px solid $color_border; background: #fff; overflow: hidden;}
+    .pic{ position: relative; overflow: hidden; height: 7.5rem;
+      img{position: absolute; margin: auto; top: 0; right: 0; bottom: 0; left: 0; max-width: 100%; max-height: 100%;}
+    }
+    .intro{ margin: 0 6px;}
+    .name{line-height: 16px; margin-top: 5px; height:16px;@include overflow-ellipsis();}
+    .specification {font-size: 12px; line-height: 16px; height:16px;@include overflow-ellipsis();color: $color_grey6;}
+    .price{height:28px; line-height:28px; border-top: 1px solid $color_grey_line; margin-top: 4px; @include overflow-ellipsis;}
+    .price-real{float:left;font-size: 12px;color: $public-color;
+      em{ font-size: 16px;}
+    }
+    .price-origin{float:right;font-size: 9px;text-decoration: line-through;color: $color_grey9;
+      em{ font-size: 10px;}
+    }
+  }
+  &:after{ content: ''; display: block; clear: both;}
+}

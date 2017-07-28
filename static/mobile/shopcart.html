@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="css/yrmobile.css" />
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">购物车</h1>
+        <a class="mui-icon" id="J_EditBtn"><span>编辑</span></a>
+    </header>
+    <div class="mui-content">
+        <div class="cart-list">
+            <ul>
+                <li>
+                    <label><input type="checkbox" name="chk_item"></label>
+                    <div class="pic"><a href="#"><img src="images/goodspic.jpg" alt=""></a></div>
+                    <div class="intro">
+                        <h3 class="name">商品名称商品名称商品名称…</h3>
+                        <p class="specifications">规格：100mlx10</p>
+                        <div class="price">
+                            <div class="number-widget">
+                                <div class="number-minus disabled"></div>
+                                <input class="number-text" type="number" value="1" readonly="readonly">
+                                <div class="number-plus disabled"></div>
+                            </div>
+                            <div class="price-real">￥<span>6.90</span></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="chk_item"></label>
+                    <div class="pic"><a href="#"><img src="images/goodspic.jpg" alt=""></a></div>
+                    <div class="intro">
+                        <h3 class="name">商品名称商品名称商品名称…</h3>
+                        <p class="specifications">规格：100mlx10</p>
+                        <div class="price">
+                            <div class="number-widget">
+                                <div class="number-minus disabled"></div>
+                                <input class="number-text" type="number" value="1" readonly="readonly">
+                                <div class="number-plus disabled"></div>
+                            </div>
+                            <div class="price-real">￥<span>6.90</span></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <label><input type="checkbox" name="chk_item"></label>
+                    <div class="pic"><a href="#"><img src="images/goodspic.jpg" alt=""></a></div>
+                    <div class="intro">
+                        <h3 class="name">商品名称商品名称商品名称…</h3>
+                        <p class="specifications">规格：100mlx10</p>
+                        <div class="price">
+                            <div class="number-widget">
+                                <div class="number-minus disabled"></div>
+                                <input class="number-text" type="number" value="1" readonly="readonly">
+                                <div class="number-plus disabled"></div>
+                            </div>
+                            <div class="price-real">￥<span>6.90</span></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="fbbwrap-total">
+            <div class="ftbtnbar">
+                <div class="content-wrap">
+                    <div class="content-wrap-in">
+                        <div class="l"><label><input id="J_CheckAll" type="checkbox">全选</label></div>
+                        <div class="r">
+                            <div class="main-info"><span>￥<em>99.00</em></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-wrap cash-buttons">
+                    <a id="J_ButtonCash" class="button button-wrap-disabled" href="javascript:void(0)">立即结算</a>
+                </div>
+                <div class="button-wrap edit-buttons">
+                    <a id="J_ButtonDel" class="button button-wrap-disabled" href="javascript:void(0)">删除</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        var isEditAll = false,
+                editBtn = $("#J_EditBtn"),
+                checkAllBtn = $("#J_CheckAll"),
+                cartList = $(".cart-list");
+
+        editBtn.on("click", function () {
+            if(isEditAll){
+                this.innerHTML = '<span>编辑</span>';
+                cartList.filter(".cart-list-oos").find("input[type=checkbox]").prop("disabled",true);
+                isEditAll = false;
+            }else{
+                this.innerHTML = '<span>完成</span>';
+                cartList.filter(".cart-list-oos").find("input[type=checkbox]").prop("disabled",false);
+                isEditAll = true;
+            }
+            $(".ftbtnbar").toggleClass("editing");
+        });
+
+
+        cartList.on("change","input[type=checkbox]", function () {
+            checkChange();
+        });
+
+        checkAllBtn.on("change", function () {
+            var checkboxes = cartList.find("input[type=checkbox]:not(:disabled)");
+            if(this.checked){
+                checkboxes.prop("checked",true);
+            }else{
+                checkboxes.prop("checked",false);
+            }
+            checkChange();
+        });
+
+        $("#J_ButtonDel").on("click",function(){
+            if($(this).parent().hasClass("button-wrap-disabled")) return;
+            var btnArray = ['确认', '关闭'];
+            mui.confirm('', '确认要删除所选商品吗？', btnArray, function(e) {
+                if (e.index == 0) {
+                    mui.toast('已删除所选商品');
+                }
+            })
+        })
+
+        function checkChange(){
+            var checkboxes = cartList.find("input[type=checkbox]:not(:disabled)"),
+                    noChecked = true,
+                    checkCount = 0,
+                    buttonGroups = $(".ftbtnbar .button-wrap");
+            checkboxes.each(function () {
+                if(this.checked == true){
+                    noChecked = false;
+                    checkCount++;
+                }
+            });
+            if(noChecked){
+                buttonGroups.find(".button").addClass("button-wrap-disabled");
+            }else{
+                buttonGroups.find(".button").removeClass("button-wrap-disabled");
+            }
+            if(checkCount == checkboxes.length){
+                checkAllBtn.prop("checked",true);
+            }else{
+                checkAllBtn.prop("checked",false);
+            }
+            $("#J_ButtonCash").html('<span>结算('+ checkCount +')</span>');
+        }
+    })
+</script>
+
+</body>
+</html>

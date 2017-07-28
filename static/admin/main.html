@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>管理后台</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-left">
+        <div class="dl-title">
+            <div class="dl-logo"><img src="images/logo.png" alt="洋河1号"/></div>
+        </div>
+    </div>
+    <div class="header-right">
+        <a class="exit" href="javascript:void(0);">退出</a>
+        <div class="user">admin</div>
+    </div>
+</div>
+<div class="content">
+    <div class="dl-main-nav">
+        <ul id="J_Nav" class="nav-list ks-clear">
+            <li class="nav-item dl-selected">
+                <div class="nav-item-inner">会员</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">门店</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">商品</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">活动</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">短信</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">装修</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">微信</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">权限</div>
+            </li>
+            <li class="nav-item">
+                <div class="nav-item-inner">报表</div>
+            </li>
+        </ul>
+    </div>
+    <ul id="J_NavContent" class="dl-tab-content">
+
+    </ul>
+    <div id="J_MsgPanel" class="dl-msg-panel" style="display: none;">
+        <div class="panel-head">
+            <h3>您还有<a href="#">23</a>条消息未读</h3>
+            <div class="panel-ctrl"><a class="panel-toggle"><i></i></a><a class="panel-close"><i>&times;</i></a></div>
+        </div>
+        <div class="panel-body">
+            <ul class="msg-list">
+                <li>
+                    <div class="con"><a href="#">申请成为商城的一级推广会员，该会员详细信息</a></div>
+                    <div class="name">某会员</div>
+                    <div class="time">2014-8-10</div>
+
+                </li>
+                <li>
+                    <div class="con"><a href="#">申请成为商城的一级推广会员，该会员详细信息</a></div>
+                    <div class="name">某会员</div>
+                    <div class="time">2014-8-10</div>
+
+                </li>
+                <li>
+                    <div class="con"><a href="#">申请成为商城的一级推广会员，该会员详细信息</a></div>
+                    <div class="name">某会员</div>
+                    <div class="time">2014-8-10</div>
+                </li>
+                <li>
+                    <div class="con"><a href="#">申请成为商城的一级推广会员，该会员详细信息</a></div>
+                    <div class="name">某会员</div>
+                    <div class="time">2014-8-10</div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="reportloadding">
+        <div class="spinnerwrap">
+            <div class="spinner8">
+                <div class="spinner-container container1">
+                    <div class="circle1">&nbsp;</div>
+                    <div class="circle2">&nbsp;</div>
+                    <div class="circle3">&nbsp;</div>
+                    <div class="circle4">&nbsp;</div>
+                </div>
+                <div class="spinner-container container2">
+                    <div class="circle1">&nbsp;</div>
+                    <div class="circle2">&nbsp;</div>
+                    <div class="circle3">&nbsp;</div>
+                    <div class="circle4">&nbsp;</div>
+                </div>
+                <div class="spinner-container container3">
+                    <div class="circle1">&nbsp;</div>
+                    <div class="circle2">&nbsp;</div>
+                    <div class="circle3">&nbsp;</div>
+                    <div class="circle4">&nbsp;</div>
+                </div>
+            </div>
+            <p>加载中...</p>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/bui.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script>
+    BUI.use('common/main', function () {
+        var config = [
+            {
+                id:'nav1',
+                homePage: 'favuser',
+                menu: [
+                    {
+                        text: '会员',
+                        items: [
+                            {id: 'favuser', text: '会员类型', href: 'main/member_type.html'},
+                            {id: 'favuser', text: '会员等级', href: 'main/member_level.html'},
+                            {id: 'favuser', text: '会员管理', href: 'main/member_list.html'},
+                            {id: 'favuser', text: '待审核微店主', href: 'main/store_audit.html'},
+                            {id: 'favuser', text: '微店等级', href: 'main/store_level.html'},
+                            {id: 'favuser', text: '微店主管理', href: 'main/store_management.html'},
+                            {id: 'favuser', text: '微店订单管理', href: 'main/store_order_management.html'},
+                            {id: 'cash', text: '提现管理', href: 'main/cash_management.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav2',
+                homePage: 'md',
+                menu: [
+                    {
+                        text: '门店',
+                        items: [
+                            {id: 'md', text: '门店等级', href: 'main/md_level.html'},
+                            {id: 'md', text: '门店管理', href: 'main/md_management.html'},
+                            {id: 'md', text: '门店订单管理', href: 'main/md_order_management.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav3',
+                homePage: 'goods',
+                menu: [
+                    {
+                        text: '商品管理',
+                        items: [
+                            {id: 'goods', text: '商品品牌', href: 'main/goods_brand.html'},
+                            {id: 'goods', text: '系列分类', href: 'main/goods_cate.html'},
+                            {id: 'goods', text: '个性化分类', href: 'main/goods_self.html'},
+                            {id: 'goods', text: '商品管理', href: 'main/goods_list.html'},
+                            {id: 'goods', text: '区域定价', href: 'main/goods_area_price.html'},
+                            {id: 'goods', text: '门店商品管理', href: 'main/goods_shop_list.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav4',
+                homePage: 'activity',
+                menu: [
+                    {
+                        text: '礼券管理',
+                        items: [
+                            {id: 'activity', text: '优惠券', href: 'main/coupons.html'},
+                            {id: 'activity', text: '红包', href: 'main/coupons.html'}
+                        ]
+                    },
+                    {
+                        text: '会员活动设置',
+                        items: [
+                            {id: 'activity', text: '发展会员返利设置', href: 'main/members_rebatesSet.html'},
+                            {id: 'activity', text: '发展分销返利设置', href: 'main/distribution_rebatesSet.html'},
+                            {id: 'activity', text: '商品url返利设置', href: 'main/url_rebatesSet.html'},
+                            {id: 'activity', text: '商品微店返利设置', href: 'main/smallshop_rebatesSet.html'},
+                            {id: 'activity', text: '奖励门槛', href: 'main/reward_threshold.html'},
+                            {id: 'activity', text: '门店付款减免规则', href: 'main/breaks_rules.html'},
+                            {id: 'activity', text: '积分规则', href: 'main/integral_rules.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav5',
+                homePage: 'sms',
+                menu: [
+                    {
+                        text: '短信',
+                        items: [
+                            {id: 'sms', text: '短信推送配置', href: 'main/sms_setup.html'},
+                            {id: 'sms', text: '短信群发', href: 'main/group_messaging.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav6',
+                homePage: 'decorate',
+                menu: [
+                    {
+                        text: '商城总体设置',
+                        items: [
+                            {id: 'decorate', text: '基本设置', href: 'main/sitebaseshow.html'}
+                        ]
+                    },
+                    {
+                        text: '手机商城装修',
+                        items: [
+                            {id: 'decorate', text: '装修手机首页', href: 'main/layout_list.html'},
+                            {id: 'decorate', text: '微店/门店装修', href: 'main/layout_list2.html'},
+                            {id: 'decorate', text: '手机样式代码', href: 'main/coupons.html'}
+                        ]
+                    },
+                    {
+                        text: '公共页面设置',
+                        items: [
+                            {id: 'decorate', text: '自定义专区', href: 'main/user_defined_pagelist.html'},
+                            {id: 'decorate', text: '文章管理', href: 'main/article_list.html'},
+                            {id: 'decorate', text: '网站SEO', href: 'main/seo.html'},
+                            {id: 'decorate', text: '系统通知', href: 'main/system_informs.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav7',
+                homePage: 'wechat',
+                menu: [
+                    {
+                        text: '基础功能',
+                        items: [
+                            {id: 'wechat', text: '首页', href: 'main/weixin_index.html'},
+                            {id: 'wechat', text: '自定义菜单', href: 'main/user_defined_pagelist.html'},
+                            {id: 'wechat', text: '首次关注回复', href: 'main/first_reply.html'},
+                            {id: 'wechat', text: '扫码关注回复', href: 'main/seo.html'},
+                            {id: 'wechat', text: '扫门店二维码回复', href: 'main/system_informs.html'},
+                            {id: 'wechat', text: '扫微店二维码回复', href: 'main/md_level.html'},
+                            {id: 'wechat', text: '消息自动回复', href: 'main/user_defined_pagelist.html'},
+                            {id: 'wechat', text: '关键词回复', href: 'main/article_list.html'},
+                            {id: 'wechat', text: '素材管理', href: 'main/seo.html'},
+                            {id: 'wechat', text: '微信用户管理', href: 'main/system_informs.html'},
+                            {id: 'wechat', text: '消息管理', href: 'main/system_informs.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav8',
+                homePage: 'permissions',
+                menu: [
+                    {
+                        text: '组织架构',
+                        items: [
+                            {id: 'permissions', text: '组织对应', href: 'main/organize_corresponding.html'},
+                            {id: 'permissions', text: '大区管理', href: 'main/regional_management.html'},
+                            {id: 'permissions', text: '分公司管理', href: 'main/regional_management.html'},
+                            {id: 'permissions', text: '办事处管理', href: 'main/regional_management.html'}
+                        ]
+                    },{
+                        text: '账号权限',
+                        items: [
+                            {id: 'permissions', text: '岗位管理', href: 'main/post_management.html'},
+                            {id: 'permissions', text: '账号管理', href: 'main/account_management.html'},
+                            {id: 'permissions', text: '操作日记', href: 'main/managerlog_management.html'},
+                            {id: 'permissions', text: '修改密码', href: 'main/changepassword_management.html'}
+                        ]
+                    },
+                    {
+                        text: '系统配置',
+                        items: [
+                            {id: 'permissions', text: 'API配置', href: 'main/api_management.html'},
+                            {id: 'permissions', text: '支付接口设置', href: 'main/thirdparty_management.html'},
+                            {id: 'permissions', text: '第三方登录接口设置', href: 'main/thirdparty_management.html'},
+                            {id: 'permissions', text: '其他接口设置', href: 'main/otherparty_management.html'},
+                            {id: 'permissions', text: '微信配置', href: 'main/wechat_configure.html'}
+                        ]
+                    }
+                ]
+            },
+            {
+                id:'nav9',
+                homePage: 'report',
+                menu: [
+                    {
+                        text: '报表',
+                        items: [
+                            {id: 'report', text: '商城销售报表', href: 'main/mall_sales_report.html'},
+                            {id: 'report', text: '商品销售排行', href: 'main/merchandise_sales_ranking.html'},
+                            {id: 'report', text: '订单明细报表', href: 'main/order_detail_report.html'},
+                            {id: 'report', text: '订单核报报表', href: 'main/order_audit_report.html'},
+                            {id: 'report', text: '会员概况', href: 'main/member_overview.html'},
+                            {id: 'report', text: '会员消费指数', href: 'main/member_consumption.html'},
+                            {id: 'report', text: '购酒券报表', href: 'main/winevoucher_report.html'},
+                            {id: 'report', text: '会员首次购买报表', href: 'main/first_buy_report.html'},
+                            {id: 'report', text: '会员佣金返利报表', href: 'main/commission_rebate_report.html'},
+                            {id: 'report', text: '扫码关注统计', href: 'main/focus_statistical.html'},
+                            {id: 'report', text: '组织发展统计', href: 'main/development_statistical.html'}
+                        ]
+                    }
+                ]
+            }
+        ];
+        new PageUtil.MainPage({
+            modulesConfig: config
+        });
+    });
+
+    var msg_panel = $('#J_MsgPanel');
+    msg_panel.find('.panel-toggle').on('click',function(){
+        msg_panel.toggleClass('toggled');
+    });
+    msg_panel.find('.panel-close').on('click', function () {
+        msg_panel.hide().remove();
+    });
+</script>
+</body>
+</html>

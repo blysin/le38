@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <ul class="breadcrumb">
+        <li><a href="#">商品品牌管理</a> <span class="divider">&gt;&gt;</span></li>
+        <li class="active">新加品牌</li>
+    </ul>
+    <form class="form-horizontal" method="post">
+        <div id="edit-div" class="form-content">
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label"><s>*</s>品牌：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-normal control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label"><s>*</s>状态：</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="active" value="1" checked="checked" />启用
+                        </label>
+                        &nbsp;&nbsp;
+                        <label class="radio">
+                            <input type="radio" name="active" value="0" />禁用
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label">图片：</label>
+                    <div class="controls control-row-auto">
+                        <div class="file-btn">
+                            <button class="button button-primary">上传</button>
+                            <input type="file" class="inp-file"><br>
+                            <div class="mt15">
+                                <img src="../images/wxsucai.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-actions actions-bar">
+            <div class="span13">
+                <button type="submit" class="button button-primary">保存</button>
+                <button type="reset" class="button">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+</body>
+</html>  

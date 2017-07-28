@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="/static/mobile/css/yrmobile.css"/>
+    <link rel="stylesheet" href="/static/mobile/css/frames.css"/>
+    <link rel="stylesheet" href="/static/mobile/css/module.css"/>
+    <link rel="stylesheet" href="../../decoration/mobile/css/decoration.css"/>
+    <link rel="stylesheet" href="/static/js/ztree/3.5.12/css/romaTree/zTreeStyle.css"/>
+    <link rel="stylesheet" href="/static/js/jsGrid/jsgrid.css"/>
+	<script>
+		$(function(){
+	        var Height = getContentHeight();
+	        $(".decoratebox").height(Height);
+	
+	        var tabItem = $(".nav-tabs li");
+	        tabItem.on("click",function(){
+	            var idx = $(this).index();
+	            tabItem.removeClass("bui-tab-item-selected");
+	            $(this).addClass("bui-tab-item-selected");
+	            
+	        });
+	    })
+	
+	    function getContentHeight(titleDiv,topDiv,footDiv){
+	        titleDiv = titleDiv || $('.title-bar');
+	        topDiv = topDiv || $('.content-top');
+	        footDiv = footDiv || $('.content-foot');
+	        var totalHeight = $(window).height();
+	        var titHeight = titleDiv.outerHeight() || 0;
+	        var topHeight = topDiv.outerHeight() || 0;
+	        var footHeight = footDiv.outerHeight() || 0;
+	        return totalHeight - titHeight - topHeight - footHeight;
+	    }
+	</script>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <ul class="nav-tabs">
+            <li class="bui-tab-item bui-tab-item-selected"><span class="bui-tab-item-text">微店首页装修</span></li>
+            <li class="bui-tab-item"><span class="bui-tab-item-text">门店首页装修</span></li>
+        </ul>
+    </div>
+
+    <div class="content-body">
+        <div class="decoratebox">
+            <div class="dcm-page">
+                <div class="dcm-header">
+                    <div class="dcm-header-btns">
+                        <a id="J_btn_save" href="javascript:void(0)">保存</a>
+                        <a id="J_btn_publish" href="javascript:void(0)">发布</a>
+                    </div>
+                </div>
+                <div class="dcm-container">
+                    <div class="dcm-sidebar">
+                        <div class="dcm-side-menu">
+                            <!--<div class="dcm-side-menu-item">
+                                <div class="dcm-side-menu-item-wrap">
+                                    <div class="dcm-side-menu-title"><span class="title-txt">导入预设模板</span></div>
+                                </div>
+                            </div>-->
+
+                        </div>
+                    </div>
+                    <div class="dcm-main">
+                        <div class="dcm-preview-wrap">
+                            <div class="dcm-preview">
+                                <div class="dcm-preview-box">
+                                    <div class="dcm-preview-box-page">
+                                        <!--<div data-frame="index_head"></div>-->
+                                        <div class="container">
+                                            <div class="containerwrap">
+
+                                            </div>
+                                            <!--<div data-frame="global_foot"></div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="dcm-preview-btn">
+                                    <a href="javascript:void(0)">预览页面</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dcm-setting-wrap">
+                            <div class="dcm-setting">
+                                <div class="dcm-setting-title">
+                                    当前控件 ： <span class="title-txt"></span>
+                                </div>
+                                <div class="dcm-setting-body">
+                                    <div class="setting-body-in"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="/static/js/require.js"></script>
+            <script>
+                var args = {};
+                (function () {
+                    var result = {},
+                            params = location.search && location.search.substring(1),
+                            arr = params.split("&");
+                    for(var i = 0; i < arr.length; i++){
+                        var t = arr[i].split("=");
+                        result[t[0]] = t[1];
+                    }
+                    args = result;
+                })();
+
+                var frameConfigUrl = "/static/decoration/mobile/config/frameConfig.json";
+                var getLinkUrl = "/static/decoration/mobile/config/linksData.json";
+                var layoutDataUrl = "/static/decoration/mobile/config/layoutData.json";
+                var goodsCategoryDataUrl = /*"/admin/layoutManage/getGoodsCategory";*/"/static/decoration/mobile/config/goodsCategoryData.json";
+                var goodsListDataUrl = /*"/admin/layoutManage/getGoodsList";*/"/static/decoration/mobile/config/goodsListData.json";
+                window.UEDITOR_HOME_URL = "../admin/js/ueditor/";
+                require.config({
+                    baseUrl: '/static/js'
+                });
+                require(["decoration/config"], function () {
+                    require(["decoration/mobile/layoutEdit"]);
+                });
+            </script>
+        </div>
+        <div class="decoratebox" style="display: none;">
+
+        </div>
+    </div>
+
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script src="/static/mobile/js/zepto.js"></script>
+<script src="/static/mobile/js/mui.min.js"></script>
+
+<script>
+    $(function(){
+        var Height = getContentHeight();
+        $(".decoratebox").height(Height);
+
+        var tabItem = $(".nav-tabs li");
+        tabItem.on("click",function(){
+            var idx = $(this).index();
+            tabItem.removeClass("bui-tab-item-selected");
+            $(this).addClass("bui-tab-item-selected");
+            $(".decoratebox").hide().eq(isNaN(idx) ? 0 : idx).show();
+        });
+    })
+
+    function getContentHeight(titleDiv,topDiv,footDiv){
+        titleDiv = titleDiv || $('.title-bar');
+        topDiv = topDiv || $('.content-top');
+        footDiv = footDiv || $('.content-foot');
+        var totalHeight = $(window).height();
+        var titHeight = titleDiv.outerHeight() || 0;
+        var topHeight = topDiv.outerHeight() || 0;
+        var footHeight = footDiv.outerHeight() || 0;
+        return totalHeight - titHeight - topHeight - footHeight;
+    }
+</script>
+</body>
+</html>  

@@ -1,0 +1,156 @@
+{{#with frame_setting}}
+    {{#with item_list.data}}
+        <div class="setting-tab-item" data-setting-title="热销区域设置" data-frame="item_list" data-type="1">
+            <div class="setting-body-in">
+                <div class="form-vertical">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">左侧热销商品区域</label>
+                                <div class="controls control-row-auto">
+                                    <div class="tabBox">
+                                        <div class="tabBoxTitle">
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleSide" name="hotSaleSide" type="radio" value="system" {{#ifCond hotSaleSide '==' "system"}}checked{{/ifCond}}/> 使用系统设置默认商品
+                                                </label>
+                                            </div>
+                                            <div class="tab-title" data-child="richTextContent">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleSide" name="hotSaleSide" type="radio" value="custom" {{#ifCond hotSaleSide '==' "custom"}}checked{{/ifCond}}/> 自定义编辑
+                                                </label>
+                                            </div>
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleSide" name="hotSaleSide" type="radio" value="none" {{#ifCond hotSaleSide '==' "none"}}checked{{/ifCond}}/> 不使用
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="tab-item" data-id="richTextContent">
+                                            <div class="auxiliary-text mb">自定义编辑区域大小为：宽度180px，高度不限</div>
+                                            <div class="richText" data-name="item_list.hotSaleSideHTML" data-tag="item_list.hotSaleSideHTML" data-value="{{hotSaleSideHTML}}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="setting-tab-item" data-setting-title="热销区域设置" data-frame="item_list" data-type="2">
+            <div class="setting-body-in">
+                <div class="form-vertical">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">底部热销商品区域</label>
+                                <div class="controls control-row-auto">
+                                    <div class="tabBox">
+                                        <div class="tabBoxTitle">
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="system" {{#ifCond hotSaleFoot '==' "system"}}checked{{/ifCond}}/> 使用系统设置默认商品
+                                                </label>
+                                            </div>
+                                            <div class="tab-title" data-child="richTextContent">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="custom" {{#ifCond hotSaleFoot '==' "custom"}}checked{{/ifCond}}/> 自定义编辑
+                                                </label>
+                                            </div>
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="none" {{#ifCond hotSaleFoot '==' "none"}}checked{{/ifCond}}/> 不使用
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="tab-item" data-id="richTextContent">
+                                            <div class="auxiliary-text mb">自定义编辑区域大小为：宽度1200px，高度不限</div>
+                                            <div class="richText" data-name="item_list.hotSaleFootHTML" data-tag="item_list.hotSaleFootHTML" data-value="{{hotSaleFootHTML}}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="setting-tab-item" data-setting-title="热销区域设置" data-frame="item_list" data-type="3">
+            <div class="setting-body-in">
+                <div class="form-vertical">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">底部热销商品区域</label>
+                                <div class="controls control-row-auto">
+                                    <div class="tabBox">
+                                        <div class="tabBoxTitle">
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="system" {{#ifCond hotSaleFoot '==' "system"}}checked{{/ifCond}}/> 使用系统设置默认商品
+                                                </label>
+                                            </div>
+                                            <div class="tab-title" data-child="richTextContent">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="custom" {{#ifCond hotSaleFoot '==' "custom"}}checked{{/ifCond}}/> 自定义编辑
+                                                </label>
+                                            </div>
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="none" {{#ifCond hotSaleFoot '==' "none"}}checked{{/ifCond}}/> 不使用
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="tab-item" data-id="richTextContent">
+                                            <div class="auxiliary-text mb">自定义编辑区域大小为：宽度1200px，高度不限</div>
+                                            <div class="richText" data-name="item_list.hotSaleFootHTML" data-tag="item_list.hotSaleFootHTML" data-value="{{hotSaleFootHTML}}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="setting-tab-item" data-setting-title="热销区域设置" data-frame="item_list" data-type="4">
+            <div class="setting-body-in">
+                <div class="form-vertical">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">底部热销商品区域</label>
+                                <div class="controls control-row-auto">
+                                    <div class="tabBox">
+                                        <div class="tabBoxTitle">
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="system" {{#ifCond hotSaleFoot '==' "system"}}checked{{/ifCond}}/> 使用系统设置默认商品
+                                                </label>
+                                            </div>
+                                            <div class="tab-title" data-child="richTextContent">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="custom" {{#ifCond hotSaleFoot '==' "custom"}}checked{{/ifCond}}/> 自定义编辑
+                                                </label>
+                                            </div>
+                                            <div class="tab-title">
+                                                <label>
+                                                    <input data-tag="item_list.hotSaleFoot" name="hotSaleFoot" type="radio" value="none" {{#ifCond hotSaleFoot '==' "none"}}checked{{/ifCond}}/> 不使用
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="tab-item" data-id="richTextContent">
+                                            <div class="auxiliary-text mb">自定义编辑区域大小为：宽度1200px，高度不限</div>
+                                            <div class="richText" data-name="item_list.hotSaleFootHTML" data-tag="item_list.hotSaleFootHTML" data-value="{{hotSaleFootHTML}}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/with}}
+{{/with}}

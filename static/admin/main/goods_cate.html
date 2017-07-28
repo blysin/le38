@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div id="tab">
+
+        </div>
+    </div>
+    <div class="content-body">
+        <div id="grid"></div>
+    </div>
+
+</div>
+
+
+<div id="addsorting" class="hide">
+    <form class="form-horizontal" method="post">
+        <div class="form-content">
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label">排序值：</label>
+                    <div class="controls">
+                        <input name="accountBalance" class="input-normal control-text">
+                    </div>
+                </div>
+            </div>
+            <p class="red" style="padding-left:72px;">备注：数值越大越靠前。</p>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript">
+    var Tab = BUI.Tab;
+    var tab = new Tab.Tab({
+        render : '#tab',
+        elCls : 'nav-tabs',
+        autoRender: true,
+        children:[
+            {text:'系列分类',value:'1'}
+        ]
+    });
+    tab.on('selectedchange',function (ev) {
+        var item = ev.item;
+        $('#log').text(item.get('text') + ' ' + item.get('value'));
+    });
+    tab.setSelected(tab.getItemAt(0));
+
+    var Grid = BUI.Grid,
+            Toolbar = BUI.Toolbar,
+            Data = BUI.Data;
+    var Grid = Grid,
+            Store = Data.Store,
+            columns = [{
+                title : '排序',
+                dataIndex :'a',
+                width:100
+            },{
+                title : '系列编码',
+                dataIndex :'b',
+                width:150
+            },{
+                title : '系列名称',
+                dataIndex : 'c',
+                width:100
+            },{
+                title : '系列类型',
+                dataIndex : 'd',
+                width:100
+            },{
+                title : '系列状态',
+                dataIndex : 'e',
+                width:100
+            },{
+                title : '系列图片',
+                dataIndex : 'f',
+                width:150
+            },{
+                title : '系列链接',
+                dataIndex : 'g',
+				width:200
+            },{
+                title : '创建时间',
+                dataIndex : 'h',
+                width:200
+            }],
+            data = [{a:'1',b:'2312312312',f:'<a href="#">取消默认</a>',g:'<a href="#">编辑</a>'},{a:'cdd',b:'edd'},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2}];
+
+    var store = new Store({
+                data : data,
+                autoLoad:true,
+                pageSize:'20'
+            }),
+            grid = new Grid.Grid({
+                width: '100%',
+                height: getContentHeight(),
+                render:'#grid',
+                columns : columns,
+                // 顶部工具栏
+                tbar:{
+                    // items:工具栏的项， 可以是按钮(bar-item-button)、 文本(bar-item-text)、 默认(bar-item)、 分隔符(bar-item-separator)以及自定义项
+                    items:[{
+                        //xclass:'bar-item-button',默认的是按钮
+                        btnCls : 'button button-small',
+                        text:'新建分类',
+                        handler:addclassification
+                    },{
+                        //xclass:'bar-item-button',默认的是按钮
+                        btnCls : 'button button-small',
+                        text:'激活分类',
+                    },{
+                        //xclass:'bar-item-button',默认的是按钮
+                        btnCls : 'button button-small',
+                        text:'冻结分类',
+                    },{
+                        //xclass:'bar-item-button',默认的是按钮
+                        btnCls : 'button button-small',
+                        text:'排序',
+                        handler:addsorting
+                    },{
+                        //xclass:'bar-item-button',默认的是按钮
+                        btnCls : 'button button-small',
+                        text:'设置系列类型',
+                        handler:addtype
+                    }]
+                },
+                // 底部工具栏
+                bbar:{
+                    // pagingBar:表明包含分页栏
+                    pagingBar:true
+                },
+                store : store,
+            	plugins : [Grid.Plugins.CheckSelection]
+            });
+    grid.render();
+
+    function addclassification(){
+        app.page.open({
+            href:'main/add_goods_cate.html'
+        });
+    }
+
+	function addsorting(){
+        dialogaddsorting.show();
+    }
+
+    function addtype(){
+        app.page.open({
+            href:'main/goods_cate_kind.html'
+        });
+    }
+
+    BUI.use('bui/overlay',function(Overlay){
+        dialogaddsorting = new Overlay.Dialog({
+            title:'商品排序',
+            width:400,
+            mask:true,
+            buttons:[
+                {
+                    text:'确定',
+                    elCls : 'button button-primary',
+                    handler : function(){
+                        this.close();
+                    }
+                },{
+                    text:'取消',
+                    elCls : 'button',
+                    handler : function(){
+                        this.close();
+                    }
+                }
+            ],
+            contentId : 'addsorting'
+        });
+    });
+</script>
+</body>
+</html>  

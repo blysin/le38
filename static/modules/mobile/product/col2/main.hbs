@@ -1,0 +1,24 @@
+<div class="J_Module" data-module-name="product-col2">
+    <div class="module md-product-col2"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
+        <div class="mod-list">
+            {{#each list}}
+                <ul>
+                    {{#each .}}
+                    <li>
+                        <a href="{{#if link}}/m{{link}}{{else}}javascript:void(0){{/if}}">
+                            <div class="pic"><img class="lazyload" src="/static/mobile/images/blank.gif" data-src="{{img}}" /></div>
+                            <div class="info">
+                                <div class="goodsname">{{name}}</div>
+                                <div class="goodsprice">
+                                    <span class="price-real"><span class="txt-rmb">¥</span><em>{{priceReal}}</em></span>
+                                    <!--<span class="price-origin"><span class="txt-rmb">¥</span><em>{{priceOrigin}}</em></span>-->
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            {{/each}}
+        </div>
+    </div>
+</div>

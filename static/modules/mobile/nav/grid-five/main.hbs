@@ -1,0 +1,21 @@
+<div class="J_Module" data-module-name="nav-grid-five">
+    <div class="module md-nav-grid-five"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
+        <ul>
+            {{#each list}}
+                <li style="background-color: {{../bgcolor}}"><a href="{{#if link.url}}{{link.url}}{{else}}javascript:void(0){{/if}}" style="color:{{../color}}">
+                    <div class="nav-item-wrap">
+                        {{#if content}}
+                            {{#if isImage}}
+                                <img class="lazyload" src="/static/mobile/images/blank.gif" data-src="{{content}}"/>
+                            {{else}}
+                                <span class="iconfont">{{{content}}}</span>
+                            {{/if}}
+                        {{else}}
+                            <span class="txt">{{title}}</span>
+                        {{/if}}
+                    </div>
+                </a></li>
+            {{/each}}
+        </ul>
+    </div>
+</div>

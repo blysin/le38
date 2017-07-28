@@ -1,0 +1,33 @@
+<div class="form-horizontal">
+    <div class="row-fluid">
+        <div class="span24">
+            <div class="control-group">
+                <label class="control-label">模块背景色</label>
+                <div class="controls control-row-auto">
+                    <div class="colorSelect" data-value="{{modBGColor}}" data-tag="modBGColor"></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">图片排列</label>
+
+                <div class="controls control-row-auto">
+                    <label><input type="radio" data-tag="type" name="img_type" value="1"{{#ifCond type '==' '1'}} checked {{/ifCond}}/> 大图在左</label>
+                    <label class="ml"><input type="radio" data-tag="type" name="img_type" value="2"{{#ifCond type '==' '2'}} checked {{/ifCond}}/> 大图在右</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-vertical">
+    <div class="row-fluid">
+        <div class="span24">
+            <div class="control-group">
+                <label class="control-label">图片上传</label>
+                <div class="controls control-row-auto">
+                    <div class="imageList" data-pixelratio="2" data-sizes='["400x400","200x200","200x200"]' data-tag="list" data-value="{{json list}}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

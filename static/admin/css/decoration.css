@@ -1,0 +1,12 @@
+.zx-placeholder{ position: relative; z-index: 1000 !important; min-width: 36px; border: 2px dashed #bbb; background: #fff; cursor: pointer; padding:0 10px; color: #000 !important; text-align: center;}
+.zx-placeholder.topad,.zx-placeholder.hdsearch-right,.zx-placeholder.site-nav-item{ line-height: 36px;}
+.zx-mask{ position: absolute; z-index: 1001; background: rgba(255,255,255,.8); border: 2px solid #999; text-align: center; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#CCFFFFFF,endColorstr=#CCFFFFFF);}
+.zx-mask a{ margin: 0 5px; white-space: nowrap;}
+.zx-mask .zx-btn-delete{ position: absolute; right: 0; top: 0; width: 15px; height: 15px; line-height: 15px; background: #333; text-align: center; color: #fff; margin: 0; font-size: 16px;}
+.zx-mask .zx-btn-delete:hover{ text-decoration: none;}
+
+.zx-form{/* margin-left: 210px; */margin-top: 10px;}
+.zx-submenu{ padding-left: 210px;}
+.zx-submenu-pic{ float: left; width: 200px; margin-left: -210px; display: inline;}
+.zx-submenu-pic .zx-placeholder{ height: 300px; line-height: 300px; z-index: 1 !important;}
+.zx-submenu .spec-box{ float: left; margin-top: 0;}

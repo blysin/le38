@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的城市合伙人</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="css/yrmobile.css" />
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">我的店铺</h1>
+        <a class="mui-icon"></a>
+    </header>
+    <div class="mui-content">
+        <div class="my_partnertop">
+            <p class="info stores">店铺数量：2</p>
+        </div>
+        <div class="iconinfo">
+            <i class="ico ico-info"></i>
+            <strong>你还没有店铺，要努力哦！</strong>
+        </div>
+        <div class="wrap">
+            <div class="partner-list">
+                <ul>
+                    <!--
+                    <li>
+                        <div class="t"><span>10</span><p>180****1234</p></div>
+                        <div class="b"><span>本月营业额</span><p>申请时间:2017-04-24 15:53</p></div>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/dropload.js"></script>
+<script>
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+        // dropload
+        $('.wrap').dropload({
+            scrollArea : window,
+            domDown : {
+                domClass   : 'dropload-down',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData  : '<div class="dropload-noData">暂无数据</div>'
+            },
+            loadDownFn : function(me){
+                page++;
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: 'json/partnerList.json?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.lists.length;
+                        if(arrLen > 0){
+                            for(var i=0; i<data.lists.length; i++){
+                                result += '<li><div class="t"><span>'+data.lists[i].price+'</span><p>'+data.lists[i].name+'</p></div><div class="b"><span>本月营业额</span><p>开店时间:'+data.lists[i].time+'</p></div></li>';
+                            }
+                        }else{
+                            me.lock();
+                            me.noData();
+                        }
+                        setTimeout(function(){
+                            $('.partner-list ul').append(result);
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        me.resetload();
+                    }
+                });
+            }
+        })
+    });
+</script>
+</body>
+</html>

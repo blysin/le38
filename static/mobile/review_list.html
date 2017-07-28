@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="css/yrmobile.css" />
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/mui.min.js"></script>
+    <script type="text/javascript" src="js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">商品评价</h1>
+        <a class="mui-icon"></a>
+    </header>
+    <div class="mui-content">
+        <div class="borderbox">
+            <div class="reviewtop">
+                <ul class="procomment">
+                    <li><div class="fl"><span class="review-starbig review-starbig-4"><b></b></span><i>4.7</i></div><div class="fr">4944人评价</div></li>
+                </ul>
+                <ul class="return-type">
+                    <li class="selected">全部</li>
+                    <li>好评</li>
+                    <li>中评</li>
+                    <li>差评</li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="review-item">
+                <ul>
+                    <!--<li>
+                        <div class="hd">
+                            <p class="l"><span class="header" style="background-image: url(images/userhead.jpg);"></span>m***y</p>
+                            <em class="r"><span class="review-star review-star-4"><b></b></span></em>
+                        </div>
+                        <p class="time">2017-04-12   13:35:25</p>
+                        <p class="reviewtext">趁活动买来送亲戚的，包装的很好，买的多但是一瓶也没碎，都是正品。</p>
+                    </li>
+                    <li>
+                        <div class="hd">
+                            <p class="l"><span class="header" style="background-image: url(images/userhead.jpg);"></span>m***y</p>
+                            <em class="r"><span class="review-star review-star-4"><b></b></span></em>
+                        </div>
+                        <p class="time">2017-04-12   13:35:25</p>
+                        <p class="reviewtext">趁活动买来送亲戚的，包装的很好，买的多但是一瓶也没碎，都是正品。</p>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/dropload.js"></script>
+<script>
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+        // dropload
+        $('.wrap').dropload({
+            scrollArea : window,
+            domDown : {
+                domClass   : 'dropload-down',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData  : '<div class="dropload-noData">暂无数据</div>'
+            },
+            loadDownFn : function(me){
+                page++;
+                // 拼接HTML
+                $.ajax({
+                    type: 'GET',
+                    url: 'json/reviewList.json?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.lists.length;
+                        if(arrLen > 0){
+                            var result="";
+                            for(var i=0; i<data.lists.length; i++){
+                                result += '<li>' +
+                                        '<div class="hd">' +
+                                            '<p class="l"><span class="header" style="background-image: url('+data.lists[i].userheaderimg+');"></span>'+data.lists[i].username+'</p>' +
+                                            '<em class="r"><span class="review-star '+data.lists[i].class+'"><b></b></span></em>' +
+                                        '</div>' +
+                                        '<p class="time">'+data.lists[i].time+'</p>' +
+                                        '<p class="reviewtext">'+data.lists[i].content+'</p></li>';
+                            }
+                        }else{
+                            me.lock();
+                            me.noData();
+                        }
+                        setTimeout(function(){
+                            $('.review-item ul').append(result);
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        me.resetload();
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<div class="J_Module" data-module-name="product-imgtxt">
+    <div class="module md-product-imgtxt"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
+        <div class="mod-list">
+            <ul>
+                {{#each list}}
+                    {{#each this}}
+                        <li>
+                            <a href="{{#if link}}/m{{link}}{{else}}javascript:void(0){{/if}}">
+                                <div class="pic"><img class="lazyload" src="/static/mobile/images/blank.gif" data-src="{{img}}" /></div>
+                                <div class="info">
+                                    <div class="goodsname{{#if desc}} nowrap{{/if}}">{{name}}</div>
+                                    <div class="desc">{{desc}}</div>
+                                    <!--<div class="sale-count">已售出：<em>{{saleCount}}</em></div>-->
+                                    <!--<div class="price-origin"><span class="txt-rmb">¥</span><em>{{priceOrigin}}</em></div>-->
+                                    <div class="price-real"><span class="txt-rmb">¥</span><em>{{priceReal}}</em></div>
+                                    <div class="buy-button type-{{../../buttonType}}">立即购买</div>
+                                </div>
+                            </a>
+                        </li>
+                    {{/each}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

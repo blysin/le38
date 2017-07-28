@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div id="tab">
+
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div id="grid"></div>
+    </div>
+
+</div>
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript">
+
+    var Grid = BUI.Grid,
+            Toolbar = BUI.Toolbar,
+            Data = BUI.Data,
+            Store = Data.Store,
+            columns = [{
+                title : '岗位编码',
+                dataIndex :'a',
+                width:150
+            },{
+                title : '岗位',
+                dataIndex :'b',
+                width:200
+            },{
+                title : '岗位权限',
+                dataIndex : 'c',
+                width:200
+            }],
+            data = [{
+                a:'001',b:'客服',c:'设置'
+            },{
+                a:'001',b:'客服部人员',c:'设置'
+            },{
+                a:'001',b:'客服部人员',c:'设置'
+            }];
+
+    var store = new Store({
+                data : data,
+                autoLoad:true,
+                pageSize:'20'
+            }),
+            grid = new Grid.Grid({
+                stripeRows : false,
+                width: '100%',
+                height: getContentHeight(),
+                render:'#grid',
+                columns : columns,
+                // 顶部工具栏
+                tbar:{
+                    // items:工具栏的项， 可以是按钮(bar-item-button)、 文本(bar-item-text)、 默认(bar-item)、 分隔符(bar-item-separator)以及自定义项
+                    items:[{
+                        //xclass:'bar-item-button',默认的是按钮
+                        btnCls : 'button button-small button-primary',
+                        text:'新增管理员'
+                    }]
+                },
+                // 底部工具栏
+                bbar:{
+                    // pagingBar:表明包含分页栏
+                    pagingBar:true
+                },
+                store : store
+            });
+
+    var privilegebox = $('<div class="privilege-listbox"><div class="col col1"><div class="hd">系统模块</div><div class="bd"></div></div><div class="col col2"><div class="hd">系统子模块</div><div class="bd"></div></div><div class="col col3"><div class="hd">操作权限</div><div class="bd"></div></div></div><div class="privilege-listbox-ft"><button class="button button-primary">保存</button></div>');
+
+    var overlay = new BUI.Overlay.Overlay({
+        elCls : 'privilege-overlay',
+        content : privilegebox,
+        align : {
+            node : '#grid .bui-grid-header-container',
+            points : ['tr','tr']
+        }, //对齐方式
+        autoHide : true //点击overlay外面，overlay 会自动隐藏
+    });
+
+    var list = new BUI.List.SimpleList({
+        elCls:'bui-select-list',
+        render : privilegebox.find('.bd').eq(0),
+        items : [
+            {text:'<input type="checkbox">&nbsp;订单模块',value:'a'},
+            {text:'<input type="checkbox">&nbsp;商品模块',value:'b'},
+            {text:'<input type="checkbox">&nbsp;促销模块',value:'c'}
+        ]
+    });
+    list.render();
+
+
+    var list2 = new BUI.List.SimpleList({
+        elCls:'bui-select-list',
+        render : privilegebox.find('.bd').eq(1),
+        items : [
+            {text:'<input type="checkbox">&nbsp;全部订单',value:'a'},
+            {text:'<input type="checkbox">&nbsp;待发货订单',value:'b'},
+            {text:'<input type="checkbox">&nbsp;到付订单',value:'c'}
+        ]
+    });
+    list2.render();
+
+    var list3 = new BUI.List.SimpleList({
+        elCls:'bui-select-list',
+        render : privilegebox.find('.bd').eq(2),
+        items : [
+            {text:'<input type="checkbox">&nbsp;订单模块',value:'a'},
+            {text:'<input type="checkbox">&nbsp;商品模块',value:'b'},
+            {text:'<input type="checkbox">&nbsp;促销模块',value:'c'}
+        ]
+    });
+    list3.render();
+
+    grid.on("selectedchange",function(e){
+        overlay.set('height',$('#grid .bui-grid-header-container').height() + $('#grid .bui-grid-body').height());
+        overlay.show();
+    });
+
+    grid.render();
+
+    grid.setSelected(grid.getItemAt(0));
+
+    function getContentHeight(titleDiv,topDiv){
+        titleDiv = titleDiv || $('.title-bar').eq(0);
+        topDiv = topDiv || $('.content-top').eq(0);
+        var totalHeight = BUI.viewportHeight();
+        var titHeight = titleDiv.outerHeight() || 0;
+        var topHeight = topDiv.outerHeight() || 0;
+        return totalHeight - titHeight - topHeight;
+    }
+</script>
+</body>
+</html>  

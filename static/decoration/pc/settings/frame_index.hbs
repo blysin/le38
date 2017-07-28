@@ -1,0 +1,165 @@
+{{#with frame_setting}}
+    {{#with index_head.data}}
+        <div class="setting-tab-item" data-setting-title="头部设置" data-frame="index_head" data-type="1">
+            <div class="setting-body-in">
+                <div class="form-vertical">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">左侧Logo
+                                    <span class="auxiliary-text">建议上传图片尺寸不超过200x90像素的透明底色png图片</span>
+                                </label>
+
+                                <div class="controls control-row-auto">
+                                    <div class="img-upload-row">
+                                        <div style="float: left;" class="imageSelect" data-name="index_head.logo" data-tag="index_head.logo" data-value="{{logo}}"></div>
+
+                                        <div class="row-info">
+                                            <div class="row">
+                                                <span class="t">链接至</span>
+                                                <div class="linkSelect" data-name="index_head.logoLink" data-tag="index_head.logoLink" data-value='{{{json logoLink}}}'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">导航栏设置</label>
+                                <div class="controls">
+                                    <div class="row">
+                                        <div class="span24">
+                                            背景颜色 <div class="colorSelect" data-name="index_head.navBgColor" data-value="{{navBgColor}}" data-tag="index_head.navBgColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            文字颜色 <div class="colorSelect" data-name="index_head.navTextColor" data-value="{{navTextColor}}" data-tag="index_head.navTextColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            底部边框颜色 <div class="colorSelect" data-name="index_head.navBorderColor" data-value="{{navBorderColor}}" data-tag="index_head.navBorderColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            鼠标悬停状态背景颜色 <div class="colorSelect" data-name="index_head.navHoverBgColor" data-value="{{navHoverBgColor}}" data-tag="index_head.navHoverBgColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            鼠标悬停状态文字颜色 <div class="colorSelect" data-name="index_head.navHoverTextColor" data-value="{{navHoverTextColor}}" data-tag="index_head.navHoverTextColor"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">分类下拉菜单设置</label>
+                                <div class="controls">
+                                    <div class="row">
+                                        <div class="span24">
+                                            <label><input name="navFixed" type="checkbox" {{#if navFixed}}checked{{/if}} data-tag="index_head.navFixed"/> 是否固定在屏幕上方</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            <div class="tabBox">
+                                                <div class="tabBoxTitle">
+                                                    <div class="tab-title" data-child="nav-open-setting">
+                                                        <label><input name="navDefaultOpen" type="radio" value="1" {{#ifCond navDefaultOpen "==" "1"}}checked{{/ifCond}} data-tag="index_head.navDefaultOpen"/> 默认展开</label>
+                                                    </div>
+                                                    <div class="tab-title">
+                                                        <label><input name="navDefaultOpen" type="radio" value="0" {{#ifCond navDefaultOpen "==" "0"}}checked{{/ifCond}} data-tag="index_head.navDefaultOpen"/> 默认收缩</label>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-item" data-id="nav-open-setting">
+                                                    <label><input name="navNoClose" type="checkbox" {{#if navNoClose}}checked{{/if}} data-tag="index_head.navNoClose"/> 菜单永远展开</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            背景颜色 <div class="colorSelect" data-name="index_head.gbcBgColor" data-value="{{gbcBgColor}}" data-tag="index_head.gbcBgColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            文字颜色 <div class="colorSelect" data-name="index_head.gbcTextColor" data-value="{{gbcTextColor}}" data-tag="index_head.gbcTextColor"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="setting-tab-item" data-setting-title="头部设置" data-frame="index_head" data-type="2">
+            <div class="setting-body-in">
+                <div class="form-vertical">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">左侧Logo
+                                    <span class="auxiliary-text">建议上传图片尺寸不超过200x90像素的透明底色png图片</span>
+                                </label>
+
+                                <div class="controls control-row-auto">
+                                    <div class="img-upload-row">
+                                        <div style="float: left;" class="imageSelect" data-name="index_head.logo" data-tag="index_head.logo" data-value="{{logo}}"></div>
+
+                                        <div class="row-info">
+                                            <div class="row">
+                                                <span class="t">链接至</span>
+                                                <div class="linkSelect" data-name="index_head.logoLink" data-tag="index_head.logoLink" data-value='{{{json logoLink}}}'></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">导航栏设置</label>
+                                <div class="controls">
+                                    <div class="row">
+                                        <div class="span24">
+                                            背景颜色 <div class="colorSelect" data-name="index_head.navBgColor" data-value="{{navBgColor}}" data-tag="index_head.navBgColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            文字颜色 <div class="colorSelect" data-name="index_head.navTextColor" data-value="{{navTextColor}}" data-tag="index_head.navTextColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            鼠标悬停状态背景颜色 <div class="colorSelect" data-name="index_head.navHoverBgColor" data-value="{{navHoverBgColor}}" data-tag="index_head.navHoverBgColor"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span24">
+                                            鼠标悬停状态文字颜色 <div class="colorSelect" data-name="index_head.navHoverTextColor" data-value="{{navHoverTextColor}}" data-tag="index_head.navHoverTextColor"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/with}}
+{{/with}}

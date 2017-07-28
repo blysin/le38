@@ -1,0 +1,13 @@
+<div class="J_Module" data-module-name="nav-text-tag">
+    <div class="module md-nav-text-tag"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
+        <ul>
+            {{#each list}}
+                <li><a href="{{#if link.url}}{{link.url}}{{else}}javascript:void(0){{/if}}">
+                    <div class="nav-item-wrap">
+                        <span class="txt">{{title}}</span>
+                    </div>
+                </a></li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
