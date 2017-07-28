@@ -31,10 +31,10 @@
     </div>
 </template>
 <script>
-import $ from 'n-zepto'
 import mui from 'mui'
 import router from '@/router'
 import { dropload } from 'dropload'
+import $ from 'n-zepto'
 
 export default {
     name: 'products',
@@ -98,7 +98,7 @@ export default {
 
     },
     mounted: function() {
-        console.log(this.$route.query.categoryId)
+        // console.log(this.$route.query.categoryId)
         this.jsonData();
     },
     created: function() {

@@ -1,5 +1,6 @@
 <template>
     <div id="detail">
+    <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
         <div id="page">
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
@@ -69,14 +70,15 @@
                     </a>
                         </div>
                         <div class="button-wrap button-wrap-expand">
-                            <a class="button addtocart" id="J_BtnCart">加入购物车</a>
-                            <a class="button" id="J_BtnBuy">立即购买</a>
+                            <a class="button addtocart" id="J_BtnCart" @click='toCart'>加入购物车</a>
+                            <a class="button" id="J_BtnBuy" @click='toBuy'>立即购买</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="J_ASSpec" class="actionsheet-spec">
-                <div class="close"></div>
+            <transition name="slide-fade">
+            <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block">
+                <div class="close" @click="hideMask()"></div>
                 <div class="prod-info">
                     <div class="pic"><img src="images/goodspic.jpg" alt="" /></div>
                     <div class="name">产品名称产品名称产品名称产品产品名称产品名称产品名称产品产品名称产品名称产品名称产品</div>
@@ -111,6 +113,7 @@
                     </div>
                 </div>
             </div>
+        </transition>
         </div>
     </div>
 </template>
@@ -127,11 +130,47 @@ export default {
         return {
             swiper: {},
             product: {},
-            picUrls: []
+            picUrls: [],
+            isShowMask: false,
         }
     },
     methods: {
+        toBuy(){
+            this.coverDiv();
+            this.isShowMask = true;
+        },
+        toCart(){
 
+        },
+        showSpecAS(){
+
+        },
+        hideMask(){
+            $("div[class='xucun_content']").hide();
+            var body = document.getElementsByTagName("body");
+            $('#mask').hide()
+            this.isShowMask = false;
+
+            $(document).unbind("touchmove");
+        },
+        coverDiv(){
+            var procbg = $('#mask')[0] //首先创建一个div
+            procbg.style.background = "#000000";
+            procbg.style.width = "100%";
+            procbg.style.height = "100%";
+            procbg.style.position = "fixed";
+            procbg.style.top = "0";
+            procbg.style.left = "0";
+            procbg.style.zIndex = "500";
+            procbg.style.opacity = "0.8";
+            procbg.style.filter = "Alpha(opacity=70)";
+            $('#mask').show();
+
+
+            $(document).bind("touchmove",function(e){
+                e.preventDefault();
+            });
+        }
     },
     computed: {
 
@@ -182,6 +221,28 @@ $(function() {
 
 </script>
 <style type="text/css" scoped="" lang="scss">
+/* 可以设置不同的进入和离开动画 */
 
+
+/* 设置持续时间和动画函数 */
+
+.slide-fade-enter-active {
+    transition: all .1s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to
+{
+    transform: translateY(292px);
+    opacity: 1;
+}
+.actionsheet-spec {
+    top: auto;
+    bottom: 0;
+}
 
 </style>
