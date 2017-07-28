@@ -21,5 +21,9 @@ export default new Router({
         path: '/detail/:productId',
         name: 'Detail',
         component:resolve => require(['@/components/product/detail'],resolve)
+    }, {
+        path: '/reviewlist/:productId',
+        name: 'Reviews',
+        component:resolve => require(['@/components/product/reviewlist'],resolve)
     }]
 })

@@ -9,16 +9,8 @@
             <div class="mui-content">
                 <div class="swiper-container picslider">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="pic"><img data-src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=10775950,699238504&fm=200&gp=0.jpg" class="swiper-lazy"></div>
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="pic"><img data-src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=10775950,699238504&fm=200&gp=0.jpg" class="swiper-lazy"></div>
-                            <div class="swiper-lazy-preloader"></div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="pic"><img data-src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=10775950,699238504&fm=200&gp=0.jpg" class="swiper-lazy"></div>
+                        <div class="swiper-slide" v-for='pic in picUrls'>
+                            <div class="pic"><img v-bind:data-src="pic" class="swiper-lazy"></div>
                             <div class="swiper-lazy-preloader"></div>
                         </div>
                     </div>
@@ -27,47 +19,39 @@
                 </div>
                 <div class="sku-detail-top">
                     <div class="sku-intro">
-                        <h1 class="sku-name">商品名称商品名称商品名称商品名称商品名称商品名称</h1>
-                        <p class="sku-custom-info"><em>已售23686</em><span>￥1396.00</span></p>
+                        <h1 class="sku-name">{{product.productName}}</h1>
+                        <p class="sku-custom-info"><em>已售{{product.productSaleCnt}}</em><span>￥{{product.tagPrice}}</span></p>
                     </div>
                     <div class="sku-price">
                         <div class="price-real">
-                            ￥<strong>636.00</strong>
+                            ￥<strong>{{product.defaultPrice}}</strong>
                         </div>
                     </div>
                 </div>
-                <div class="review-item">
-                    <h3>用户评价（80）</h3>
+                <div class="review-item" v-show='product.reviewNum >0'>
+                    <h3>用户评价（{{product.reviewNum}}）</h3>
                     <ul>
-                        <li>
+                        <li v-for='review in product.reviewList'>
                             <div class="hd">
-                                <p class="l"><span class="header" style="background-image: url(images/userhead.jpg);"></span>m***y</p>
-                                <em class="r"><span class="review-star review-star-4"><b></b></span></em>
+                                <p class="l"><span class="header" v-bind:style="'background-image: url('+review.headPortraitUrl+');'"></span>{{review.reviewerName | loginName}}</p>
+                                <em class="r"><span v-bind:class="'review-star review-star-'+review.productMatchScore"><b></b></span></em>
                             </div>
-                            <p class="time">2017-04-12 13:35:25</p>
-                            <p class="reviewtext">趁活动买来送亲戚的，包装的很好，买的多但是一瓶也没碎，都是正品。</p>
+                            <p class="time">{{review.reviewTime | dateformat}}</p>
+                            <p class="reviewtext">{{review.reviewContent}}</p>
                         </li>
-                        <li>
-                            <div class="hd">
-                                <p class="l"><span class="header" style="background-image: url(images/userhead.jpg);"></span>m***y</p>
-                                <em class="r"><span class="review-star review-star-4"><b></b></span></em>
-                            </div>
-                            <p class="time">2017-04-12 13:35:25</p>
-                            <p class="reviewtext">趁活动买来送亲戚的，包装的很好，买的多但是一瓶也没碎，都是正品。</p>
+                        <li class="last">
+                            <router-link class="btn" :to="{ name: 'Reviews', params: { productId: product.productId }}">查看全部评价</router-link>
                         </li>
-                        <li class="last"><a class="btn" href="review_list.html">查看全部评价</a></li>
                     </ul>
                 </div>
                 <div class="sku-detail-content">
                     <div class="h3">图文详情</div>
-                    <div class="iconinfo">
+                    <div class="iconinfo" v-if='!product.productDetailDesc'>
                         <div class="ico ico-info"></div>
                         <strong>暂无图片详情</strong>
                     </div>
-                    <div id="J_DetailContent">
-                        <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=10775950,699238504&fm=200&gp=0.jpg">
-                        <img src="http://img04.taobaocdn.com/imgextra/i4/1708919206/TB2bwFaaFXXXXbfXXXXXXXXXXXX_%21%211708919206.jpg">
-                        <img src="http://img04.taobaocdn.com/imgextra/i4/1708919206/TB2ZnhcaFXXXXXEXXXXXXXXXXXX_%21%211708919206.jpg">
+                    <div id="J_DetailContent" v-if="product.productDetailDesc" v-html='product.productDetailDesc'>
+
                     </div>
                 </div>
                 <div class="fbbwrap-total">
@@ -136,30 +120,53 @@ import mui from 'mui'
 import router from '@/router'
 import Swiper from '../../../static/mobile/js/swiper.min'
 
-
+// var swiper;
 export default {
     name: 'detail',
     data() {
         return {
-            swiper:{}
+            swiper: {},
+            product: {},
+            picUrls: []
         }
     },
     methods: {
 
     },
-    filters: {
+    computed: {
 
     },
+    filters: {
+        loginName(name) {
+            return name.substring(0, 1) + "***" + name.substring(name.length - 1);
+        }
+    },
     mounted: function() {
-        console.log('detail'+this.$route.params.productId);
-        //图片插件
         this.swiper = new Swiper('.swiper-container', {
             pagination: '.swiper-pagination',
-            paginationType : 'fraction',
-            loop : true,
+            paginationType: 'fraction',
+            loop: true,
             preloadImages: false,
-            lazyLoading : true,
+            lazyLoading: true,
         });
+
+        this.$http.get('m/products/' + this.$route.params.productId).then(
+            res => {
+                if (res) {
+                    console.log(res.body)
+                    this.product = res.body;
+                    //格式化小数，特么过滤器竟然用不了
+                    this.product.defaultPrice = this.product.defaultPrice.toFixed(2);
+                    this.product.tagPrice = this.product.tagPrice.toFixed(2);
+                    if (res.body.picUrls) {
+                        this.picUrls = res.body.picUrls.split(";;");
+                        //加载结束后初始化图片插件
+                        this.$nextTick(function() {
+                            this.swiper.init()
+                        });
+                    }
+                }
+            })
     },
     created: function() {
 
@@ -168,6 +175,10 @@ export default {
 
     }
 }
+
+$(function() {
+
+})
 
 </script>
 <style type="text/css" scoped="" lang="scss">
