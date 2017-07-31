@@ -133,7 +133,7 @@ export default {
 /* 设置持续时间和动画函数 */
 
 .slide-fade-enter-active {
-    transition: all .1s ease;
+    transition: all .5s ease;
 }
 
 .slide-fade-leave-active {

@@ -25,5 +25,17 @@ export default new Router({
         path: '/reviewlist/:productId',
         name: 'Reviews',
         component:resolve => require(['@/components/product/reviewlist'],resolve)
+    }, {
+        path: '/submit/:productId',
+        name: 'Submit',
+        component:resolve => require(['@/components/product/submit_order'],resolve)
+    }, {
+        path: '/address/',
+        name: 'Address',
+        component:resolve => require(['@/components/express/my_address'],resolve)
+    }, {
+        path: '/address/edit',
+        name: 'EditAddress',
+        component:resolve => require(['@/components/express/edit_address'],resolve)
     }]
 })

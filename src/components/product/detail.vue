@@ -76,39 +76,38 @@
                     </div>
                 </div>
             </div>
+            <!-- 弹框选择商品，应该写成组件 -->
             <transition name="slide-fade">
             <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block">
                 <div class="close" @click="hideMask()"></div>
                 <div class="prod-info">
-                    <div class="pic"><img src="images/goodspic.jpg" alt="" /></div>
-                    <div class="name">产品名称产品名称产品名称产品产品名称产品名称产品名称产品产品名称产品名称产品名称产品</div>
-                    <div class="price"><span class="price-real">￥<em>399.00</em></span></div>
+                    <div class="pic"><img v-bind:src="picUrls[0]" alt="" /></div>
+                    <div class="name">{{product.productName}}</div>
+                    <div class="price"><span class="price-real">￥<em>{{product.defaultPrice}}</em></span></div>
                 </div>
                 <div class="spec-list">
-                    <div class="spec-item">
-                        <h3>容量</h3>
+                    <div class="spec-item" v-for='(sku,sIndex) in product.skuKeys'>
+                        <h3>{{sku.keyName}}</h3>
                         <div class="prop-list">
                             <ul>
-                                <li class="active">30ML</li>
-                                <li class="">50ML</li>
-                                <li class="disabled">70ML</li>
-                                <li class="disabled">100ML</li>
+                                <li @click='choseSku(sIndex,vIndex)' v-bind:class="(skuIndexs[sIndex] == vIndex)?'active':''" v-for='(value,vIndex) in sku.skuValues'>{{value.skuValueName}}</li>
                             </ul>
                         </div>
                     </div>
+
                     <div class="spec-item">
                         <h3>数量</h3>
                         <div class="number-widget">
-                            <div class="number-minus disabled"></div>
-                            <input class="number-text" type="number" value="1" readonly="readonly">
-                            <div class="number-plus disabled"></div>
+                            <div class="number-minus" v-bind:class='buyNum==1?"disabled":""' @click='buyNum==1?"":buyNum--'></div>
+                            <input class="number-text" type="number" v-bind:value='buyNum' readonly="readonly">
+                            <div class="number-plus" @click='buyNum++'></div>
                         </div>
                     </div>
                 </div>
                 <div class="fbbwrap nofixed">
                     <div class="ftbtnbar">
                         <div class="button-wrap button-wrap-expand">
-                            <a href="javascript:void(0)" class="button btn-buy">确定</a>
+                            <a href="javascript:void(0)" class="button btn-buy" @click='isCart?submitCart():submitBuy()'>确定</a>
                         </div>
                     </div>
                 </div>
@@ -121,6 +120,7 @@
 import $ from 'n-zepto'
 import mui from 'mui'
 import router from '@/router'
+
 import Swiper from '../../../static/mobile/js/swiper.min'
 
 // var swiper;
@@ -132,25 +132,54 @@ export default {
             product: {},
             picUrls: [],
             isShowMask: false,
+            skuIndexs:[0,0,0,0,0],
+            buyNum : 1,
+            isCart:false,
         }
     },
     methods: {
+        choseSku(_skuIndex,_valueIndex){
+            this.skuIndexs.splice(_skuIndex,1,_valueIndex);
+        },
         toBuy(){
             this.coverDiv();
             this.isShowMask = true;
+            this.isCart = false;
         },
         toCart(){
-
+            this.coverDiv();
+            this.isShowMask = true;
+            this.isCart = true;
         },
-        showSpecAS(){
+        isLogin(){
 
+            this.$http.get('m/login/isLogin').then(
+                res => {
+                    if (res) {
+                        console.log(res.body)
+                    }
+                })
+        },
+        submitBuy(){
+            // alert('确定购买')
+            this.product.buyNum = this.buyNum;
+            this.$store.commit('submitOrder',this.product);
+            this.$store.commit('selectSku',this.skuIndexs);
+            router.push({
+                name:'Submit',
+                query:{
+
+                }
+            })
+        },
+        submitCart(){
+            alert('加入购物车')
         },
         hideMask(){
             $("div[class='xucun_content']").hide();
             var body = document.getElementsByTagName("body");
             $('#mask').hide()
             this.isShowMask = false;
-
             $(document).unbind("touchmove");
         },
         coverDiv(){
@@ -227,7 +256,7 @@ $(function() {
 /* 设置持续时间和动画函数 */
 
 .slide-fade-enter-active {
-    transition: all .1s ease;
+    transition: all .5s ease;
 }
 
 .slide-fade-leave-active {
