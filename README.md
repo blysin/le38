@@ -1,8 +1,8 @@
 # le38_2
 
-> A Vue.js project
+> 乐38商品模块
 
-## Build Setup
+## 安装方法
 
 ``` bash
 # install dependencies
@@ -22,4 +22,3 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 
 
-用vue写的一个简单的spa项目
