@@ -71,18 +71,12 @@ export default {
         },
         //选择地址
         chooseAddr: function(addrId) {
-            // var url = getCookie("addrSuccessUrl");
-            // if (!url) {
-            //     return false;
-            // }
-            // delCookie("addrSuccessUrl");
-            // url = url.replace(/&addrId=(\w+)/g, "");
-
-            // if (url.indexOf('?') <= 0) {
-            //     location.href = url + "?addrId=" + addrId;
-            // } else {
-            //     location.href = url + "&addrId=" + addrId;
-            // }
+            router.push({
+                name:'Submit',
+                query:{
+                    'addrId':addrId
+                }
+            })
         },
         //删除
         deleteAddr: function(addrId, _index) {

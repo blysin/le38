@@ -1,5 +1,6 @@
 <template>
     <div id="submit">
+        <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
         <div id="page">
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
@@ -67,7 +68,7 @@
                             <div class="bd">
                                 <div class="info">
                                     <div class="input-wrap">
-                                        <input type="text" placeholder="选填：对本次交易的说明">
+                                        <input v-model='remark' type="text" placeholder="选填：对本次交易的说明">
                                     </div>
                                 </div>
                             </div>
@@ -82,33 +83,35 @@
                             </div>
                         </div>
                         <div class="button-wrap">
-                            <a href="javascript:void(0)" class="button" id="paymentBtn">结算</a>
+                            <a href="javascript:void(0)" class="button" :class="((!isExpress || address.addrId) && product.productStatusCd === 1)?'':'disabled'" @click='toPay($event)'>结算</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--付款-->
-            <div id="methodpayment" class="actionsheet-spec">
-                <div class="close"></div>
-                <div class="prod-info">
-                    <div class="tit">付款详情</div>
-                </div>
-                <ul class="tbviewlist">
-                    <li>
-                        <a href="javascript:void(0)" class="itemlink">
-                            <div class="r public-color">￥{{totalAmtWithExpress | money}}</div>
-                            <div class="c">微信支付</div>
-                        </a>
-                    </li>
-                </ul>
-                <div class="fbbwrap nofixed">
-                    <div class="ftbtnbar">
-                        <div class="button-wrap button-wrap-expand">
-                            <a href="javascript:void(0)" class="button btn-buy">取消</a>
+            <!-- 弹框选择商品，应该写成组件 -->
+            <transition name="slide-fade">
+                <div id="methodpayment1" v-show='isShowMask' class="actionsheet-spec" style="display:block">
+                    <div class="close" @click='hideMask'></div>
+                    <div class="prod-info">
+                        <div class="tit">付款详情</div>
+                    </div>
+                    <ul class="tbviewlist">
+                        <li @click='payment'>
+                            <a href="javascript:void(0)" class="itemlink">
+                                <div class="r public-color">￥{{totalAmtWithExpress | money}}</div>
+                                <div class="c">微信支付</div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="fbbwrap nofixed">
+                        <div class="ftbtnbar">
+                            <div class="button-wrap button-wrap-expand">
+                                <a href="javascript:void(0)" class="button btn-buy" @click='hideMask'>取消</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </transition>
         </div>
     </div>
 </template>
@@ -123,18 +126,92 @@ export default {
     data() {
         return {
             isExpress: true,
-            address: {}
+            address: {},
+            remark: '',
+            isShowMask: false,
         }
     },
     methods: {
         addAddress() {
             router.push({
-                name:'EditAddress'
+                name: 'EditAddress'
             })
         },
         selectAddress() {
             router.push({
                 name: 'Address'
+            })
+        },
+        hideMask() {
+            $("div[class='xucun_content']").hide();
+            var body = document.getElementsByTagName("body");
+            $('#mask').hide()
+            this.isShowMask = false;
+            $(document).unbind("touchmove");
+        },
+        coverDiv() {
+            var procbg = $('#mask')[0] //首先创建一个div
+            procbg.style.background = "#000000";
+            procbg.style.width = "100%";
+            procbg.style.height = "100%";
+            procbg.style.position = "fixed";
+            procbg.style.top = "0";
+            procbg.style.left = "0";
+            procbg.style.zIndex = "500";
+            procbg.style.opacity = "0.8";
+            procbg.style.filter = "Alpha(opacity=70)";
+            $('#mask').show();
+
+
+            $(document).bind("touchmove", function(e) {
+                e.preventDefault();
+            });
+        },
+        toPay($event) {
+            if ($($event.currentTarget).hasClass('disabled')) {
+                mui.toast('不能支付')
+            } else {
+                mui.toast('可以支付')
+                this.isShowMask = true;
+                this.coverDiv();
+            }
+
+        },
+        payment() {
+            mui.toast('123')
+            var params = {
+                buyNum: this.product.buyNum,
+                productId: this.product.productId,
+                remark: this.remark
+            }
+            if (this.isExpress) {
+                params.addrId = this.address.addrId
+            }
+            var skus = [];
+            var skukeys = this.product.skuKeys;
+            for (var i = 0; i < skukeys.length; i++) {
+                var sku = {
+                    "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
+                    "id": skukeys[i].id
+                }
+                skus.push(sku);
+            }
+            if (skus.length > 0) params.skus = JSON.stringify(skus);
+
+            console.log(JSON.stringify(params))
+
+            this.$http.post('m/account/orderheader/toPay', params).then(res => {
+                console.log(res)
+                if (res.body.result === 'success') {
+                    var appId = res.body.data.appId;
+                    var getWxOpenIdUrl = res.body.data.getWxOpenIdUrl;
+                    var state = res.body.data.orderNumber;
+                    window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + getWxOpenIdUrl + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect"
+
+                }else{
+                    this.hideMask();
+                    mui.alert(res.body.message)
+                }
             })
         }
     },
@@ -149,7 +226,7 @@ export default {
             return this.$store.state.skuToSubmit;
         },
         picUrl() {
-            var picUrls = this.product.picUrls.split(";;")
+            var picUrls = this.product.picUrls ? this.product.picUrls.split(";;") : '';
             return picUrls[0];
         },
         totalAmt() {
@@ -168,7 +245,11 @@ export default {
 
     },
     created: function() {
-        this.$http.get('m/account/userAddress/spa/getAddress').then(
+        this.$http.get('m/account/userAddress/spa/getAddress', {
+            params: {
+                addrId: this.$route.query.addrId
+            }
+        }).then(
             res => {
                 if (res) {
                     console.log(res)
@@ -179,7 +260,6 @@ export default {
                 if (res) {
                     if (res.status == 401) {
                         location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
-                        console.log(1231)
                     }
                 }
             })
@@ -191,6 +271,29 @@ export default {
 
 </script>
 <style type="text/css" scoped="" lang="scss">
+/* 可以设置不同的进入和离开动画 */
 
 
+/* 设置持续时间和动画函数 */
+
+.slide-fade-enter-active {
+    transition: all .5s ease;
+}
+
+.slide-fade-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+    transform: translateY(300px);
+    opacity: 1;
+}
+
+.actionsheet-spec {
+    top: auto;
+    bottom: 0;
+}
+
+</style>
 </style>

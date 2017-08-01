@@ -17,8 +17,8 @@
                                         <p class="name">{{pro.productName}}</p>
                                         <!-- <p class="specification">50ML</p> -->
                                         <div class="price">
-                                            <p class="price-real">¥<em>{{pro.tagPrice}}</em></p>
-                                            <p class="price-origin">¥<em>{{pro.defaultPrice}}</em></p>
+                                            <p class="price-real">¥<em>{{pro.defaultPrice}}</em></p>
+                                            <p class="price-origin">¥<em>{{pro.tagPrice}}</em></p>
                                         </div>
                                     </div>
                                 </a>

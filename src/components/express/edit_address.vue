@@ -169,41 +169,34 @@ export default {
             '../../../static/mobile/js/mui/city.data-1.js'
         ]);
 
-        // loadjs.ready('initPickup', {
-        //     success: function() { /* foo.js & bar.js loaded */
-
-        //     },
-        //     error: function(depsNotFound) { /* foobar bundle load failed */ }
-        // });
-        //
-        setTimeout(function(){
+        setTimeout(function() {
             mui.init();
-                mui.ready(function() {
-                    var cityPicker = new mui.PopPicker({
-                        layer: 3
+            mui.ready(function() {
+                var cityPicker = new mui.PopPicker({
+                    layer: 3
+                });
+                cityPicker.setData(cityData3);
+                var showCityPickerButton = document.getElementById('showCityPicker');
+                showCityPickerButton.addEventListener('tap', function(event) {
+                    var obj = this;
+                    var province = document.getElementById('province');
+                    var city = document.getElementById('city');
+                    var county = document.getElementById('county');
+                    var items2 = '';
+
+                    cityPicker.show(function(items) {
+                        items2 = (items[2] || {}).text ? "-" + (items[2] || {}).text : '';
+                        obj.value = (items[0] || {}).text + " - " + (items[1] || {}).text + items2;
+                        em.combineAddr = obj.value;
+                        em.receiverCountyId = (items[2] || {}).value ? (items[2] || {}).value : '';
+                        em.receiverProvinceId = (items[0] || {}).value;
+                        em.receiverCityId = (items[1] || {}).value;
                     });
-                    cityPicker.setData(cityData3);
-                    var showCityPickerButton = document.getElementById('showCityPicker');
-                    showCityPickerButton.addEventListener('tap', function(event) {
-                        var obj = this;
-                        var province = document.getElementById('province');
-                        var city = document.getElementById('city');
-                        var county = document.getElementById('county');
-                        var items2 = '';
+                }, false);
+            })
+        }, 1000);
 
-                        cityPicker.show(function(items) {
-                            items2 = (items[2] || {}).text ? "-" + (items[2] || {}).text : '';
-                            obj.value = (items[0] || {}).text + " - " + (items[1] || {}).text + items2;
-                            em.combineAddr = obj.value;
-                            em.receiverCountyId = (items[2] || {}).value ? (items[2] || {}).value : '';
-                            em.receiverProvinceId = (items[0] || {}).value;
-                            em.receiverCityId = (items[1] || {}).value;
-                        });
-                    }, false);
-                })
-        },1000);
-
-        if(this.addressToEdit && this.addressToEdit.addrId){
+        if (this.addressToEdit && this.addressToEdit.addrId) {
             this.addrId = this.addressToEdit.addrId;
             this.receiverName = this.addressToEdit.receiverName;
             this.receiverTel = this.addressToEdit.receiverTel;

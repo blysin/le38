@@ -18,6 +18,11 @@ export default new Vuex.Store({
         selectSku(state,val) {
             state.skuToSubmit = val;
         },
+        emptyProductToSubmit(state,val){
+            //加载商品详情页面时清空state中的数据
+            state.productToSubmit = {};
+            state.skuToSubmit = [];
+        },
         editAddress(state,val) {
             state.addressToEdit = val;
         },

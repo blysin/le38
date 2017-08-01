@@ -26,11 +26,11 @@ export default new Router({
         name: 'Reviews',
         component:resolve => require(['@/components/product/reviewlist'],resolve)
     }, {
-        path: '/submit/:productId',
+        path: '/submit',
         name: 'Submit',
         component:resolve => require(['@/components/product/submit_order'],resolve)
     }, {
-        path: '/address/',
+        path: '/address',
         name: 'Address',
         component:resolve => require(['@/components/express/my_address'],resolve)
     }, {

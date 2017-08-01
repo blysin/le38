@@ -1,6 +1,6 @@
 <template>
     <div id="detail">
-    <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
+        <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
         <div id="page">
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
@@ -166,10 +166,7 @@ export default {
             this.$store.commit('submitOrder',this.product);
             this.$store.commit('selectSku',this.skuIndexs);
             router.push({
-                name:'Submit',
-                query:{
-
-                }
+                name:'Submit'
             })
         },
         submitCart(){
@@ -237,7 +234,7 @@ export default {
             })
     },
     created: function() {
-
+        this.$store.commit('emptyProductToSubmit');
     },
     components: {
 
@@ -266,7 +263,7 @@ $(function() {
 .slide-fade-enter,
 .slide-fade-leave-to
 {
-    transform: translateY(292px);
+    transform: translateY(300px);
     opacity: 1;
 }
 .actionsheet-spec {
