@@ -24,8 +24,9 @@ a.gitbtn {width: 48%;text-align: center;height: 49px;line-height: 44px;backgroun
 }
 
 .giftnum {border-top:1px solid $color_border;border-bottom:1px solid $color_border;padding: 0 20px;
-  .hd {overflow: hidden;padding: 12px 0;
-    h3 {@include overflow-ellipsis();color: $color_grey6;line-height: 32px;}
+  .hd {overflow: hidden;padding: 12px 0;line-height: 32px;
+    h3 {@include overflow-ellipsis();color: $color_grey6;}
+    span {float: right;width:35px;display: block;text-align: right;}
   }
   .num {text-align:right;color: $public-color;padding-bottom: 5px;}
 }

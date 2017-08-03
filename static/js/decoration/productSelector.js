@@ -118,7 +118,7 @@ define(["jquery","./productDialog"],function ($,productDialog) {
                     dat = {
                         id : data.id,
                         img : imgPath,
-                        link : "/product/"+data.id+".html",
+                        link : "/products#/detail/"+data.id,
                         name : data.name,
                         priceReal : data.priceReal,
                         priceOrigin : data.priceOrigin,

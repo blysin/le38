@@ -9,7 +9,8 @@ export default new Vuex.Store({
 
         },
         skuToSubmit:[],
-        addressToEdit:{}
+        addressToEdit:{},
+        successUrl:''
     },
     mutations: {
         submitOrder(state,val) {
@@ -28,6 +29,12 @@ export default new Vuex.Store({
         },
         emptyAddressToEdit(state,val){
             state.addressToEdit = {}
+        },
+        resetSuccessUrl(state,val){
+            state.successUrl = '';
+        },
+        setSuccessUrl(state,val){
+            state.successUrl = val;
         }
     }
 })

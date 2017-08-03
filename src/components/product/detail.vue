@@ -1,118 +1,117 @@
 <template>
     <div id="detail">
         <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
-
-            <header class="mui-bar mui-bar-nav">
-                <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
-                <h1 class="mui-title">商品详情</h1>
-                <a class="mui-icon"></a>
-            </header>
-            <div class="mui-content">
-                <div class="swiper-container picslider">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide" v-for='pic in picUrls'>
-                            <div class="pic"><img v-bind:data-src="pic" class="swiper-lazy"></div>
-                            <div class="swiper-lazy-preloader"></div>
+        <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
+            <h1 class="mui-title">商品详情</h1>
+            <a class="mui-icon"></a>
+        </header>
+        <div class="mui-content">
+            <div class="swiper-container picslider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for='pic in picUrls'>
+                        <div class="pic"><img v-bind:data-src="pic" class="swiper-lazy"></div>
+                        <div class="swiper-lazy-preloader"></div>
+                    </div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="sku-detail-top">
+                <div class="sku-intro">
+                    <h1 class="sku-name">{{product.productName}}</h1>
+                    <p class="sku-custom-info"><em>已售{{product.productSaleCnt}}</em><span>￥{{product.tagPrice}}</span></p>
+                </div>
+                <div class="sku-price">
+                    <div class="price-real">
+                        ￥<strong>{{product.defaultPrice}}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="review-item" v-show='product.reviewNum >0'>
+                <h3>用户评价（{{product.reviewNum}}）</h3>
+                <ul>
+                    <li v-for='review in product.reviewList'>
+                        <div class="hd">
+                            <p class="l"><span class="header" v-bind:style="'background-image: url('+review.headPortraitUrl+');'"></span>{{review.reviewerName | loginName}}</p>
+                            <em class="r"><span v-bind:class="'review-star review-star-'+review.productMatchScore"><b></b></span></em>
+                        </div>
+                        <p class="time">{{review.reviewTime | dateformat}}</p>
+                        <p class="reviewtext">{{review.reviewContent}}</p>
+                    </li>
+                    <li class="last">
+                        <router-link class="btn" :to="{ name: 'Reviews', params: { productId: product.productId }}">查看全部评价</router-link>
+                    </li>
+                </ul>
+            </div>
+            <div class="sku-detail-content">
+                <div class="h3">图文详情</div>
+                <div class="iconinfo" v-if='!product.productDetailDesc'>
+                    <div class="ico ico-info"></div>
+                    <strong>暂无图片详情</strong>
+                </div>
+                <div id="J_DetailContent" v-if="product.productDetailDesc" v-html='product.productDetailDesc'>
+                </div>
+            </div>
+            <div class="fbbwrap-total">
+                <div class="ftbtnbar" style="display: none;">
+                    <div class="button-wrap button-wrap-expand">
+                        <a href="javascript:void(0)" class="button disabled">商品已售罄</a>
+                    </div>
+                </div>
+                <div class="ftbtnbar">
+                    <div class="button-l">
+                        <router-link :to="{name:'CartItem'}" id="J_ShopCart">
+                            <i class="iconfont">&#xe7ce</i>
+                            <span>购物车</span>
+                            <em v-show='cartItemCount>0'>{{cartItemCount}}</em>
+                        </router-link>
+                    </div>
+                    <div class="button-wrap button-wrap-expand">
+                        <a class="button addtocart" id="J_BtnCart" @click='toCart'>加入购物车</a>
+                        <a class="button" id="J_BtnBuy" @click='toBuy'>立即购买</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹框选择商品，应该写成组件 -->
+        <transition name="slide-fade">
+            <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block">
+                <div class="close" @click="hideMask()"></div>
+                <div class="prod-info">
+                    <div class="pic"><img v-bind:src="picUrls[0]" alt="" /></div>
+                    <div class="name">{{product.productName}}</div>
+                    <div class="price"><span class="price-real">￥<em>{{product.defaultPrice}}</em></span></div>
+                </div>
+                <div class="spec-list">
+                    <div class="spec-item" v-for='(sku,sIndex) in product.skuKeys'>
+                        <h3>{{sku.keyName}}</h3>
+                        <div class="prop-list">
+                            <ul>
+                                <li @click='choseSku(sIndex,vIndex)' v-bind:class="(skuIndexs[sIndex] == vIndex)?'active':''" v-for='(value,vIndex) in sku.skuValues'>{{value.skuValueName}}</li>
+                            </ul>
                         </div>
                     </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                </div>
-                <div class="sku-detail-top">
-                    <div class="sku-intro">
-                        <h1 class="sku-name">{{product.productName}}</h1>
-                        <p class="sku-custom-info"><em>已售{{product.productSaleCnt}}</em><span>￥{{product.tagPrice}}</span></p>
-                    </div>
-                    <div class="sku-price">
-                        <div class="price-real">
-                            ￥<strong>{{product.defaultPrice}}</strong>
+                    <div class="spec-item">
+                        <h3>数量</h3>
+                        <div class="number-widget">
+                            <div class="number-minus" v-bind:class='buyNum==1?"disabled":""' @click='buyNum==1?"":buyNum--'></div>
+                            <input class="number-text" type="number" v-bind:value='buyNum' readonly="readonly">
+                            <div class="number-plus" @click='buyNum++'></div>
                         </div>
                     </div>
                 </div>
-                <div class="review-item" v-show='product.reviewNum >0'>
-                    <h3>用户评价（{{product.reviewNum}}）</h3>
-                    <ul>
-                        <li v-for='review in product.reviewList'>
-                            <div class="hd">
-                                <p class="l"><span class="header" v-bind:style="'background-image: url('+review.headPortraitUrl+');'"></span>{{review.reviewerName | loginName}}</p>
-                                <em class="r"><span v-bind:class="'review-star review-star-'+review.productMatchScore"><b></b></span></em>
-                            </div>
-                            <p class="time">{{review.reviewTime | dateformat}}</p>
-                            <p class="reviewtext">{{review.reviewContent}}</p>
-                        </li>
-                        <li class="last">
-                            <router-link class="btn" :to="{ name: 'Reviews', params: { productId: product.productId }}">查看全部评价</router-link>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sku-detail-content">
-                    <div class="h3">图文详情</div>
-                    <div class="iconinfo" v-if='!product.productDetailDesc'>
-                        <div class="ico ico-info"></div>
-                        <strong>暂无图片详情</strong>
-                    </div>
-                    <div id="J_DetailContent" v-if="product.productDetailDesc" v-html='product.productDetailDesc'>
-                    </div>
-                </div>
-                <div class="fbbwrap-total">
-                    <div class="ftbtnbar" style="display: none;">
-                        <div class="button-wrap button-wrap-expand">
-                            <a href="javascript:void(0)" class="button disabled">商品已售罄</a>
-                        </div>
-                    </div>
+                <div class="fbbwrap nofixed">
                     <div class="ftbtnbar">
-                        <div class="button-l">
-                            <router-link :to="{name:'CartItem'}" id="J_ShopCart">
-                                <i class="iconfont">&#xe7ce</i>
-                                <span>购物车</span>
-                                <em v-show='cartItemCount>0'>{{cartItemCount}}</em>
-                            </router-link>
-                        </div>
                         <div class="button-wrap button-wrap-expand">
-                            <a class="button addtocart" id="J_BtnCart" @click='toCart'>加入购物车</a>
-                            <a class="button" id="J_BtnBuy" @click='toBuy'>立即购买</a>
+                            <a href="javascript:void(0)" class="button btn-buy" @click='isCart?submitCart():submitBuy()'>确定</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- 弹框选择商品，应该写成组件 -->
-            <transition name="slide-fade">
-                <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block">
-                    <div class="close" @click="hideMask()"></div>
-                    <div class="prod-info">
-                        <div class="pic"><img v-bind:src="picUrls[0]" alt="" /></div>
-                        <div class="name">{{product.productName}}</div>
-                        <div class="price"><span class="price-real">￥<em>{{product.defaultPrice}}</em></span></div>
-                    </div>
-                    <div class="spec-list">
-                        <div class="spec-item" v-for='(sku,sIndex) in product.skuKeys'>
-                            <h3>{{sku.keyName}}</h3>
-                            <div class="prop-list">
-                                <ul>
-                                    <li @click='choseSku(sIndex,vIndex)' v-bind:class="(skuIndexs[sIndex] == vIndex)?'active':''" v-for='(value,vIndex) in sku.skuValues'>{{value.skuValueName}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="spec-item">
-                            <h3>数量</h3>
-                            <div class="number-widget">
-                                <div class="number-minus" v-bind:class='buyNum==1?"disabled":""' @click='buyNum==1?"":buyNum--'></div>
-                                <input class="number-text" type="number" v-bind:value='buyNum' readonly="readonly">
-                                <div class="number-plus" @click='buyNum++'></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="fbbwrap nofixed">
-                        <div class="ftbtnbar">
-                            <div class="button-wrap button-wrap-expand">
-                                <a href="javascript:void(0)" class="button btn-buy" @click='isCart?submitCart():submitBuy()'>确定</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </transition>
-        </div>
-
+        </transition>
+    </div>
 </template>
 <script>
 // import $ from 'n-zepto'
@@ -133,7 +132,8 @@ export default {
             skuIndexs: [0, 0, 0, 0, 0],
             buyNum: 1,
             isCart: false,
-            cartItemCount: 0
+            cartItemCount: 0,
+            isLoading:true
         }
     },
     methods: {
@@ -202,11 +202,11 @@ export default {
             if (skus.length > 0) params.skus = JSON.stringify(skus);
 
             console.log(JSON.stringify(params))
-            this.$http.put('m/account/cartitem', params).then(
+            this.$http.post('m/account/cartitem', params).then(
                 res => {
                     console.log(res)
-                    if (res.body.result === 'success') {
-                        this.cartItemCount = res.body.data;
+                    if (res.status === 201) {
+                        this.cartItemCount = res.body.result;
                         /*购物车动画*/
                         var start = $("#J_BtnCart").offset(),
                             end = $("#J_ShopCart").offset(),
@@ -296,6 +296,7 @@ export default {
                         //加载结束后初始化图片插件
                         this.$nextTick(function() {
                             this.swiper.init()
+                            this.isLoading = false;
                         });
                     }
                 }

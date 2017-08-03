@@ -45,6 +45,10 @@ img { vertical-align: top; max-width: 100%; }
 
 .inline { display: inline-block; vertical-align: middle; margin-left: 10px; }
 
+.hide { display: none; }
+
+.show { display: block; }
+
 .mb0 { margin-bottom: 0 !important; }
 
 .mt10 { margin-top: 10px !important; }
@@ -76,7 +80,7 @@ src: url("font/iconfont.eot?t=1493021941407#iefix") format("embedded-opentype"),
 .lineBtn { display: inline-block; height: 24px; line-height: 24px; padding: 0 10px; color: #e7467c; border: 1px solid #e7467c; -webkit-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding-box; background-clip: padding-box; vertical-align: middle; }
 
 /*font*/
-.iconfont, .gbt-wrap li a .gbt-ico, .tbviewlist li:after, .itemlink:before, .mc-info-grid b:before, .orderinfo .clear:after, .ico-edit:before, .ico-delete:before, .myliptop a.btn:before, .myliptop a.btn:after, .ac-toggle-btn:after, .number-widget .number-minus:after, .number-widget .number-plus:after, .myvideoList li .hd i:after, .policy-popups .close:after, .buyer_message:before, .deliverymode:before, .order-address.submit-order-add:after, .no-address i:before, .prop-list li.active:after { font-family: "iconfont" !important; font-size: 22px; font-style: normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale; }
+.iconfont, .gbt-wrap li a .gbt-ico, .tbviewlist li:after, .itemlink:before, .mc-info-grid b:before, .orderinfo .clear:after, .ico-edit:before, .ico-delete:before, .myliptop a.btn:before, .myliptop a.btn:after, .ac-toggle-btn:after, .number-widget .number-minus:after, .number-widget .number-plus:after, .myvideoList li .hd i:after, .policy-popups .close:after, .buyer_message:before, .deliverymode:before, .order-address.submit-order-add:after, .no-address i:before, .prop-list li.active:after, .wallettop a.btn:before, .wallettop a.btn:after, .partnerNavigation .ico:after { font-family: "iconfont" !important; font-size: 22px; font-style: normal; -webkit-font-smoothing: antialiased; -webkit-text-stroke-width: 0.2px; -moz-osx-font-smoothing: grayscale; }
 
 /*form controls*/
 input[type=text], input[type=password], input[type=number], input[type=email], textarea, select { font-size: 14px; border: 1px solid #dfdfdf; padding: 5px 10px; background-color: #fff; margin: 0; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-appearance: none; -moz-appearance: none; appearance: none; -webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0; outline: 0; }
@@ -171,6 +175,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .iconinfo .ico-gift { width: 98px; height: 83px; background-image: url(../images/ico-gift.png); }
 .iconinfo .ico-livevideo { width: 105px; height: 69px; background-image: url(../images/ico-livevideo.png); }
 .iconinfo .ico-shopcart { width: 100px; height: 100px; background-image: url(../images/shopcart.png); }
+.iconinfo .ico_takedelivery { width: 87px; height: 83px; background-image: url(../images/ico_takedelivery.png); }
 
 .fbbwrap { height: 44px; }
 .fbbwrap.nofixed .ftbtnbar { position: static; }
@@ -180,6 +185,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .fbbwrap-total .ftbtnbar .content-wrap { height: 49px; line-height: 48px; }
 .fbbwrap-total .ftbtnbar .button-wrap .button { line-height: 49px; }
 .fbbwrap-total .ftbtnbar .button-l { height: 49px; }
+
+.scloading { position: fixed; z-index: 500; background: rgba(255, 255, 255, 0.2); left: 0; top: 0; bottom: 0; right: 0; }
+.scloading .mui-spinner { position: absolute; top: 50%; left: 50%; margin: -12px 0 0 -12px; }
 
 /*dropload*/
 .dropload-up, .dropload-down { position: relative; height: 0; overflow: hidden; font-size: 12px; -webkit-transform: translateZ(0); transform: translateZ(0); }
@@ -260,8 +268,9 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 .sincebox p { text-align: center; padding-top: 15px; }
 
 .giftnum { border-top: 1px solid #dfdfdf; border-bottom: 1px solid #dfdfdf; padding: 0 20px; }
-.giftnum .hd { overflow: hidden; padding: 12px 0; }
-.giftnum .hd h3 { white-space: nowrap; overflow: hidden; display: block; -ms-text-overflow: ellipsis; text-overflow: ellipsis; color: #666; line-height: 32px; }
+.giftnum .hd { overflow: hidden; padding: 12px 0; line-height: 32px; }
+.giftnum .hd h3 { white-space: nowrap; overflow: hidden; display: block; -ms-text-overflow: ellipsis; text-overflow: ellipsis; color: #666; }
+.giftnum .hd span { float: right; width: 35px; display: block; text-align: right; }
 .giftnum .num { text-align: right; color: #e7467c; padding-bottom: 5px; }
 
 /*number-widget*/
@@ -533,12 +542,13 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 
 .mycenterbar { background-color: #e7467c; }
 
-.user { padding: 20px 15px; overflow: hidden; }
-.user .hd { width: 66px; height: 66px; border: 3px solid #f29abe; background-repeat: no-repeat; background-position: center; -webkit-background-size: cover; background-size: cover; -webkit-border-radius: 50%; border-radius: 50%; -webkit-background-clip: padding-box; background-clip: padding-box; float: left; }
+.user { padding: 20px 15px; overflow: hidden; text-align: center; position: relative; }
+.user .hd { width: 66px; height: 66px; border: 3px solid #f29abe; background-repeat: no-repeat; background-position: center; -webkit-background-size: cover; background-size: cover; -webkit-border-radius: 50%; border-radius: 50%; -webkit-background-clip: padding-box; background-clip: padding-box; margin: auto; position: relative; }
 .user .hd a { display: block; height: 100%; }
-.user .bd { margin: 0 0 0 80px; color: #fff; }
-.user .bd p { line-height: 38px; font-size: 20px; }
-.user .bd span { display: inline-block; height: 24px; line-height: 24px; padding: 0 15px; -webkit-border-radius: 12px; border-radius: 12px; -webkit-background-clip: padding-box; background-clip: padding-box; background-color: #f29abe; font-size: 16px; }
+.user .hd span { height: 14px; line-height: 14px; padding: 0 10px; -webkit-border-radius: 8px; border-radius: 8px; -webkit-background-clip: padding-box; background-clip: padding-box; background-color: #333333; font-size: 10px; position: absolute; bottom: -15px; left: 50%; color: #fff; -webkit-transform: translate3d(-50%, 0, 0); -moz-transform: translate3d(-50%, 0, 0); -ms-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+.user .bd { color: #fff; text-align: center; padding-top: 20px; }
+.user .bd p { line-height: 30px; font-size: 16px; }
+.user a.billbtn { padding: 0 10px; line-height: 22px; display: block; border: 1px solid #fff; color: #fff; -webkit-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding-box; background-clip: padding-box; position: absolute; right: 15px; top: 20px; }
 
 .user-list { padding: 15px 0; background: rgba(40, 40, 4, 0.1); }
 .user-list ul { display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: box; }
@@ -586,6 +596,12 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 .mc-info-grid .ico_mcsecurity:before { content: "\e7fa"; font-size: 32px; }
 .mc-info-grid .ico_mcstudyarea:before { content: "\e7f6"; font-size: 32px; }
 .mc-info-grid .ico_mclivevideo:before { content: "\e7f7"; font-size: 32px; }
+.mc-info-grid .ico_mcdiscount:before { content: "\e800"; font-size: 32px; }
+.mc-info-grid .ico_mcservice:before { content: "\e7ff"; font-size: 32px; }
+.mc-info-grid .ico_mchome:before { content: "\e802"; font-size: 32px; }
+.mc-info-grid .ico_mccustomer:before { content: "\e801"; font-size: 32px; }
+.mc-info-grid .ico_mcactivity:before { content: "\e803"; font-size: 32px; }
+.mc-info-grid .ico_mcsetup:before { content: "\e804"; font-size: 32px; }
 .mc-info-grid .c { color: #000; display: block; line-height: 20px; text-align: center; }
 
 .payico { display: block; float: left; vertical-align: middle; margin-right: 15px; width: 30px; height: 30px; background: url("../images/payico-sprites.png") no-repeat; -webkit-background-size: 30px auto; background-size: 30px auto; }
@@ -620,7 +636,7 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 .spec-jq li { float: left; height: 34px; line-height: 34px; display: block; text-align: center; width: 4.4rem; background-color: #fff; border: 1px solid #dfdfdf; margin: 0 0 15px 0.5rem; -webkit-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding-box; background-clip: padding-box; }
 .spec-jq li.selected { background-color: #e7467c; color: #fff; border: 1px solid #e7467c; }
 
-.myliptop { background-color: #fff; padding: 15px; border-bottom: 1px solid #dfdfdf; margin-bottom: 10px; position: relative; min-height: 110px; }
+.myliptop { background-color: #fff; padding: 15px; border-bottom: 1px solid #dfdfdf; margin-bottom: 10px; position: relative; }
 .myliptop.mb0 { margin-bottom: 0; }
 .myliptop p em { white-space: nowrap; overflow: hidden; display: block; -ms-text-overflow: ellipsis; text-overflow: ellipsis; }
 .myliptop p span { display: block; float: right; }
@@ -786,18 +802,6 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 .livevideo h3 { font-size: 16px; }
 .livevideo .btn { display: block; width: 240px; height: 48px; margin: 20px auto 0; background: url(../images/livevideo_btn.png) no-repeat; background-size: 240px 48px; }
 
-/*article-details*/
-.article-det { padding: 0 20px; }
-.article-det .artcle-det-tit { padding: 10px 0; }
-.article-det .artcle-det-tit h3 { font-size: 20px; line-height: 24px; color: #282828; }
-.article-det .artcle-det-tit p { font-size: 12px; color: #999; margin-top: 5px; }
-.article-det .artcle-det-tit span { margin-left: 20px; }
-.article-det .article-main { padding-bottom: 20px; }
-.article-det .article-main img { max-width: 100%; }
-.article-det .article-main p { line-height: 25px; }
-.article-det .article-code { text-align: center; padding: 30px; border-top: 1px solid #dfdfdf; }
-.article-det .article-code img { width: 150px; display: block; margin: auto; }
-
 .orderList { width: 100%; overflow: hidden; }
 .orderList li { width: 100%; float: left; background: #fff; margin-bottom: 10px; overflow: hidden; }
 .orderList .t { padding: 10px; overflow: hidden; }
@@ -831,7 +835,7 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 .order-address.submit-order-add a { padding: 0 40px 15px 15px; display: block; margin: 0 -40px -15px -15px; }
 .order-address.submit-order-add:after { position: absolute; content: "\e60a"; width: 28px; height: 28px; line-height: 28px; text-align: center; right: 5px; top: 50%; margin-top: -14px; color: #888; font-size: 22px; }
 .order-address .name { float: left; font-size: 18px; }
-.order-address .phone { float: right; font-size: 18px; }
+.order-address .phone { float: left; font-size: 18px; margin-left: 20px; }
 .order-address address { position: relative; clear: both; }
 
 .no-address { margin: 0 15px 15px; height: 68px; line-height: 68px; text-align: center; border: 1px dashed #cccccc; color: #666; display: block; -webkit-border-radius: 8px; border-radius: 8px; -webkit-background-clip: padding-box; background-clip: padding-box; }
@@ -899,6 +903,18 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 .myarticleList .bd h3 { line-height: 20px; height: 40px; overflow: hidden; font-size: 16px; margin: 5px 0; }
 .myarticleList .bd p { color: #999; text-align: justify; }
 
+/*article-details*/
+.article-det { padding: 0 20px; }
+.article-det .artcle-det-tit { padding: 10px 0; }
+.article-det .artcle-det-tit h3 { font-size: 20px; line-height: 24px; color: #282828; }
+.article-det .artcle-det-tit p { font-size: 12px; color: #999; margin-top: 5px; }
+.article-det .artcle-det-tit span { margin-left: 20px; }
+.article-det .article-main { padding-bottom: 20px; }
+.article-det .article-main img { max-width: 100%; }
+.article-det .article-main p { line-height: 25px; }
+.article-det .article-code { text-align: center; padding: 30px; border-top: 1px solid #dfdfdf; }
+.article-det .article-code img { width: 150px; display: block; margin: auto; }
+
 /*evaluate*/
 .orderevaluate { overflow: hidden; }
 .orderevaluate li { width: 100%; background-color: #fff; float: left; margin-bottom: 10px; }
@@ -931,6 +947,7 @@ a.gitbtn.disabled { background-color: #cccccc; -webkit-box-shadow: inset 0 -5px 
 .gbt-wrap li.disabled a .gbt-text, .gbt-wrap li.disabled a .gbt-ico { color: #cccccc; }
 .gbt-wrap .ico-home:after { content: '\e7d3'; }
 .gbt-wrap .ico-classify:after { content: '\e7cf'; }
+.gbt-wrap .ico-message:after { content: '\e7e6'; }
 .gbt-wrap .ico-center:after { content: '\e7d5'; }
 .gbt-wrap .ico-cart:after { content: '\e7ce'; }
 

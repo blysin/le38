@@ -860,8 +860,8 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
 .mui-btn-negative, .mui-btn-danger, .mui-btn-red {
     color: #fff;
-    border: 1px solid #e60000;
-    background-color: #e60000;
+    border: 1px solid #e7467c;
+    background-color: #e7467c;
 }
 
 .mui-btn-negative:enabled:active, .mui-btn-negative.mui-active:enabled, .mui-btn-danger:enabled:active, .mui-btn-danger.mui-active:enabled, .mui-btn-red:enabled:active, .mui-btn-red.mui-active:enabled {
@@ -1553,7 +1553,7 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 
     overflow: hidden;
 
-    padding: 11px 15px;
+    padding:15px;
 
     -webkit-touch-callout: none;
 }

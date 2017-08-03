@@ -42,7 +42,7 @@
     &:after {position: absolute;content: "\e60a";width: 28px;height:28px;line-height: 28px;text-align: center;right:5px;top:50%;margin-top:-14px;color: $color_grey;font-size: 22px;}
   }
   .name{ float: left;font-size: 18px;}
-  .phone{ float: right;font-size: 18px;}
+  .phone{ float: left;font-size: 18px;margin-left: 20px;}
   address {position: relative;clear: both;}
 }
 

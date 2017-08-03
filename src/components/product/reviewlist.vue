@@ -1,44 +1,44 @@
 <template>
     <div id="reviewlist">
-
-            <header class="mui-bar mui-bar-nav">
-                <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
-                <h1 class="mui-title">商品评价</h1>
-                <a class="mui-icon"></a>
-            </header>
-            <div class="mui-content">
-                <div class="borderbox">
-                    <div class="reviewtop">
-                        <ul class="procomment">
-                            <li>
-                                <div class="fl"><span v-bind:class="'review-starbig review-starbig-'+Math.ceil(reviewList[0].avgScore)"><b></b></span><i>{{reviewList[0].avgScore?reviewList[0].avgScore.toFixed(1):'5'}}</i></div>
-                                <div class="fr">{{total}}人评价</div>
-                            </li>
-                        </ul>
-                        <ul class="return-type">
-                            <li v-bind:class="level==-1?'selected':''" @click='change(-1)'>全部</li>
-                            <li v-bind:class="level==1?'selected':''" @click='change(1)'>好评</li>
-                            <li v-bind:class="level==2?'selected':''" @click='change(2)'>中评</li>
-                            <li v-bind:class="level==3?'selected':''" @click='change(3)'>差评</li>
-                        </ul>
-                    </div>
+        <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
+            <h1 class="mui-title">商品评价</h1>
+            <a class="mui-icon"></a>
+        </header>
+        <div class="mui-content">
+            <div class="borderbox">
+                <div class="reviewtop">
+                    <ul class="procomment">
+                        <li>
+                            <div class="fl"><span v-bind:class="'review-starbig review-starbig-'+Math.ceil(reviewList[0].avgScore)"><b></b></span><i>{{reviewList[0].avgScore?reviewList[0].avgScore.toFixed(1):'5'}}</i></div>
+                            <div class="fr">{{total}}人评价</div>
+                        </li>
+                    </ul>
+                    <ul class="return-type">
+                        <li v-bind:class="level==-1?'selected':''" @click='change(-1)'>全部</li>
+                        <li v-bind:class="level==1?'selected':''" @click='change(1)'>好评</li>
+                        <li v-bind:class="level==2?'selected':''" @click='change(2)'>中评</li>
+                        <li v-bind:class="level==3?'selected':''" @click='change(3)'>差评</li>
+                    </ul>
                 </div>
-                <div class="wrap">
-                    <div class="review-item">
-                        <ul>
-                            <li v-for='review in reviewList'>
-                                <div class="hd">
-                                    <p class="l"><span class="header" v-bind:style="'background-image: url('+review.headPortraitUrl+');'"></span>{{review.reviewerName | loginName}}</p>
-                                    <em class="r"><span v-bind:class="'review-star review-star-'+review.productMatchScore"><b></b></span></em>
-                                </div>
-                                <p class="time">{{review.reviewTime | dateformat}}</p>
-                                <p class="reviewtext">{{review.reviewContent}}</p>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="wrap">
+                <div class="review-item">
+                    <ul>
+                        <li v-for='review in reviewList'>
+                            <div class="hd">
+                                <p class="l"><span class="header" v-bind:style="'background-image: url('+review.headPortraitUrl+');'"></span>{{review.reviewerName | loginName}}</p>
+                                <em class="r"><span v-bind:class="'review-star review-star-'+review.productMatchScore"><b></b></span></em>
+                            </div>
+                            <p class="time">{{review.reviewTime | dateformat}}</p>
+                            <p class="reviewtext">{{review.reviewContent}}</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 <script>
 import $ from 'n-zepto'
@@ -54,7 +54,8 @@ export default {
             size: 6,
             level: -1,
             reviewList: [],
-            total: 0
+            total: 0,
+            isLoading:true
         }
     },
     methods: {
@@ -86,7 +87,7 @@ export default {
                                 var length = res.body.data.length;
                                 if (length > 0) {
                                     vm.reviewList = vm.reviewList.concat(res.body.data);
-                                    if(vm.total == 0)vm.total = res.body.total;
+                                    if (vm.total == 0) vm.total = res.body.total;
                                     if (length < vm.size) { //如果当前结果小于size，表示已经没用多余的数据了
                                         me.lock();
                                         me.noData();
@@ -112,6 +113,7 @@ export default {
     },
     mounted: function() {
         this.jsonData();
+        this.isLoading = false;
         console.log(Math.ceil(2.22))
     },
     created: function() {

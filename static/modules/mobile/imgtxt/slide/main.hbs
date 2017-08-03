@@ -1,10 +1,10 @@
 <div class="J_Module" data-module-name="imgtxt-slide">
     <div class="module md-imgtxt-slide size-{{size}}"{{#if modBGColor}} style="background-color: {{modBGColor}};"{{/if}}>
         <div class="slide-wrap">
-            <ul style="display: none;" class="slide-data">
+            <ul style="display: ;" class="slide-data">
             {{#each list}}
                 {{#each this}}
-                    <li><a href="{{#if link.url}}{{link.url}}{{else}}javascript:void(0){{/if}}"><img class="lazyload" src="/static/mobile/images/blank.gif" data-src="{{img}}"></a></li>
+                    <li><a href="{{#if link.url}}{{link.url}}{{else}}javascript:void(0){{/if}}"><img class="lazyload" src="{{img}}" data-src="{{img}}"></a></li>
                 {{/each}}
             {{/each}}
             </ul>

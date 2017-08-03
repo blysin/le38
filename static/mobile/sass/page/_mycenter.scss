@@ -1,12 +1,13 @@
 .mycenterbar {background-color:$public-color;}
-.user {padding:20px 15px;overflow: hidden;
-  .hd {width:66px; height:66px;border:3px solid #f29abe;background-repeat: no-repeat; background-position: center; @include background-size(cover); @include border-radius(50%);float: left;
+.user {padding:20px 15px;overflow: hidden;text-align: center;position: relative;
+  .hd {width:66px; height:66px;border:3px solid #f29abe;background-repeat: no-repeat; background-position: center; @include background-size(cover); @include border-radius(50%);margin: auto;position: relative;
     a {display: block;height: 100%;}
+    span {height:14px;line-height:14px;padding: 0 10px;@include border-radius(8px);background-color: #333333;font-size: 10px;position: absolute;bottom:-15px;left:50%;color: $color_white;@include transform(translate3d(-50%,0,0));}
   }
-  .bd {margin:0 0 0 80px;color: $color_white;
-    p {line-height:38px;font-size:20px; }
-    span {display: inline-block;height:24px;line-height:24px;padding: 0 15px;@include border-radius(12px);background-color: #f29abe;font-size: 16px;}
+  .bd {color: $color_white;text-align: center;padding-top: 20px;
+    p {line-height:30px;font-size:16px; }
   }
+  a.billbtn {padding:0 10px;line-height: 22px;display: block;border:1px solid $color_white;color: $color_white;@include border-radius(4px);position: absolute;right:15px;top:20px;}
 }
 
 .user-list {padding:15px 0;background:rgba(40,40,4,0.1);
@@ -66,6 +67,12 @@
   .ico_mcsecurity:before{ content:"\e7fa";font-size: 32px;}
   .ico_mcstudyarea:before{ content:"\e7f6";font-size: 32px;}
   .ico_mclivevideo:before{ content:"\e7f7";font-size: 32px;}
+  .ico_mcdiscount:before{ content:"\e800";font-size: 32px;}
+  .ico_mcservice:before{ content:"\e7ff";font-size: 32px;}
+  .ico_mchome:before{ content:"\e802";font-size: 32px;}
+  .ico_mccustomer:before{ content:"\e801";font-size: 32px;}
+  .ico_mcactivity:before{ content:"\e803";font-size: 32px;}
+  .ico_mcsetup:before{ content:"\e804";font-size: 32px;}
   .c{ color: $color_black; display: block;line-height: 20px;text-align: center;}
 }
 
@@ -97,7 +104,7 @@
   }
 }
 
-.myliptop {background-color: $color_white;padding:15px;border-bottom: 1px solid $color_border;margin-bottom: 10px;position: relative;min-height: 110px;
+.myliptop {background-color: $color_white;padding:15px;border-bottom: 1px solid $color_border;margin-bottom: 10px;position: relative;
   &.mb0 {margin-bottom: 0;}
   p {
     em {@include overflow-ellipsis();}
@@ -271,20 +278,4 @@
 .livevideo {margin: 10px;background-color: $color_white;padding: 30px;text-align: center;@include border-radius(4px);
   h3 {font-size: 16px;}
   .btn {display:block;width: 240px;height: 48px;margin:20px auto 0;background: url(../images/livevideo_btn.png) no-repeat;background-size: 240px 48px;}
-}
-
-/*article-details*/
-.article-det {padding: 0 20px;
-  .artcle-det-tit {padding:10px 0;
-    h3 { font-size: 20px;line-height: 24px;color:$color_dark;}
-    p {font-size: 12px;color: #999;margin-top: 5px;}
-    span {margin-left: 20px;}
-  }
-  .article-main {padding-bottom: 20px;
-    img {max-width: 100%;}
-    p { line-height: 25px;}
-  }
-  .article-code {text-align: center;padding:30px;border-top:1px solid $color_border;
-    img {width:150px;display: block;margin: auto;}
-  }
 }

@@ -41,5 +41,9 @@ export default new Router({
         path: '/cartitem',
         name: 'CartItem',
         component:resolve => require(['@/components/product/cartitem'],resolve)
+    }, {
+        path: '/cartitem/submit',
+        name: 'SubmitCart',
+        component:resolve => require(['@/components/product/submit_cart'],resolve)
     }]
 })

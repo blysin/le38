@@ -1,66 +1,65 @@
 <template>
     <div id="category">
-
-            <header class="mui-bar mui-bar-nav">
-                <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
-                <h1 class="mui-title">商品分类</h1>
-                <a class="mui-icon"></a>
-            </header>
-            <div class="mui-content">
-                <div class="shelves-search">
-                    <div class="category-search">
-                        <input type="text" placeholder="搜索您想要的商品" v-model='keywords' @change="search()">
-                        <button @click='search()'>搜索</button>
+        <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
+            <h1 class="mui-title">商品分类</h1>
+            <a class="mui-icon"></a>
+        </header>
+        <div class="mui-content">
+            <div class="shelves-search">
+                <div class="category-search">
+                    <input type="text" placeholder="搜索您想要的商品" v-model='keywords' @change="search()">
+                    <button @click='search()'>搜索</button>
+                </div>
+            </div>
+            <div class="accordianlist">
+                <div class="actop" @click='toList(-1)'><span>全部商品</span></div>
+            </div>
+            <div v-for='cat in categorys' class="accordianlist">
+                <div class="actop"><span @click='toList(cat.categoryId)'>{{cat.categoryName}}</span></div>
+                <div class="acitem ac-toggled" v-for='second in cat.list'>
+                    <div class="actit">
+                        <div class="con"><a href="javascript:void(0)" @click='toList(second.categoryId)'>{{second.categoryName}}</a></div>
+                        <div class="ac-toggle-btn" @click='totalList'></div>
                     </div>
-                </div>
-                <div class="accordianlist">
-                    <div class="actop" @click='toList(-1)'><span>全部商品</span></div>
-                </div>
-                <div v-for='cat in categorys' class="accordianlist">
-                    <div class="actop"><span @click='toList(cat.categoryId)'>{{cat.categoryName}}</span></div>
-                    <div class="acitem ac-toggled" v-for='second in cat.list'>
-                        <div class="actit">
-                            <div class="con"><a href="javascript:void(0)" @click='toList(second.categoryId)'>{{second.categoryName}}</a></div>
-                            <div class="ac-toggle-btn" @click='totalList'></div>
-                        </div>
-                        <div class="accon" v-if='second.list && second.list.length > 0'>
-                            <ul class="prd-catlist">
-                                <li v-for="third in second.list"><a href="javascript:void(0)" @click='toList(third.categoryId)'>{{third.categoryName}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="globalMenu">
-                    <div class="gbt-wrap">
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0);">
-                                <span class="gbt-ico ico-home"></span>
-                                <span class="gbt-text">首页</span>
-                            </a>
-                            </li>
-                            <li class="current">
-                                <a href="javascript:void(0);">
-                                <span class="gbt-ico ico-classify"></span>
-                                <span class="gbt-text">分类</span>
-                            </a>
-                            </li>
-                            <li>
-                                <a href="my_index.html">
-                                <span class="gbt-ico ico-center"></span>
-                                <span class="gbt-text">我的</span>
-                            </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0);">
-                                <span class="gbt-ico ico-cart"></span>
-                                <span class="gbt-text">购物车</span>
-                            </a>
-                            </li>
+                    <div class="accon" v-if='second.list && second.list.length > 0'>
+                        <ul class="prd-catlist">
+                            <li v-for="third in second.list"><a href="javascript:void(0)" @click='toList(third.categoryId)'>{{third.categoryName}}</a></li>
                         </ul>
                     </div>
                 </div>
-
+            </div>
+            <div class="globalMenu">
+                <div class="gbt-wrap">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="gbt-ico ico-home"></span>
+                                <span class="gbt-text">首页</span>
+                            </a>
+                        </li>
+                        <li class="current">
+                            <a href="javascript:void(0);">
+                                <span class="gbt-ico ico-classify"></span>
+                                <span class="gbt-text">分类</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="my_index.html">
+                                <span class="gbt-ico ico-center"></span>
+                                <span class="gbt-text">我的</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="gbt-ico ico-cart"></span>
+                                <span class="gbt-text">购物车</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -75,7 +74,8 @@ export default {
     data() {
         return {
             categorys: [],
-            keywords: ''
+            keywords: '',
+            isLoading:true
         }
     },
     methods: {
@@ -119,6 +119,7 @@ export default {
             res => {
                 if (res) {
                     this.categorys = res.body;
+                    this.isLoading = false;
                 }
             })
     }
