@@ -69,8 +69,8 @@
                         </router-link>
                     </div>
                     <div class="button-wrap button-wrap-expand">
-                        <a class="button addtocart" id="J_BtnCart" @click='toCart'>加入购物车</a>
-                        <a class="button" id="J_BtnBuy" @click='toBuy'>立即购买</a>
+                        <a class="button addtocart" :class='product.productStatusCd===1?"":"disabled"' id="J_BtnCart" @click='toCart'>加入购物车</a>
+                        <a class="button" :class='product.productStatusCd===1?"":"disabled"' id="J_BtnBuy" @click='toBuy'>立即购买</a>
                     </div>
                 </div>
             </div>
@@ -153,12 +153,18 @@ export default {
             this.skuIndexs.splice(_skuIndex, 1, _valueIndex);
         },
         toBuy() {
+            if(this.product.productStatusCd!==1){
+                return false;
+            }
             this.resetBuyData();
             this.coverDiv();
             this.isShowMask = true;
             this.isCart = false;
         },
         toCart() {
+            if(this.product.productStatusCd!==1){
+                return false;
+            }
             this.resetBuyData();
             this.coverDiv();
             this.isShowMask = true;
@@ -233,8 +239,8 @@ export default {
                     }
                 },
                 res => {
-                    if (res.status === 409) {
-                        mui.alert(res.body.data)
+                    if (res.status !== 500) {
+                        mui.alert(res.body.error)
                     } else {
                         mui.alert('系统出错，请稍候再试')
                     }

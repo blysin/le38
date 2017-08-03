@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class="button-wrap">
-                        <a href="javascript:void(0)" class="button" :class="((!isExpress || address.addrId) && product.productStatusCd === 1)?'':'disabled'" @click='toPay($event)'>结算</a>
+                        <a href="javascript:void(0)" class="button" :class="((!isExpress || address.addrId) && product.productStatusCd === 1 && (!isExpress || product.buyNum <= product.stockNum))?'':'disabled'" @click='toPay($event)'>结算</a>
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@ export default {
             address: {},
             remark: '',
             isShowMask: false,
-            isLoading:true
+            isLoading: true
         }
     },
     methods: {
@@ -168,10 +168,16 @@ export default {
             });
         },
         toPay($event) {
+            if (this.isExpress) {
+                if (this.product.buyNum >= this.product.stockNum) {
+                    mui.alert('该商品库存不足，只能到店领取');
+                    return false;
+                }
+            }
             if ($($event.currentTarget).hasClass('disabled')) {
-                mui.toast('不能支付')
+                // mui.toast('不能支付')
             } else {
-                mui.toast('可以支付')
+                // mui.toast('可以支付')
                 this.isShowMask = true;
                 this.coverDiv();
             }
@@ -210,7 +216,11 @@ export default {
 
                 } else {
                     this.hideMask();
-                    mui.alert(res.body.message)
+                    if (res.status !== 500) {
+                        mui.alert(res.body.error)
+                    } else {
+                        mui.alert('系统出错，请稍候再试')
+                    }
                 }
             })
         }
@@ -264,7 +274,7 @@ export default {
                         location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
                     }
                 }
-                 this.isLoading = false;
+                this.isLoading = false;
             })
     },
     components: {

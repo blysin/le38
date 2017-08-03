@@ -279,3 +279,22 @@
   h3 {font-size: 16px;}
   .btn {display:block;width: 240px;height: 48px;margin:20px auto 0;background: url(../images/livevideo_btn.png) no-repeat;background-size: 240px 48px;}
 }
+
+.servicetop {min-height: 120px;background: url(../images/servicetop_bg.png) right bottom no-repeat $color_white;background-size: 160px auto;padding:15px 0 10px 16px;margin-bottom: 10px;
+  h3 {font-size:18px;}
+  span { display: block;color: $public-color;font-size: 24px;
+    a {color: $public-color;}
+  }
+  em {display: block;color: $color_grey6;font-size: 12px;line-height: 16px;}
+}
+
+.outlets {width: 100%;overflow: hidden;
+  li {width: 100%;float:left;padding: 10px 10px 0;background-color: $color_white;}
+  .items {margin:0 10px;border-bottom: 1px solid $border-color;}
+  h3 {font-size: 18px;padding-bottom:8px;}
+  .contentinfo {padding:0 0 8px 35px;position: relative;line-height: 22px;
+    &:before {width:30px;height:22px;position: absolute;left:0;top:1px;line-height:22px;color: $color_grey9;}
+  }
+  .ico_add:before {content: '\e675';}
+  .ico_telephone:before {content: '\e657';font-size: 20px;}
+}

@@ -13,20 +13,38 @@
                     <button @click='search()'>搜索</button>
                 </div>
             </div>
-            <div class="accordianlist">
-                <div class="actop" @click='toList(-1)'><span>全部商品</span></div>
-            </div>
-            <div v-for='cat in categorys' class="accordianlist">
-                <div class="actop"><span @click='toList(cat.categoryId)'>{{cat.categoryName}}</span></div>
-                <div class="acitem ac-toggled" v-for='second in cat.list'>
-                    <div class="actit">
-                        <div class="con"><a href="javascript:void(0)" @click='toList(second.categoryId)'>{{second.categoryName}}</a></div>
-                        <div class="ac-toggle-btn" @click='totalList'></div>
+            <div class="listWrap">
+                <div class="categorynav">
+                    <div class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+                            <div class="nav">
+                                <ul>
+                                    <li :class="index==currentIndex?'active':''" v-for='(cat,index) in categorys'><a href="javascript:void(0)" @click="changeId(cat.categoryId,index)">{{cat.categoryName}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="accon" v-if='second.list && second.list.length > 0'>
-                        <ul class="prd-catlist">
-                            <li v-for="third in second.list"><a href="javascript:void(0)" @click='toList(third.categoryId)'>{{third.categoryName}}</a></li>
-                        </ul>
+                </div>
+                <div class="procucts">
+                    <div class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+                            <div class="procucts-list">
+                                <ul>
+                                    <li v-for='pro in productList'>
+                                        <a href="javascript:void(0)" @click='toDetail(pro.productId)'>
+                                            <div class="pic"><img v-bind:src="pro.defaultPicUrl" alt="" /></div>
+                                            <div class="intro">
+                                                <p class="name">{{pro.productName}}</p>
+                                                <div class="price">
+                                                    <p class="price-real">¥<em>{{pro.defaultPrice}}</em></p>
+                                                    <p class="price-origin">¥<em>{{pro.tagPrice}}</em></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,7 +52,7 @@
                 <div class="gbt-wrap">
                     <ul>
                         <li>
-                            <a href="javascript:void(0);">
+                            <a href="/m">
                                 <span class="gbt-ico ico-home"></span>
                                 <span class="gbt-text">首页</span>
                             </a>
@@ -46,15 +64,15 @@
                             </a>
                         </li>
                         <li>
-                            <a href="my_index.html">
-                                <span class="gbt-ico ico-center"></span>
-                                <span class="gbt-text">我的</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
+                            <router-link :to="{name:'CartItem'}">
                                 <span class="gbt-ico ico-cart"></span>
                                 <span class="gbt-text">购物车</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <a href="/m/account">
+                                <span class="gbt-ico ico-center"></span>
+                                <span class="gbt-text">个人中心</span>
                             </a>
                         </li>
                     </ul>
@@ -65,8 +83,9 @@
 </template>
 <script>
 import $ from 'n-zepto'
-import mui from 'mui'
+// import mui from 'mui'
 import router from '@/router'
+import { dropload } from 'dropload'
 
 export default {
     name: 'category',
@@ -75,10 +94,30 @@ export default {
         return {
             categorys: [],
             keywords: '',
-            isLoading:true
+            isLoading: true,
+            currentId: 0,
+            currentIndex: 0,
+            productList: [],
+            page: -1,
+            size: 6,
+        }
+    },
+    watch: {
+        currentId(nVal, oVal) {
+            console.log(nVal + "   " + oVal)
+            this.initProductList();
+            this.jsonData();
         }
     },
     methods: {
+        initProductList() {
+            this.page = -1;
+            this.productList = [];
+        },
+        changeId(id, index) {
+            this.currentId = id;
+            this.currentIndex = index;
+        },
         totalList() {
             var target = event.target;
             var obj = $(target).closest(".acitem");
@@ -106,6 +145,53 @@ export default {
                     keywords: this.keywords
                 }
             });
+        },
+        toDetail(id) {
+            // console.log(id);
+            router.push({
+                name: 'Detail',
+                params: {
+                    productId: id
+                }
+            });
+        },
+        jsonData() {
+            this.isLoading = true
+            var vm = this;
+            $('.wrap').dropload({
+                scrollArea: window,
+                domDown: {
+                    domClass: 'dropload-down',
+                    domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
+                    domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                },
+                loadDownFn: function(me) {
+                    vm.page++;
+                    vm.$http.get('m/products/list/' + vm.currentId + '?page=' + vm.page + '&size=' + vm.size).then(
+                        res => {
+                            if (res) {
+                                // console.log(res)
+                                var length = res.body.length;
+                                if (length > 0) {
+                                    vm.productList = vm.productList.concat(res.body);
+                                    if (length < vm.size) { //如果当前结果小于size，表示已经没用多余的数据了
+                                        me.lock();
+                                        me.noData();
+                                    }
+                                } else {
+                                    me.lock();
+                                    me.noData();
+                                }
+                                setTimeout(function() {
+                                    me.resetload();
+                                }, 1000);
+                                vm.isLoading = false;
+                            }
+                        })
+
+                }
+            });
         }
     },
     filters: {
@@ -115,11 +201,31 @@ export default {
 
     },
     created: function() {
+        var loadjs = require('loadjs');
+        var em = this;
+        loadjs([
+            '../../../static/mobile/js/mui.min.js'
+        ]);
+
+        setTimeout(function() {
+            mui.init();
+            mui.ready(function() {
+                mui('.categorynav .mui-scroll-wrapper').scroll();
+                mui('.procucts .mui-scroll-wrapper').scroll();
+                $(document).bind("touchmove", function(e) {
+                    e.preventDefault();
+                });
+            })
+        }, 1000);
+
+
         this.$http.get('m/products/categorys').then(
             res => {
+                console.log(res)
                 if (res) {
                     this.categorys = res.body;
                     this.isLoading = false;
+                    if (res.body.length > 0) this.currentId = res.body[0].categoryId
                 }
             })
     }

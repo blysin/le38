@@ -6,7 +6,7 @@
     a{ display: block; height: 100%; text-align: center;padding: 0 4px;
       .gbt-text{color:$color_grey6;display: block; font-size: 9px; white-space: nowrap; width: 100%; line-height: 12px; overflow: hidden; -ms-text-overflow: ellipsis; text-overflow: ellipsis;}
       .gbt-ico{ position: relative; padding-top:2px; display: block; margin: auto; width:30px; height:35px; text-align: center;line-height:35px; font-size: 24px;color:$color_grey9;
-        em {display:block;position:absolute;top:8px; left:15px;font-style: normal; min-width: 8px; overflow: hidden; padding:0 5px; font-size: 10px; line-height: 14px; text-align: center; color: $color_white;background:#fa5555; @include border-radius(8px);border: 1px solid $color_white;}
+        em {width:8px;height:8px;display:block;position:absolute;top:8px; right:4px;background:$public-color; @include border-radius(50%);}
       }
     }
     a:active,&.current a {
