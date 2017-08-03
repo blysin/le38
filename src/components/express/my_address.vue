@@ -1,6 +1,5 @@
 <template>
     <div id="address">
-        <div id="page">
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
                 <h1 class="mui-title" @click='setDefaultAddress'>收货地址</h1>
@@ -43,7 +42,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+
     </div>
 </template>
 <script>

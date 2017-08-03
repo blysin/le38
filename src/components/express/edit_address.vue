@@ -1,6 +1,5 @@
 <template>
     <div>
-        <div id="page" v-cloak="">
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
                 <h1 class="mui-title">收货地址</h1>
@@ -56,7 +55,7 @@
                     <a class="mui-btn mui-btn-block mui-btn-primary" href="javascript:void(0);" id="saveBtn" @click="save">保存</a>
                 </div>
             </div>
-        </div>
+
     </div>
 </template>
 <script>

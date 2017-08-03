@@ -37,5 +37,9 @@ export default new Router({
         path: '/address/edit',
         name: 'EditAddress',
         component:resolve => require(['@/components/express/edit_address'],resolve)
+    }, {
+        path: '/cartitem',
+        name: 'CartItem',
+        component:resolve => require(['@/components/product/cartitem'],resolve)
     }]
 })

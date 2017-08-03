@@ -1,7 +1,7 @@
 <template>
     <div id="detail">
         <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
-        <div id="page">
+
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
                 <h1 class="mui-title">商品详情</h1>
@@ -52,7 +52,6 @@
                         <strong>暂无图片详情</strong>
                     </div>
                     <div id="J_DetailContent" v-if="product.productDetailDesc" v-html='product.productDetailDesc'>
-
                     </div>
                 </div>
                 <div class="fbbwrap-total">
@@ -63,11 +62,11 @@
                     </div>
                     <div class="ftbtnbar">
                         <div class="button-l">
-                            <a href="shop_cart.html" id="J_ShopCart">
-                        <i class="iconfont">&#xe7ce</i>
-                        <span>购物车</span>
-                        <em>10</em>
-                    </a>
+                            <router-link :to="{name:'CartItem'}" id="J_ShopCart">
+                                <i class="iconfont">&#xe7ce</i>
+                                <span>购物车</span>
+                                <em v-show='cartItemCount>0'>{{cartItemCount}}</em>
+                            </router-link>
                         </div>
                         <div class="button-wrap button-wrap-expand">
                             <a class="button addtocart" id="J_BtnCart" @click='toCart'>加入购物车</a>
@@ -78,46 +77,45 @@
             </div>
             <!-- 弹框选择商品，应该写成组件 -->
             <transition name="slide-fade">
-            <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block">
-                <div class="close" @click="hideMask()"></div>
-                <div class="prod-info">
-                    <div class="pic"><img v-bind:src="picUrls[0]" alt="" /></div>
-                    <div class="name">{{product.productName}}</div>
-                    <div class="price"><span class="price-real">￥<em>{{product.defaultPrice}}</em></span></div>
-                </div>
-                <div class="spec-list">
-                    <div class="spec-item" v-for='(sku,sIndex) in product.skuKeys'>
-                        <h3>{{sku.keyName}}</h3>
-                        <div class="prop-list">
-                            <ul>
-                                <li @click='choseSku(sIndex,vIndex)' v-bind:class="(skuIndexs[sIndex] == vIndex)?'active':''" v-for='(value,vIndex) in sku.skuValues'>{{value.skuValueName}}</li>
-                            </ul>
+                <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block">
+                    <div class="close" @click="hideMask()"></div>
+                    <div class="prod-info">
+                        <div class="pic"><img v-bind:src="picUrls[0]" alt="" /></div>
+                        <div class="name">{{product.productName}}</div>
+                        <div class="price"><span class="price-real">￥<em>{{product.defaultPrice}}</em></span></div>
+                    </div>
+                    <div class="spec-list">
+                        <div class="spec-item" v-for='(sku,sIndex) in product.skuKeys'>
+                            <h3>{{sku.keyName}}</h3>
+                            <div class="prop-list">
+                                <ul>
+                                    <li @click='choseSku(sIndex,vIndex)' v-bind:class="(skuIndexs[sIndex] == vIndex)?'active':''" v-for='(value,vIndex) in sku.skuValues'>{{value.skuValueName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <h3>数量</h3>
+                            <div class="number-widget">
+                                <div class="number-minus" v-bind:class='buyNum==1?"disabled":""' @click='buyNum==1?"":buyNum--'></div>
+                                <input class="number-text" type="number" v-bind:value='buyNum' readonly="readonly">
+                                <div class="number-plus" @click='buyNum++'></div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="spec-item">
-                        <h3>数量</h3>
-                        <div class="number-widget">
-                            <div class="number-minus" v-bind:class='buyNum==1?"disabled":""' @click='buyNum==1?"":buyNum--'></div>
-                            <input class="number-text" type="number" v-bind:value='buyNum' readonly="readonly">
-                            <div class="number-plus" @click='buyNum++'></div>
+                    <div class="fbbwrap nofixed">
+                        <div class="ftbtnbar">
+                            <div class="button-wrap button-wrap-expand">
+                                <a href="javascript:void(0)" class="button btn-buy" @click='isCart?submitCart():submitBuy()'>确定</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="fbbwrap nofixed">
-                    <div class="ftbtnbar">
-                        <div class="button-wrap button-wrap-expand">
-                            <a href="javascript:void(0)" class="button btn-buy" @click='isCart?submitCart():submitBuy()'>确定</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </transition>
+            </transition>
         </div>
-    </div>
+
 </template>
 <script>
-import $ from 'n-zepto'
+// import $ from 'n-zepto'
 import mui from 'mui'
 import router from '@/router'
 
@@ -132,26 +130,41 @@ export default {
             product: {},
             picUrls: [],
             isShowMask: false,
-            skuIndexs:[0,0,0,0,0],
-            buyNum : 1,
-            isCart:false,
+            skuIndexs: [0, 0, 0, 0, 0],
+            buyNum: 1,
+            isCart: false,
+            cartItemCount: 0
         }
     },
     methods: {
-        choseSku(_skuIndex,_valueIndex){
-            this.skuIndexs.splice(_skuIndex,1,_valueIndex);
+        resetBuyData() {
+            this.buyNum = 1;
+            this.skuIndexs = [0, 0, 0, 0, 0]
         },
-        toBuy(){
+        countCartItem() {
+            this.$http.get('m/account/cartitem/count').then(
+                res => {
+                    if (res) {
+                        this.cartItemCount = res.body
+                    }
+                })
+        },
+        choseSku(_skuIndex, _valueIndex) {
+            this.skuIndexs.splice(_skuIndex, 1, _valueIndex);
+        },
+        toBuy() {
+            this.resetBuyData();
             this.coverDiv();
             this.isShowMask = true;
             this.isCart = false;
         },
-        toCart(){
+        toCart() {
+            this.resetBuyData();
             this.coverDiv();
             this.isShowMask = true;
             this.isCart = true;
         },
-        isLogin(){
+        isLogin() {
 
             this.$http.get('m/login/isLogin').then(
                 res => {
@@ -160,26 +173,81 @@ export default {
                     }
                 })
         },
-        submitBuy(){
+        submitBuy() {
             // alert('确定购买')
             this.product.buyNum = this.buyNum;
-            this.$store.commit('submitOrder',this.product);
-            this.$store.commit('selectSku',this.skuIndexs);
+            this.$store.commit('submitOrder', this.product);
+            this.$store.commit('selectSku', this.skuIndexs);
             router.push({
-                name:'Submit'
+                name: 'Submit'
             })
         },
-        submitCart(){
-            alert('加入购物车')
+        submitCart() {
+            // alert('加入购物车')
+            this.isShowMask = false;
+            this.hideMask();
+            var params = {
+                productId: this.product.productId,
+                buyNum: this.buyNum
+            }
+            var skus = [];
+            var skukeys = this.product.skuKeys;
+            for (var i = 0; i < skukeys.length; i++) {
+                var sku = {
+                    "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
+                    "id": skukeys[i].id
+                }
+                skus.push(sku);
+            }
+            if (skus.length > 0) params.skus = JSON.stringify(skus);
+
+            console.log(JSON.stringify(params))
+            this.$http.put('m/account/cartitem', params).then(
+                res => {
+                    console.log(res)
+                    if (res.body.result === 'success') {
+                        this.cartItemCount = res.body.data;
+                        /*购物车动画*/
+                        var start = $("#J_BtnCart").offset(),
+                            end = $("#J_ShopCart").offset(),
+                            winH = $(window).height() - 30,
+                            sX = start.left + start.width / 2 - 15,
+                            sY = winH + start.height / 2 - 15,
+                            eX = end.left + end.width / 2 - 15,
+                            eY = end.top + end.height / 2 - 15;
+                        var throwItem = $('<div class="throwInItem"></div>').css({
+                            top: sY,
+                            left: sX,
+                            "-webkit-transform-origin": ((eX - sX) / 2 + 15) + "px 0"
+                        }).appendTo(document.body);
+                        throwItem.animate({
+                            rotate: "-200deg"
+                        }, {
+                            duration: 800,
+                            easing: "ease-out",
+                            complete: function() {
+                                throwItem.remove();
+                                mui.toast('已添加到购物车', true);
+                            }
+                        });
+                    }
+                },
+                res => {
+                    if (res.status === 409) {
+                        mui.alert(res.body.data)
+                    } else {
+                        mui.alert('系统出错，请稍候再试')
+                    }
+                })
         },
-        hideMask(){
+        hideMask() {
             $("div[class='xucun_content']").hide();
             var body = document.getElementsByTagName("body");
             $('#mask').hide()
             this.isShowMask = false;
             $(document).unbind("touchmove");
         },
-        coverDiv(){
+        coverDiv() {
             var procbg = $('#mask')[0] //首先创建一个div
             procbg.style.background = "#000000";
             procbg.style.width = "100%";
@@ -193,7 +261,7 @@ export default {
             $('#mask').show();
 
 
-            $(document).bind("touchmove",function(e){
+            $(document).bind("touchmove", function(e) {
                 e.preventDefault();
             });
         }
@@ -232,9 +300,16 @@ export default {
                     }
                 }
             })
+
+        this.countCartItem();
     },
     created: function() {
         this.$store.commit('emptyProductToSubmit');
+        var loadjs = require('loadjs');
+
+        loadjs([
+            '../../../static/mobile/js/zepto.js'
+        ]);
     },
     components: {
 
@@ -261,11 +336,11 @@ $(function() {
 }
 
 .slide-fade-enter,
-.slide-fade-leave-to
-{
+.slide-fade-leave-to {
     transform: translateY(300px);
     opacity: 1;
 }
+
 .actionsheet-spec {
     top: auto;
     bottom: 0;

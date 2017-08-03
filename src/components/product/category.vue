@@ -1,6 +1,6 @@
 <template>
     <div id="category">
-        <div id="page">
+
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
                 <h1 class="mui-title">商品分类</h1>
@@ -60,7 +60,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+
         </div>
     </div>
 </template>

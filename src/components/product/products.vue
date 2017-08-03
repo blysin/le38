@@ -1,6 +1,6 @@
 <template>
     <div id="products">
-        <div id="page">
+
             <header class="mui-bar mui-bar-nav">
                 <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
                 <h1 class="mui-title">商品列表</h1>
@@ -27,7 +27,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </template>
 <script>
