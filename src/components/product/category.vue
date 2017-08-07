@@ -64,10 +64,10 @@
                             </a>
                         </li>
                         <li>
-                            <router-link :to="{name:'CartItem'}">
+                            <a href='javascript:void(0)' @click='toCartItem'>
                                 <span class="gbt-ico ico-cart"></span>
                                 <span class="gbt-text">购物车</span>
-                            </router-link>
+                            </a>
                         </li>
                         <li>
                             <a href="/m/account">
@@ -110,6 +110,19 @@ export default {
         }
     },
     methods: {
+        toCartItem(){
+             this.$http.get('m/login/isLogin').then(
+                res => {
+                    console.log(res.body)
+                    this.logined = res.body;
+                    if(!res.body){
+                       location.href = '/m/login?successUrl='+encodeURIComponent(window.location.href);
+                    }else{
+                        router.push({name:'CartItem'})
+                    }
+                })
+
+        },
         initProductList() {
             this.page = -1;
             this.productList = [];
@@ -201,6 +214,9 @@ export default {
 
     },
     created: function() {
+        if(!$('.wrap').dropload){
+            location.reload();
+        }
         var loadjs = require('loadjs');
         var em = this;
         loadjs([
@@ -221,11 +237,14 @@ export default {
 
         this.$http.get('m/products/categorys').then(
             res => {
-                console.log(res)
+                console.log(res.body)
                 if (res) {
                     this.categorys = res.body;
                     this.isLoading = false;
-                    if (res.body.length > 0) this.currentId = res.body[0].categoryId
+                    if (res.body.length > 0) {
+                        var em = this;
+                        em.currentId =res.body[0].categoryId
+                    }
                 }
             })
     }

@@ -206,7 +206,7 @@ export default {
 
             console.log(JSON.stringify(params))
 
-            this.$http.post('m/account/orderheader/toPay', params).then(res => {
+            this.$http.post('m/account/orderheader/spaToPay', params).then(res => {
                 console.log(res)
                 if (res.body.result === 'success') {
                     var appId = res.body.data.appId;

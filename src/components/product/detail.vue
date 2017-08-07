@@ -133,7 +133,8 @@ export default {
             buyNum: 1,
             isCart: false,
             cartItemCount: 0,
-            isLoading:true
+            isLoading:true,
+            logined:true
         }
     },
     methods: {
@@ -142,11 +143,13 @@ export default {
             this.skuIndexs = [0, 0, 0, 0, 0]
         },
         countCartItem() {
-            this.$http.get('m/account/cartitem/count').then(
+            this.$http.get('m/account/spaCartitem/count').then(
                 res => {
                     if (res) {
                         this.cartItemCount = res.body
                     }
+                },res =>{
+                    this.logined = res.status !== 401;
                 })
         },
         choseSku(_skuIndex, _valueIndex) {
@@ -171,16 +174,25 @@ export default {
             this.isCart = true;
         },
         isLogin() {
-
             this.$http.get('m/login/isLogin').then(
                 res => {
-                    if (res) {
-                        console.log(res.body)
+                    console.log(res.body)
+                    this.logined = res.body;
+                    if(!res.body){
+                        mui.confirm('','请先登录',['确定','取消'],function(e){
+                            if(e.index === 0){
+                                location.href = '/m/login?successUrl='+encodeURIComponent(window.location.href);
+                            }
+                        })
                     }
                 })
         },
         submitBuy() {
             // alert('确定购买')
+            this.isShowMask = false;
+            this.hideMask();
+            this.isLogin();
+            if(!this.logined) return false;
             this.product.buyNum = this.buyNum;
             this.$store.commit('submitOrder', this.product);
             this.$store.commit('selectSku', this.skuIndexs);
@@ -189,9 +201,10 @@ export default {
             })
         },
         submitCart() {
-            // alert('加入购物车')
             this.isShowMask = false;
             this.hideMask();
+            this.isLogin();
+            if(!this.logined) return false;
             var params = {
                 productId: this.product.productId,
                 buyNum: this.buyNum
@@ -207,8 +220,8 @@ export default {
             }
             if (skus.length > 0) params.skus = JSON.stringify(skus);
 
-            console.log(JSON.stringify(params))
-            this.$http.post('m/account/cartitem', params).then(
+            console.log('购物车')
+            this.$http.post('m/account/spaCartitem', params).then(
                 res => {
                     console.log(res)
                     if (res.status === 201) {
@@ -251,7 +264,7 @@ export default {
             var body = document.getElementsByTagName("body");
             $('#mask').hide()
             this.isShowMask = false;
-            $(document).unbind("touchmove");
+            // $(document).unbind("touchmove");
         },
         coverDiv() {
             var procbg = $('#mask')[0] //首先创建一个div
@@ -267,9 +280,9 @@ export default {
             $('#mask').show();
 
 
-            $(document).bind("touchmove", function(e) {
-                e.preventDefault();
-            });
+            // $(document).bind("touchmove", function(e) {
+            //     e.preventDefault();
+            // });
         }
     },
     computed: {
