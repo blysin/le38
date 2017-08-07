@@ -1,6 +1,5 @@
 <template>
     <div id="detail">
-        <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
             <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
@@ -62,11 +61,11 @@
                 </div>
                 <div class="ftbtnbar">
                     <div class="button-l">
-                        <router-link :to="{name:'CartItem'}" id="J_ShopCart">
+                        <a @click='toCartPage' id="J_ShopCart">
                             <i class="iconfont">&#xe7ce</i>
                             <span>购物车</span>
                             <em v-show='cartItemCount>0'>{{cartItemCount}}</em>
-                        </router-link>
+                        </a>
                     </div>
                     <div class="button-wrap button-wrap-expand">
                         <a class="button addtocart" :class='product.productStatusCd===1?"":"disabled"' id="J_BtnCart" @click='toCart'>加入购物车</a>
@@ -77,7 +76,7 @@
         </div>
         <!-- 弹框选择商品，应该写成组件 -->
         <transition name="slide-fade">
-            <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block">
+            <div v-show="isShowMask" id="J_ASSpec" class="actionsheet-spec" style="display:block;z-index:1000">
                 <div class="close" @click="hideMask()"></div>
                 <div class="prod-info">
                     <div class="pic"><img v-bind:src="picUrls[0]" alt="" /></div>
@@ -133,11 +132,19 @@ export default {
             buyNum: 1,
             isCart: false,
             cartItemCount: 0,
-            isLoading:true,
-            logined:true
+            isLoading: true,
+            logined: true,
+            mask: {}
         }
     },
     methods: {
+        toCartPage() {
+            if (this.logined) {
+                router.push({ name: 'CartItem' })
+            } else {
+                location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
+            }
+        },
         resetBuyData() {
             this.buyNum = 1;
             this.skuIndexs = [0, 0, 0, 0, 0]
@@ -148,7 +155,7 @@ export default {
                     if (res) {
                         this.cartItemCount = res.body
                     }
-                },res =>{
+                }, res => {
                     this.logined = res.status !== 401;
                 })
         },
@@ -156,20 +163,20 @@ export default {
             this.skuIndexs.splice(_skuIndex, 1, _valueIndex);
         },
         toBuy() {
-            if(this.product.productStatusCd!==1){
+            if (this.product.productStatusCd !== 1) {
                 return false;
             }
             this.resetBuyData();
-            this.coverDiv();
+            this.mask.show();
             this.isShowMask = true;
             this.isCart = false;
         },
         toCart() {
-            if(this.product.productStatusCd!==1){
+            if (this.product.productStatusCd !== 1) {
                 return false;
             }
             this.resetBuyData();
-            this.coverDiv();
+            this.mask.show();
             this.isShowMask = true;
             this.isCart = true;
         },
@@ -178,10 +185,10 @@ export default {
                 res => {
                     console.log(res.body)
                     this.logined = res.body;
-                    if(!res.body){
-                        mui.confirm('','请先登录',['确定','取消'],function(e){
-                            if(e.index === 0){
-                                location.href = '/m/login?successUrl='+encodeURIComponent(window.location.href);
+                    if (!res.body) {
+                        mui.confirm('', '请先登录', ['确定', '取消'], function(e) {
+                            if (e.index === 0) {
+                                location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
                             }
                         })
                     }
@@ -192,7 +199,7 @@ export default {
             this.isShowMask = false;
             this.hideMask();
             this.isLogin();
-            if(!this.logined) return false;
+            if (!this.logined) return false;
             this.product.buyNum = this.buyNum;
             this.$store.commit('submitOrder', this.product);
             this.$store.commit('selectSku', this.skuIndexs);
@@ -204,7 +211,7 @@ export default {
             this.isShowMask = false;
             this.hideMask();
             this.isLogin();
-            if(!this.logined) return false;
+            if (!this.logined) return false;
             var params = {
                 productId: this.product.productId,
                 buyNum: this.buyNum
@@ -260,30 +267,9 @@ export default {
                 })
         },
         hideMask() {
-            $("div[class='xucun_content']").hide();
-            var body = document.getElementsByTagName("body");
-            $('#mask').hide()
-            this.isShowMask = false;
-            // $(document).unbind("touchmove");
+            this.mask.close();
         },
-        coverDiv() {
-            var procbg = $('#mask')[0] //首先创建一个div
-            procbg.style.background = "#000000";
-            procbg.style.width = "100%";
-            procbg.style.height = "100%";
-            procbg.style.position = "fixed";
-            procbg.style.top = "0";
-            procbg.style.left = "0";
-            procbg.style.zIndex = "500";
-            procbg.style.opacity = "0.8";
-            procbg.style.filter = "Alpha(opacity=70)";
-            $('#mask').show();
 
-
-            // $(document).bind("touchmove", function(e) {
-            //     e.preventDefault();
-            // });
-        }
     },
     computed: {
 
@@ -322,6 +308,10 @@ export default {
             })
 
         this.countCartItem();
+        var em = this;
+        this.mask = mui.createMask(function() {
+            em.isShowMask = false
+        });
     },
     created: function() {
         this.$store.commit('emptyProductToSubmit');
@@ -335,10 +325,6 @@ export default {
 
     }
 }
-
-$(function() {
-
-})
 
 </script>
 <style type="text/css" scoped="" lang="scss">

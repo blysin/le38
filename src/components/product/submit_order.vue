@@ -163,9 +163,9 @@ export default {
             $('#mask').show();
 
 
-            $(document).bind("touchmove", function(e) {
-                e.preventDefault();
-            });
+            // $(document).bind("touchmove", function(e) {
+            //     e.preventDefault();
+            // });
         },
         toPay($event) {
             if (this.isExpress) {
@@ -184,7 +184,6 @@ export default {
 
         },
         payment() {
-            mui.toast('123')
             var params = {
                 buyNum: this.product.buyNum,
                 productId: this.product.productId,
@@ -208,19 +207,20 @@ export default {
 
             this.$http.post('m/account/orderheader/spaToPay', params).then(res => {
                 console.log(res)
-                if (res.body.result === 'success') {
-                    var appId = res.body.data.appId;
-                    var getWxOpenIdUrl = res.body.data.getWxOpenIdUrl;
-                    var state = res.body.data.orderNumber;
+                if (res.status === 201) {
+                    var appId = res.body.result.appId;
+                    var getWxOpenIdUrl = res.body.result.getWxOpenIdUrl;
+                    var state = res.body.result.orderNumber;
                     window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + appId + "&redirect_uri=" + getWxOpenIdUrl + "&response_type=code&scope=snsapi_base&state=" + state + "#wechat_redirect"
 
+                }
+            }, res => {
+                this.hideMask();
+
+                if (res.status !== 500) {
+                    mui.alert(res.body.error)
                 } else {
-                    this.hideMask();
-                    if (res.status !== 500) {
-                        mui.alert(res.body.error)
-                    } else {
-                        mui.alert('系统出错，请稍候再试')
-                    }
+                    mui.alert('系统出错，请稍候再试')
                 }
             })
         }

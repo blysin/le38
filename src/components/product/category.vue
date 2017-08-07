@@ -100,13 +100,15 @@ export default {
             productList: [],
             page: -1,
             size: 6,
+            mask:{}
         }
     },
     watch: {
         currentId(nVal, oVal) {
-            console.log(nVal + "   " + oVal)
+            // console.log(nVal + "   " + oVal)
             this.initProductList();
             this.jsonData();
+
         }
     },
     methods: {
@@ -126,6 +128,7 @@ export default {
         initProductList() {
             this.page = -1;
             this.productList = [];
+            $('.procucts .mui-scroll').css("transform","translate3d(0px, 0px, 0px)")
         },
         changeId(id, index) {
             this.currentId = id;
@@ -198,7 +201,7 @@ export default {
                                 }
                                 setTimeout(function() {
                                     me.resetload();
-                                }, 1000);
+                                }, 10);
                                 vm.isLoading = false;
                             }
                         })
@@ -211,12 +214,17 @@ export default {
 
     },
     mounted: function() {
-
+        this.mask = mui.createMask();
     },
     created: function() {
+        //判断dropload插件是否生效，如果失效了则刷新页面重新加载
+        $('#page').hide()
         if(!$('.wrap').dropload){
             location.reload();
+        }else{
+            $('#page').show()
         }
+
         var loadjs = require('loadjs');
         var em = this;
         loadjs([
@@ -226,13 +234,18 @@ export default {
         setTimeout(function() {
             mui.init();
             mui.ready(function() {
-                mui('.categorynav .mui-scroll-wrapper').scroll();
-                mui('.procucts .mui-scroll-wrapper').scroll();
-                $(document).bind("touchmove", function(e) {
-                    e.preventDefault();
+                mui('.categorynav .mui-scroll-wrapper').scroll({
+                    indicators: false//滚动条
                 });
+                mui('.procucts .mui-scroll-wrapper').scroll({
+                    bounce: false//回弹
+                });
+
+                // $(document).bind("touchmove", function(e) {
+                //     e.preventDefault();
+                // });
             })
-        }, 1000);
+        }, 800);
 
 
         this.$http.get('m/products/categorys').then(
