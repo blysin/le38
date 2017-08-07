@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.inv-container {
+    width: 320px;
+    min-height: 500px;
+    line-height: 1.5;
+    font-size: 12px;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.inv-container img {
+    max-width: 100%;
+    vertical-align: middle;
+}

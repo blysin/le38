@@ -1,0 +1,25 @@
+#nav { height: 36px; }
+
+.navWrap { width: 100%; height: 34px; border-bottom: 2px solid #bc383d; background: #fff; }
+
+.nav-catalog { width: 1200px; margin: 0 auto -2px auto; height: 36px; }
+
+.catalog-wrap { position: absolute; width: 210px; z-index: 500; }
+
+.catalog-title { height: 36px; line-height: 36px; background-color: #bc383d; padding: 0 20px; font-size: 14px; cursor: pointer; color: #fff; text-align: center; }
+.catalog-title a { color: #fff; display: block; }
+.catalog-title a:hover { color: #fff; }
+.catalog-title span { display: inline-block; background: url(../../images/gbc-titlearrow.png) no-repeat; padding-left: 30px; }
+
+.catalog-block { background: #fff; position: relative; overflow: visible; border: 1px solid #dedcda; border-top: 0; display: none; }
+.catalog-block li { border-top: 1px dotted #d9d6d4; clear: both; padding: 8px 20px; }
+.catalog-block li:first-child { border-top: none; }
+.catalog-block li span { display: block; line-height: 21px; font-weight: bold; }
+.catalog-block li span a { display: block; }
+.catalog-block li p { line-height: 24px; margin-left: -12px; overflow: hidden; }
+.catalog-block li p a { float: left; margin-left: 12px; _display: inline; }
+
+.navigation { margin-left: 210px; height: 34px; line-height: 34px; }
+.navigation li { float: left; font-size: 14px; }
+.navigation li a { display: block; padding: 0 15px; font-size: 14px; white-space: nowrap; color: #3c3c3c; max-width: 84px; overflow: hidden; -ms-text-overflow: ellipsis; text-overflow: ellipsis; }
+.navigation li a:hover { color: #bc383d; }

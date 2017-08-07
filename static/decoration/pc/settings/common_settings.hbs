@@ -1,0 +1,46 @@
+<!--
+{{#if seo}}
+{{#with seo.data}}
+<div class="setting-tab-item" data-setting-title="SEO设置">
+    <div class="setting-body-top">
+        <ul>
+            <li><label><input id="showSeo_checkbox" type="checkbox" data-tag="seo.open" {{#if open}}checked{{/if}}/>&nbsp;开启SEO<span class="auxiliary-text">（与全局SEO会叠加，提高百度搜索）</span></label></li>
+        </ul>
+    </div>
+    <div class="setting-body-in">
+        <div class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">页面标题</label>
+                        <div class="controls control-row-auto">
+                            <input id="seoTitle" type="text" data-tag="seo.title" class="control-text input-large" placeholder="不超过20个字符" value="{{title}}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">页面关键词</label>
+                        <div class="controls control-row-auto">
+                            <textarea id="seoKeywords" data-tag="seo.keywords" style="width: 400px;" placeholder="不超过1000个字符，关键词之间用逗号隔开">{{keywords}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">页面描述</label>
+                        <div class="controls control-row-auto">
+                            <textarea id="seoDescription" data-tag="seo.description" style="width: 400px;" placeholder="不超过1000个字符">{{description}}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/with}}
+{{/if}}-->

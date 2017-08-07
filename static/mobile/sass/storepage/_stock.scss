@@ -1,0 +1,31 @@
+.stockList {width: 100%;overflow: hidden;background-color:$color_white;
+  li {width:100%;padding: 15px;border-bottom: 1px solid $border-color;float: left;
+    .hd {width: 100%;overflow: hidden;
+      .pic {width:60px;height:60px;background-repeat: no-repeat;background-position: center;background-size: cover;float: left;}
+      .info {margin-left:70px;
+        h3 {height: 36px;line-height:18px;overflow: hidden;margin-bottom: 3px;}
+        p {color: $color_grey6;
+          span {display: inline-block;}
+        }
+      }
+    }
+    .bd {width: 100%;overflow: hidden;padding-top: 15px;
+      p {width: 50%;float: left;line-height: 24px;
+        span {display: block;color: $color_grey6;}
+        em {font-size:16px;@include overflow-ellipsis();}
+      }
+    }
+  }
+}
+
+.searchdate {padding: 10px;background: $color_white;overflow: hidden;
+  &.boder {border-bottom: 1px solid $color_border;}
+  .hd {margin-right: 70px;@include display-flex();
+    p {@include flex(1);}
+    span {display: block;padding: 0 5px;line-height: 34px;}
+    input {@include border-radius(6px);}
+  }
+  .bd {float: right;width:60px;
+    .mui-btn-block {margin-bottom: 0;line-height: 34px;padding:0 6px;font-size: 14px;}
+  }
+}

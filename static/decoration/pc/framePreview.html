@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>PC首页装修</title>
+    <link rel="stylesheet" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../css/storeinstore.css"/>
+    <link rel="stylesheet" href="../../css/frames.css"/>
+    <link rel="stylesheet" href="css/decoration.css"/>
+</head>
+<body>
+<div class="dcm-page">
+    <div class="dcm-header">
+        <div class="dcm-logo"><img src="images/logo.png" alt="PC模板中心"/><span>- 框架</span></div>
+        <div class="dcm-logo-extra"><a href="#">&lt;返回我的框架</a></div>
+        <div class="dcm-header-btns">
+            <a id="J_btn_global" href="javascript:void(0)">全局设置</a>
+            <a class="btn-close" id="J_btn_close" href="javascript:void(0)">✕</a>
+        </div>
+    </div>
+    <div class="dcm-container dcm-container-framepreview">
+        <div class="dcm-main dcm-main-frameset">
+
+            <div class="dcm-frame-preview-wrap">
+                <div class="dcm-frame-preview">
+                    <div class="frame-preview-list">
+
+                        <div class="frm-preview-item">
+                            <div class="frm-preview-tit"><span>首页框架</span></div>
+                            <div class="frm-preview-box">
+                                <div class="frm-preview-box-page" data-frame-id="frame_index"></div>
+                            </div>
+                        </div>
+
+                        <div class="frm-preview-item">
+                            <div class="frm-preview-tit"><span>登录页框架</span></div>
+                            <div class="frm-preview-box">
+                                <div class="frm-preview-box-page" data-frame-id="frame_login"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="frm-preview-item">
+                            <div class="frm-preview-tit"><span>列表页框架</span></div>
+                            <div class="frm-preview-box">
+                                <div class="frm-preview-box-page" data-frame-id="frame_list"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="frm-preview-item">
+                            <div class="frm-preview-tit"><span>商品详情页框架</span></div>
+                            <div class="frm-preview-box">
+                                <div class="frm-preview-box-page" data-frame-id="frame_detail"></div>
+                            </div>
+                        </div>
+
+                        <div class="frm-preview-item">
+                            <div class="frm-preview-tit"><span>个人微店首页框架</span></div>
+                            <div class="frm-preview-box">
+                                <div class="frm-preview-box-page" data-frame-id="frame_myshop"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../js/require.js"></script>
+<script>
+    var editUrl = "frameEdit.html";
+    var frameConfigUrl = "config/frameConfig.json";
+    require.config({
+        baseUrl: '../../js'
+    });
+    require(["decoration/config"], function () {
+        require(["decoration/pc/framePreview"]);
+    });
+</script>
+</html>

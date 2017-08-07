@@ -1,0 +1,22 @@
+.inboxlist {padding: 0 12px;overflow: hidden;
+  li {width: 100%;float: left;margin-bottom: 7px;}
+  .time {text-align: center;padding:15px 0;
+    span {height: 22px;line-height: 22px;padding: 0 15px;background-color: #bcc1cc;color: $color_white;display: inline-block;@include border-radius(12px);}
+  }
+  .itmes {background-color: $color_white;@include border-radius(6px);width: 100%;
+    .hd {padding: 9px;
+      a {padding: 9px;margin: -9px;display: block;}
+      .img {width: 100%;height: 160px;background-repeat: no-repeat;background-position: center;background-size: cover;}
+      p {padding-top:10px;font-size: 16px;}
+    }
+    .bd {padding:10px 0;overflow: hidden;border-top:1px solid $border-color;}
+  }
+}
+/*edit-bar*/
+.edit-bar {float: right;line-height: 20px;}
+.edit-bar a {display: inline-block;vertical-align: top;border-left: 1px solid #eee;height: 20px;line-height: 20px;padding: 0 10px;font-size: 12px;
+  &:first-child {border-left:none;}
+}
+.edit-bar .ico {width: 20px;height: 20px;margin-right: 5px;line-height: 20px;vertical-align: top;position: relative;text-align: center;display: inline-block;}
+.ico-edit:before {content: "\e634";font-size: 18px;}
+.ico-delete:before {content: "\e635";font-size: 18px;}

@@ -1,0 +1,14 @@
+.messageList {padding: 0 12px;overflow: hidden;
+  li {width: 100%;float: left;margin-bottom: 7px;
+    a {display: block;}
+  }
+  .time {text-align: center;padding:15px 0;
+    span {height: 22px;line-height: 22px;padding: 0 15px;background-color: #bcc1cc;color: $color_white;display: inline-block;@include border-radius(12px);}
+  }
+  .items {background-color: $color_white;@include border-radius(6px);width: 100%;padding:15px 15px 0 15px;
+    p {line-height: 22px;padding-bottom: 10px;font-size: 16px;}
+    span {padding:10px 40px 10px 0;overflow: hidden;border-top:1px solid $color_grey_bg;display: block;color: $color_grey6;position: relative;font-size: 12px;
+      &:before{ position: absolute; content: "\e60a"; width:28px; height:20px; line-height:20px; text-align: right; right: 6px; top: 50%; margin-top: -10px; color: #ccc; font-size:26px;font-family: iconfont;}
+    }
+  }
+}

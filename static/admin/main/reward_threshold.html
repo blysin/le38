@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="content-body">
+        <form class="form-horizontal" method="post">
+            <div class="title-text">折上折</div>
+            <div class="round-title">
+                是否允许折上折：
+                <label class="radio">
+                    <input type="radio" name="active" value="1" checked="checked" />是
+                </label>
+                &nbsp;&nbsp;
+                <label class="radio">
+                    <input type="radio" name="active" value="0" />否
+                </label>
+                <div class="tips tips-small tips-info tips-no-icon bui-inline-block offset1">
+                    <div class="tips-content">这对会员折扣</div>
+                </div>
+            </div>
+            <hr>
+            <div class="title-text">微店返利限制</div>
+            <div class="round-title">
+                积分/红包/购酒券/优惠券抵扣额返利最高：<input type="text" value="" class="input-small control-text">元给予奖励,如不限制订单金额请放空
+            </div>
+            <hr>
+            <div class="title-text">奖励门槛</div>
+            <div class="round-title">
+                首单金额需达到：<input type="text" value="" class="input-small control-text">元给予奖励,如不限制订单金额请放空
+            </div>
+            <hr>
+            <div class="title-text">奖励上限设置</div>
+            <div class="round-title">
+                发展会员奖励：每个推广会员每个月发展会员可获得的奖励不超过：<input type="text" value="" class="input-small control-text">元/积分
+            </div>
+            <div class="round-title">
+                发展分销返利：每个推广会员每个月所获得的返利不超过：<input type="text" value="" class="input-small control-text">元
+            </div>
+            <div class="round-title">
+                首单奖励：每个推广会员每个月最多获得首单奖励不超过：<input type="text" value="" class="input-small control-text">元
+            </div>
+            <div class="round-title">
+                商品佣金：每个推广会员每个月推广自己店铺商品所获得的佣金不超过：<input type="text" value="" class="input-small control-text">元
+            </div>
+            <div class="round-title">
+                商品URL返利：每个推广会员每个月推广商品获得返利不超过：<input type="text" value="" class="input-small control-text">元
+            </div>
+            <div class="round-title">
+                下级微店主返利：每个推广会员每个月获得下级微店的分销返利不超过：<input type="text" value="" class="input-small control-text">元
+            </div>
+            <hr>
+            <div class="title-text">获取积分上限设置</div>
+            <div class="round-title">
+                用户在：
+                <input type="text" class="calendar control-text">
+                <span class="mr5">至</span>
+                <input type="text" class="calendar control-text">
+                最高可获取
+                <input type="text" value="" class="input-small control-text">积分
+            </div>
+            <div class="actions-bar">
+                <button type="submit" class="button button-primary">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script>
+    BUI.use('bui/calendar',function(Calendar){
+        var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            //delegateTrigger : true, //如果设置此参数，那么新增加的.calendar元素也会支持日历选择
+            autoRender : true,
+            align :{
+                node: 'trigger',     // 参考元素, falsy 或 window 为可视区域, 'trigger' 为触发元素, 其他为指定元素
+                points: ['tl','tl'], // ['tr', 'tl'] 表示 overlay 的 tl 与参考节点的 tr 对齐
+                offset: [0, 30]    // 有效值为 [n, m]
+            }
+        });
+    });
+</script>
+</body>
+</html>  

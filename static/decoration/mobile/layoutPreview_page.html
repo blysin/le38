@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>手机首页预览</title>
+    <link rel="stylesheet" href="../../mobile/css/global.css"/>
+    <link rel="stylesheet" href="../../mobile/css/mobile.css"/>
+    <link rel="stylesheet" href="../../mobile/css/frames.css"/>
+    <link rel="stylesheet" href="../../mobile/css/module.css"/>
+</head>
+<body class="PagePreview">
+<div id="page" class="page-index">
+   <!-- <div data-frame="index_head"></div>-->
+    <div class="container">
+        <div class="containerwrap">
+
+        </div>
+        <!--<div data-frame="global_foot"></div>-->
+    </div>
+    <div data-frame="menu"></div>
+    <div data-frame="customer_service"></div>
+</div>
+</body>
+
+<script src="/static/mobile/js/zepto.js"></script>
+<script src="/static/mobile/js/gmu.js"></script>
+<script src="/static/js/require.js"></script>
+<script>
+    var args = {};
+    (function () {
+        var result = {},
+                params = location.search && location.search.substring(1),
+                arr = params.split("&");
+        for(var i = 0; i < arr.length; i++){
+            var t = arr[i].split("=");
+            result[t[0]] = t[1];
+        }
+        args = result;
+    })();
+
+    var frameConfigUrl = "config/frameConfig.json";
+    var layoutData = [
+        {
+            "id":"mod_1",
+            "type": "auxiliary_announcement",
+            "data":{
+                "type":"8",
+                "direction":"right",
+                "content":"1公告内容公告公公告内容公告公公告内容公告公公告内2"
+            }
+        },
+        {
+            "id":"mod_2",
+            "type": "nav_grid-four",
+            "data":{
+                "color": "#ffffff",
+                "bgcolor" : "#8ed901",
+                "list" : [
+                    {"isImage":true,"content":"../../images/goodspic.jpg","title":"导航1","link":{"category":"no","isNew":false}},
+                    {"isImage":true,"content":"../../images/goodspic.jpg","title":"导航2","link":{"category":"no","isNew":false}},
+                    {"isImage":true,"content":"../../images/goodspic.jpg","title":"导航3","link":{"category":"no","isNew":false}},
+                    {"isImage":true,"content":"../../images/goodspic.jpg","title":"导航4","link":{"category":"no","isNew":false}}
+                ]
+            }
+        },
+        {
+            "id":"mod_3",
+            "type": "imgtxt_l1r2a",
+            "data":{
+                "type": 1,
+                "list" : [
+                    {"img":"../../images/goodspic.jpg","link":{"category":"no","isNew":false}},
+                    {"img":"../../images/goodspic.jpg","link":{"category":"no","isNew":false}},
+                    {"img":"../../images/goodspic.jpg","link":{"category":"no","isNew":false}}
+                ]
+            }
+        },
+        {
+            "id":"mod_4",
+            "type": "imgtxt_col3",
+            "data":{
+                "list" : [
+                    {"img":"../../images/goodspic.jpg","link":{"category":"no","isNew":false}},
+                    {"img":"../../images/goodspic.jpg","link":{"category":"no","isNew":false}},
+                    {"img":"../../images/goodspic.jpg","link":{"category":"no","isNew":false}}
+                ]
+            }
+        }
+    ];
+    require.config({
+        baseUrl: '../../js'
+    });
+    require(["decoration/config"], function () {
+        require(["decoration/mobile/layoutPreview"]);
+    });
+</script>
+</html>

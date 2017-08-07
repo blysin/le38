@@ -1,0 +1,113 @@
+{{#if customer_service}}
+    {{#with customer_service.data}}
+        <div class="setting-tab-item" data-setting-title="客服设置">
+            <div class="setting-body-top">
+                <ul>
+                    <li><label><input id="showService_checkbox" type="checkbox" data-tag="customer_service.show" {{#if show}}checked{{/if}}/>&nbsp;显示客服</label></li>
+                </ul>
+            </div>
+            <div class="setting-body-in">
+                <div class="form-horizontal">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">设置客服</label>
+                                <div class="controls control-row-auto">
+                                    <input type="text" id="qq_account" data-tag="customer_service.account" class="control-text" placeholder="QQ号码" value="{{account}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-vertical">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">选择客服样式</label>
+                                <div class="controls control-row-auto">
+                                    <div class="select-customer-service">
+                                        <ul>
+                                            <li>
+                                                <label>
+                                                    <input data-tag="customer_service.style" name="service-style" type="radio" value="1" {{#ifCond style '==' 1}}checked{{/ifCond}}/>
+                                                    <strong>客服样式 1</strong>
+                                                </label>
+                                                <span class="service-icon service-icon-1"></span>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    <input data-tag="customer_service.style" name="service-style" type="radio" value="2" {{#ifCond style '==' 2}}checked{{/ifCond}}/>
+                                                    <strong>客服样式 2</strong>
+                                                </label>
+                                                <span class="service-icon service-icon-2"></span>
+                                            </li>
+                                        </ul>
+                                        <ul>
+                                            <li>
+                                                <label>
+                                                    <input data-tag="customer_service.style" name="service-style" type="radio" value="0" {{#ifCond style '==' 0}}checked{{/ifCond}}/>
+                                                    <strong>自定义客服样式</strong>
+                                                </label>
+                                        <span class="service-icon service-icon-custom service-ico-add">
+                                            <span class="img">{{#if customIcon}}<img src="{{customIcon}}">{{else}}+{{/if}}</span>
+                                            <input type="hidden" data-tag="customer_service.customIcon" name="customIcon" value="{{customIcon}}">
+                                        </span><span class="auxiliary-text">建议上传图片尺寸60x60像素</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/with}}
+{{/if}}
+
+<!--
+{{#if seo}}
+    {{#with seo.data}}
+        <div class="setting-tab-item" data-setting-title="SEO设置">
+            <div class="setting-body-top">
+                <ul>
+                    <li><label><input id="showSeo_checkbox" data-tag="seo.open" type="checkbox"{{#if open}}checked{{/if}}/>&nbsp;开启SEO<span class="auxiliary-text">（与全局SEO会叠加，提高百度搜索）</span></label></li>
+                </ul>
+            </div>
+            <div class="setting-body-in">
+                <div class="form-horizontal">
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">页面标题</label>
+                                <div class="controls control-row-auto">
+                                    <input id="seoTitle" type="text" data-tag="seo.title" class="control-text input-large" placeholder="不超过20个字符" value="{{title}}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">页面关键词</label>
+                                <div class="controls control-row-auto">
+                                    <textarea id="seoKeywords" data-tag="seo.keywords" style="width: 400px;" placeholder="不超过1000个字符，关键词之间用逗号隔开">{{keywords}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span24">
+                            <div class="control-group">
+                                <label class="control-label">页面描述</label>
+                                <div class="controls control-row-auto">
+                                    <textarea id="seoDescription" data-tag="seo.description" style="width: 400px;" placeholder="不超过1000个字符">{{description}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/with}}
+{{/if}}-->

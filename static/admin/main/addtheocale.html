@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <ul class="breadcrumb">
+            <li><a href="#">微店返利设置</a> <span class="divider">&gt;&gt;</span></li>
+            <li class="active">新增返利规则</li>
+        </ul>
+    </div>
+
+    <div class="content-body">
+        <form class="form-horizontal search-form" method="get">
+            <div class="row mb10">
+                <div class="control-group">
+                    <div class="controls  control-row-auto ml0">
+                        <select class="mr5">
+                            <option>大区</option>
+                        </select>
+                        <select class="mr5">
+                            <option>分公司</option>
+                        </select>
+                        <select class="mr5">
+                            <option>办事处</option>
+                        </select>
+                        <button class="button button-primary">添加</button>
+                    </div>
+                </div>
+            </div>
+            <table class="datatb">
+                <tbody>
+                <tr>
+                    <th class="tal">大区</th>
+                    <th class="tal">分公司</th>
+                    <th class="tal">办事处</th>
+                </tr>
+                <tr>
+                    <td class="tal">商城1</td>
+                    <td class="tal">线下品鉴会</td>
+                    <td class="tal">线下品鉴会</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="control-group control-row-auto">
+                    <div class="controls ml0">
+                        有效时间：
+                        <input type="text" class="calendar control-text">
+                        <span class="mr5">至</span>
+                        <input type="text" class="calendar control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group control-row-auto">
+                    <div class="controls ml0">
+                        佣金比例：
+                        <input type="text" class="input-normal control-text">
+                        %
+                    </div>
+                </div>
+            </div>
+            <div class="row form-actions actions-bar">
+                <div class="span13">
+                    <button type="submit" class="button button-primary">保存</button>
+                    <button type="reset" class="button">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script>
+    BUI.use('bui/calendar',function(Calendar){
+        var datepicker = new Calendar.DatePicker({
+            trigger:'.calendar',
+            //delegateTrigger : true, //如果设置此参数，那么新增加的.calendar元素也会支持日历选择
+            autoRender : true,
+            align :{
+                node: 'trigger',     // 参考元素, falsy 或 window 为可视区域, 'trigger' 为触发元素, 其他为指定元素
+                points: ['tl','tl'], // ['tr', 'tl'] 表示 overlay 的 tl 与参考节点的 tr 对齐
+                offset: [0, 30]    // 有效值为 [n, m]
+            }
+        });
+    });
+</script>
+</body>
+</html>  

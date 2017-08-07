@@ -1,0 +1,13 @@
+.addadministration {width:100%;display:block;background-color: $color_white;line-height: 50px;padding: 0 15px;border-bottom: 1px solid $border-color;
+  i {width: 35px;height:50px;display: inline-block;vertical-align: middle;
+    &:after {color:$public-color;content: "\e6d1";font-family: iconfont;font-size: 26px;}
+  }
+}
+.mui-btn-pink {
+  color: #fff;
+  border: 1px solid #fd548d;
+  background-color: #fd548d;
+}
+.mui-btn-pink a {color: #FFF;display: block;padding: 0 30px;margin: 0 -30px;}
+.messagelist {@include overflow-ellipsis();}
+.administrationimg {width: 100%;height: 90px;background: url(../images/administration_icopng.png) center no-repeat;background-size: 90px auto;}

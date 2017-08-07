@@ -1,0 +1,21 @@
+.wallettop {background-color: $color_white;padding:15px;border-bottom: 1px solid $color_border;position: relative;
+  p {
+    em {@include overflow-ellipsis();}
+    span {display: block;float: right;
+      a {color: $color_blue;}
+    }
+  }
+  h3 {font-size: 24px;color: $public-color;}
+  a.btn {height: 30px;line-height:30px;padding: 0 20px 0 35px;position: absolute;right:0;top:39px;background-color:$public-color;color: $color_white;@include border-radius(15px 0 0 15px);
+    &:before {content:'\e7f8';position: absolute;left:6px;top:0;font-size: 24px;}
+    &:after {content:'\e60a';width:20px;text-align:center;position: absolute;right:0;top:0;}
+  }
+}
+
+.wallet-integral-list {width: 100%;background-color: $color_white;margin-bottom: 10px;overflow: hidden;
+  li {width: 50%;float: left;border-bottom:1px solid $color_border;}
+  .items {border-left:1px solid $color_border;margin:10px 0 10px -1px;padding: 0 15px;}
+  p,span {@include overflow-ellipsis();}
+  p {color:$color_grey6;padding: 2px 0;font-size: 12px;}
+  span {display: block;font-size: 16px;font-weight: bold;}
+}

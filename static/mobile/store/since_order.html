@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自提订单</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/store.css" />
+    <script type="text/javascript" src="../js/zepto.js"></script>
+    <script type="text/javascript" src="../js/mui.min.js"></script>
+    <script type="text/javascript" src="../js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">自提订单</h1>
+        <a class="mui-icon"></a>
+    </header>
+    <div class="mui-content">
+        <div class="wrap">
+            <div class="orderList">
+                <ul>
+                    <!--<li>
+                        <div class="t"><span>待发货</span><p>2017-07-27 18:18</p></div>
+                        <div class="itemsWrap">
+                            <a href="shipment_pending_order.html">
+                                <div class="items">
+                                    <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                                    <div class="info">
+                                        <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                        <p class="specifications">50ML</p>
+                                        <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                                    <div class="info">
+                                        <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                        <p class="specifications">50ML</p>
+                                        <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <p class="ft">共2件商品，合计：<span>￥1154.00</span></p>
+                    </li>
+                    <li>
+                        <div class="t"><span>待收货</span><p>2017-07-27 18:18</p></div>
+                        <div class="itemsWrap">
+                            <a href="received_order.html">
+                                <div class="items">
+                                    <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                                    <div class="info">
+                                        <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                        <p class="specifications">50ML</p>
+                                        <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                                    <div class="info">
+                                        <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                        <p class="specifications">50ML</p>
+                                        <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <p class="ft">共2件商品，合计：<span>￥1154.00</span></p>
+                    </li>
+                    <li>
+                        <div class="t"><span>已完成</span><p>2017-07-27 18:18</p></div>
+                        <div class="itemsWrap">
+                            <a href="completed_order.html">
+                                <div class="items">
+                                    <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                                    <div class="info">
+                                        <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                        <p class="specifications">50ML</p>
+                                        <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="img" style="background-image: url(../images/pic.jpg);"></div>
+                                    <div class="info">
+                                        <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
+                                        <p class="specifications">50ML</p>
+                                        <p class="price"><span>x1</span><em>￥1290.00</em></p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <p class="ft">共2件商品，合计：<span>￥1154.00</span></p>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/dropload.js"></script>
+<script>
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+        // dropload
+        $('.wrap').dropload({
+            scrollArea : window,
+            domDown : {
+                domClass   : 'dropload-down',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData  : '<div class="dropload-noData">暂无数据</div>'
+            },
+            loadDownFn : function(me){
+                page++;
+                // 拼接HTML
+                $.ajax({
+                    type: 'GET',
+                    url: '../json/sinceorderList.json?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.lists.length;
+                        if(arrLen > 0){
+                            var result="";
+                            for(var i=0; i<data.lists.length; i++){
+                                result += '<li><div class="t"><span>'+data.lists[i].state+'</span><p>'+data.lists[i].time+'</p></div>';
+                                result += '<div class="itemsWrap"><a href="'+data.lists[i].url+'">';
+                                for(var t=0; t<data.lists[i].items.length; t++) {
+                                    result +=   '<div class="items">' +
+                                            '<div class="img" style="background-image: url('+data.lists[i].items[t].img+');"></div>' +
+                                            '<div class="info">' +
+                                            '<h3>'+data.lists[i].items[t].name+'</h3>' +
+                                            '<p class="specifications">'+data.lists[i].items[t].describe+'</p>' +
+                                            '<p class="price"><span>x'+data.lists[i].items[t].num+'</span><em>￥'+data.lists[i].items[t].price+'</em></p></div>' +
+                                            '</div>';
+                                }
+                                result += '</a></div>';
+                                result += '<p class="ft">共'+data.lists[i].goodsnum+'件商品，合计：<span>￥'+data.lists[i].totalReal+'</span></p>';
+                                result +='</li>';
+                            }
+                        }else{
+                            me.lock();
+                            me.noData();
+                        }
+                        setTimeout(function(){
+                            $('.orderList ul').append(result);
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        me.resetload();
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

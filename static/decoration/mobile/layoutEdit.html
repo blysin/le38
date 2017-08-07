@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>手机首页装修</title>
+    <link rel="stylesheet" href="../../mobile/css/global.css"/>
+    <link rel="stylesheet" href="../../mobile/css/mobile.css"/>
+    <link rel="stylesheet" href="../../mobile/css/frames.css"/>
+    <link rel="stylesheet" href="../../mobile/css/module.css"/>
+    <link rel="stylesheet" href="css/decoration.css"/>
+    <link rel="stylesheet" href="/static/js/ztree/3.5.12/css/romaTree/zTreeStyle.css"/>
+    <link rel="stylesheet" href="/static/js/jsGrid/jsgrid.css"/>
+</head>
+<body>
+<div class="dcm-page">
+    <div class="dcm-header">
+        <div class="dcm-logo"><img src="images/logo.png" alt="手机模板中心"/></div>
+        <div class="dcm-logo-extra"><a href="#">&lt;重新选择模板</a></div>
+        <div class="dcm-header-btns">
+            <a id="J_btn_save" href="javascript:void(0)">保存</a>
+            <a id="J_btn_publish" href="javascript:void(0)">发布</a>
+        </div>
+    </div>
+    <div class="dcm-container">
+        <div class="dcm-sidebar">
+            <div class="dcm-side-menu">
+                <!--<div class="dcm-side-menu-item">
+                    <div class="dcm-side-menu-item-wrap">
+                        <div class="dcm-side-menu-title"><span class="title-txt">导入预设模板</span></div>
+                    </div>
+                </div>-->
+
+            </div>
+        </div>
+        <div class="dcm-main">
+            <div class="dcm-preview-wrap">
+                <div class="dcm-preview">
+                    <div class="dcm-preview-box">
+                        <div class="dcm-preview-box-page">
+                            <!--<div data-frame="index_head"></div>-->
+                            <div class="container">
+                                <div class="containerwrap">
+
+                                </div>
+                                <!--<div data-frame="global_foot"></div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dcm-preview-btn">
+                        <a href="javascript:void(0)">预览页面</a>
+                    </div>
+                </div>
+            </div>
+            <div class="dcm-setting-wrap">
+                <div class="dcm-setting">
+                    <div class="dcm-setting-title">
+                        当前控件 ： <span class="title-txt"></span>
+                    </div>
+                    <div class="dcm-setting-body">
+                        <div class="setting-body-in"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="../../mobile/js/zepto.js"></script>
+<script src="../../mobile/js/mui.min.js"></script>
+<script src="../../js/require.js"></script>
+<script>
+    var args = {};
+    (function () {
+        var result = {},
+                params = location.search && location.search.substring(1),
+                arr = params.split("&");
+        for(var i = 0; i < arr.length; i++){
+            var t = arr[i].split("=");
+            result[t[0]] = t[1];
+        }
+        args = result;
+    })();
+
+    var frameConfigUrl = "config/frameConfig.json";
+    var getLinkUrl = "config/linksData.json";
+    var activityDataUrl = "config/activityData.json";
+    var layoutDataUrl = "config/layoutData.json";
+    var goodsCategoryDataUrl = /*"/admin/layoutManage/getGoodsCategory";*/"/static/decoration/mobile/config/goodsCategoryData.json";
+    var goodsListDataUrl = /*"/admin/layoutManage/getGoodsList";*/"/static/decoration/mobile/config/goodsListData.json";
+    window.UEDITOR_HOME_URL = "../../admin/js/ueditor/";
+    require.config({
+        baseUrl: '/static/js'
+    });
+    require(["decoration/config"], function () {
+        require(["decoration/mobile/layoutEdit"]);
+    });
+</script>
+</html>

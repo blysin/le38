@@ -1,0 +1,19 @@
+{
+  "lists":[
+    {
+      "img":"../images/goodspic.jpg",
+      "name":"商品名称商品名称商品名称商品名称商品名称商品名…",
+      "specifications": ["30ML", "50ML", "70ML", "100ML"],
+      "currentinventory":"6800",
+      "warninginventory":"10"
+    },
+    {
+      "img":"../images/goodspic.jpg",
+      "name":"商品名称商品名称商品名称商品名称商品名称商品名…",
+      "specifications": ["30ML", "50ML"],
+      "currentinventory":"49",
+      "warninginventory":"50",
+      "warning":true
+    }
+  ]
+}

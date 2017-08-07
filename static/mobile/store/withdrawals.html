@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提现</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/store.css" />
+    <script type="text/javascript" src="../js/zepto.js"></script>
+    <script type="text/javascript" src="../js/mui.min.js"></script>
+    <script type="text/javascript" src="../js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">提现</h1>
+        <a class="mui-icon" href="cash_register.html"><span>历史</span></a>
+    </header>
+    <div class="mui-content">
+        <div class="prompt-text alignleft">提现需要收取0.6%税点</div>
+        <div class="withdrawalsWrap mb10">
+            <div class="restform">
+                <ul>
+                    <li>
+                        <div class="hd">提现积分</div>
+                        <div class="bd">
+                            <div class="info">
+                                <div class="input-wrap"><input type="number" placeholder="请输入您要的提现积分"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <p class="canbe">可提金额：<i>260.00</i>元</p>
+            <div class="tbviewlist">
+                <ul>
+                    <li>
+                        <a class="itemlink" href="select_bank.html">
+                            <div class="r">中国工商银行</div>
+                            <div class="c">选择银行</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="restform">
+                <ul>
+                    <li>
+                        <div class="hd w2">卡号</div>
+                        <div class="bd">
+                            <div class="info">
+                                <div class="input-wrap"><input type="number" placeholder="请输入卡号"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="hd w2">姓名</div>
+                        <div class="bd">
+                            <div class="info">
+                                <div class="input-wrap"><input type="text" placeholder="请输入银行卡绑定的真实姓名"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="hd w2">手机</div>
+                        <div class="bd">
+                            <div class="info">
+                                <div class="input-wrap"><input type="number" placeholder="请输入银行卡绑定手机号"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="borderbox">
+            <p class="title colorblack">提现密码</p>
+            <div class="orderinfo">
+                <p>您还未设置提现密码，为保障账户资金安全，<br>请先<a href="#">设置提现密码</a>！</p>
+            </div>
+            <div class="orderinfo textcenter">
+                <p>请输入提现密码进行验证！</p>
+                <div class="pwd-box">
+                    <input type="tel" maxlength="6" class="pwd-input" id="pwd-input">
+                    <div class="fake-box">
+                        <input type="password" readonly="">
+                        <input type="password" readonly="">
+                        <input type="password" readonly="">
+                        <input type="password" readonly="">
+                        <input type="password" readonly="">
+                        <input type="password" readonly="">
+                    </div>
+                </div>
+                <div class="clear">清空密码</div>
+            </div>
+
+        </div>
+        <div class="btnbar mlr10">
+            <button class="mui-btn mui-btn-block mui-btn-primary">提交申请</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        var $input = $(".fake-box input");
+        $("#pwd-input").on("input", function() {
+            var pwd = $(this).val().trim();
+            for (var i = 0, len = pwd.length; i < len; i++) {
+                $input.eq("" + i + "").val(pwd[i]);
+            }
+            $input.each(function() {
+                var index = $(this).index();
+                if (index >= len) {
+                    $(this).val("");
+                }
+            });
+            if (len == 6) {
+                //执行其他操作
+            }
+        });
+    })
+</script>
+
+</body>
+</html>

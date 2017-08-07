@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>手机首页装修</title>
+    <link rel="stylesheet" href="css/decoration.css"/>
+</head>
+<script>
+    var args = {};
+    (function () {
+        var result = {},
+                params = location.search && location.search.substring(1),
+                arr = params.split("&");
+        for(var i = 0; i < arr.length; i++){
+            var t = arr[i].split("=");
+            result[t[0]] = t[1];
+        }
+        args = result;
+    })();
+
+    var url = "layoutPreview_page.html?type="+args.type+"&layoutId="+args.layoutId;
+</script>
+<body>
+<div class="dcm-page">
+    <div class="dcm-preview preview-page">
+        <div class="dcm-preview-box">
+            <div class="dcm-preview-box-page">
+                <iframe id="J_Iframe" frameborder="0" ></iframe>
+            </div>
+        </div>
+        <div class="dcm-preview-btn">
+            <!--<a href="javascript:void(0)">立刻使用</a>-->
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    document.getElementById("J_Iframe").src = url;
+</script>
+</html>

@@ -1,0 +1,39 @@
+.writeoffsearch {padding: 10px;margin-bottom: 10px;background-color: $color_dark;@include display-flex();
+  .input {@include flex(1);margin-right: 10px;
+    input {height: 40px;line-height: 40px;@include border-radius(6px);border:none;}
+  }
+  .mui-btn-block {margin-bottom: 0;width: 90px;height: 40px;line-height: 40px;padding: 0;}
+}
+.writeoffgoods {background-color: $color_white;margin-bottom: 10px;
+  .state {padding: 10px 22px;line-height: 26px;border-bottom: 1px solid $border-color;
+    h3 {font-weight: bold;}
+    p {font-size: 12px;
+      span {float: right;color: $public-color;font-weight: bold;display: block;margin-left: 20px;}
+      em {@include overflow-ellipsis();}
+    }
+  }
+  .wares {margin: 0 22px;overflow: hidden;border-bottom:1px solid $border-color;
+    h3 {line-height: 40px;color: $color_grey6;}
+    li {width: 100%;overflow: hidden;margin-bottom: 10px;
+      .pic {width: 55px;height: 55px;border:1px solid $border-color;background-repeat: no-repeat;background-position: center;background-size: cover;float: left;}
+      .info {margin-left:68px;
+        p {line-height:24px;overflow: hidden;
+          span {float: right;display: block;}
+          em {display: block;@include overflow-ellipsis();}
+        }
+      }
+    }
+  }
+  .paymentinfo {line-height: 40px;padding: 0 22px;overflow: hidden;
+    span {float: right;display: block;
+      i {font-size: 18px;}
+    }
+    em {display: block;@include overflow-ellipsis();}
+  }
+  .waresinfo {padding:10px 22px;background: $color_white;overflow: hidden;border-top:1px solid $border-color;border-bottom:1px solid $border-color;
+    li {width:100%;line-height: 26px;float: left;display: block;@include display-flex;color: $color_grey6;
+      p {min-width:70px;}
+      span {display: block;@include flex(1);}
+    }
+  }
+}

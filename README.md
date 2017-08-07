@@ -1,17 +1,17 @@
 # le38_2
 
-> 乐38商品模块
+> 乐38
 
 ## 安装方法
 
 ``` bash
-# install dependencies
+# install dependencies 安装
 npm install
 
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:8080 运行
 npm run dev
 
-# build for production with minification
+# build for production with minification 打包编译
 npm run build
 
 # build for production and view the bundle analyzer report
@@ -22,3 +22,17 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 
 
+项目中用到的一些第三方插件，可能需要自行安装：
+
+-   n-zepto：轻量级jQuery
+-   loadjs：延迟加载js文件，解决一些插件和zepto动画问题
+
+
+
+Git提交方法：
+
+-   查看状态：git status
+-   提交所有文件到缓冲区：git add .
+-   提交文件：git commit -m '备注' 
+-   可以用次命令代替以上二者：git commit -a -m '备注'
+-   推送到GitHub：git push origin master

@@ -1,0 +1,335 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div id="tab">
+
+        </div>
+    </div>
+    <div class="content-body">
+        <div class="title-bar-side">
+            <div class="search-bar">
+                <form>
+                    <input class="control-text" type="text" placeholder="手机"/>
+                    <button></button>
+                </form>
+            </div>
+            <div class="search-content">
+                <form id="searchForm" class="form-horizontal search-form">
+                    <div class="row">
+                        <div class="control-group span8">
+                            <label class="control-label">微店主手机号：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group span8">
+                            <label class="control-label">微店名称：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group span8">
+                            <label class="control-label">上级微店主手机号：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group span8">
+                            <label class="control-label">所属大区：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group span8">
+                            <label class="control-label">所属分公司：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group span8">
+                            <label class="control-label">所属办事处：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="control-group span8">
+                            <label class="control-label">微店主状态：</label>
+                            <div class="controls">
+                                <input type="text" name="a" class="control-text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-actions offset3">
+                            <button id="btnSearch" type="submit" class="button button-primary">搜索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="grid"></div>
+    </div>
+
+
+    <div id="bulkChanges" class="hide">
+        <div class="form-horizontal">
+            <div class="form-content">
+                <div class="row">
+                    <div class="control-group">
+                        <label class="control-label">所属大区：</label>
+                        <div class="controls">
+                            <select name="categoryIdSet" >
+                                <option value="1"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group">
+                        <label class="control-label">所属办事处：</label>
+                        <div class="controls">
+                            <select name="categoryIdSet" >
+                                <option value="1"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group">
+                        <label class="control-label">所属分公司：</label>
+                        <div class="controls">
+                            <select name="categoryIdSet" >
+                                <option value="1"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group">
+                        <label class="control-label">返利：</label>
+                        <div class="controls control-row-auto">
+                            <input class="input-small control-text">元
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group">
+                        <label class="control-label">或</label>
+                        <div class="controls control-row-auto">
+                            <input class="input-small control-text">%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript">
+    var Tab = BUI.Tab;
+    var tab = new Tab.Tab({
+        render : '#tab',
+        elCls : 'nav-tabs',
+        autoRender: true,
+        children:[
+            {text:'微店主列表',value:'1'}
+        ]
+    });
+    tab.on('selectedchange',function (ev) {
+        var item = ev.item;
+        $('#log').text(item.get('text') + ' ' + item.get('value'));
+    });
+    tab.setSelected(tab.getItemAt(0));
+
+    var Grid = BUI.Grid,
+        Toolbar = BUI.Toolbar,
+        Data = BUI.Data;
+    var Grid = Grid,
+        Store = Data.Store,
+        columns = [{
+            title : '微店主手机号',
+            dataIndex :'a',
+            width:100
+        },{
+            title : '微店名称',
+            dataIndex :'b',
+            width:150
+        },{
+            title : '姓名',
+            dataIndex : 'c',
+            width:100
+        },{
+            title : '身份证号',
+            dataIndex : 'd',
+            width:100
+        },{
+            title : '大区',
+            dataIndex : 'e',
+            width:100
+        },{
+            title : '分公司',
+            dataIndex : 'f',
+            width:100
+        },{
+            title : '办事处',
+            dataIndex : 'g',
+            width:120
+        },{
+            title : '微店等级',
+            dataIndex : 'h',
+            width:100
+        },{
+            title : '微店状态',
+            dataIndex : 'i',
+            width:100
+        },{
+            title : '微店佣金',
+            dataIndex : 'j',
+            width:100
+        },{
+            title : '审核通过时间',
+            dataIndex : 'k',
+            width:100
+        },{
+            title : '微店发展会员数',
+            dataIndex : 'l',
+            width:100
+        },{
+            title : '微店发展微店主数',
+            dataIndex : 'm',
+            width:100
+        },{
+            title : '购买会员数',
+            dataIndex : 'n',
+            width:100
+        },{
+            title : '微店销售金额',
+            dataIndex : 'o',
+            width:100
+        },{
+            title : '上级会员手机号',
+            dataIndex : 'p',
+            width:100
+        },{
+            title : '上级是否是微店主',
+            dataIndex : 'q',
+            width:120
+        }],
+        data = [{a:'123123123123123123123123123123123123123123123123123123123123123123123'},{a:'cdd',b:'edd'},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2},{a:'1333',c:'eee',d:2}];
+
+    var store = new Store({
+            data : data,
+            autoLoad:true,
+            pageSize:'20'
+        }),
+        grid = new Grid.Grid({
+            width: '100%',
+            height: getContentHeight(),
+            render:'#grid',
+            columns : columns,
+            // 顶部工具栏
+            tbar:{
+                // items:工具栏的项， 可以是按钮(bar-item-button)、 文本(bar-item-text)、 默认(bar-item)、 分隔符(bar-item-separator)以及自定义项
+                items:[{
+                    //xclass:'bar-item-button',默认的是按钮
+                    btnCls : 'button button-small',
+                    text:'批量修改',
+                    handler:bulkChanges
+                },{
+                    //xclass:'bar-item-button',默认的是按钮
+                    btnCls : 'button button-small',
+                    text:'导出',
+                },{
+                    //xclass:'bar-item-button',默认的是按钮
+                    btnCls : 'button button-small',
+                    text:'导出会员二维码',
+                }]
+            },
+            // 底部工具栏
+            bbar:{
+                // pagingBar:表明包含分页栏
+                pagingBar:true
+            },
+            store : store,
+            plugins : [Grid.Plugins.CheckSelection]
+        });
+    grid.render();
+
+    var mask;
+    $('.title-bar-side .search-bar input').on('focus',function(){
+        var $this = $(this);
+        var searchCon = $this.closest('.title-bar-side').find('.search-content');
+        $this.addClass("focused");
+        if(!mask)
+            mask = $('<div></div>').css({
+                'position':'absolute',
+                'left':0,
+                'top':0,
+                'width':'100%',
+                'height':'100%'
+            }).appendTo(document.body);
+        searchCon.show(400);
+        mask.on('click',function(){
+            $this.removeClass("focused");
+            mask.remove();
+            mask = null;
+            searchCon.hide(400);
+        });
+    });
+
+    function bulkChanges(){
+        dialogbulkChanges.show();
+    }
+
+    BUI.use('bui/overlay',function(Overlay){
+        dialogbulkChanges = new Overlay.Dialog({
+            title:'批量修改',
+            width:400,
+            mask:true,
+            buttons:[
+                {
+                    text:'取消',
+                    elCls : 'button ',
+                    handler : function(){
+                        this.close();
+                    }
+                },{
+                    text:'不取消',
+                    elCls : 'button button-primary',
+                    handler : function(){
+                        this.close();
+                    }
+                }
+            ],
+            contentId : 'bulkChanges'
+        });
+    });
+</script>
+</body>
+</html>  

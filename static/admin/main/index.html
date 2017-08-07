@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <script src="../js/echarts-plain.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="modheader">
+        <div class="mod-welcome">
+            <div class="usrpic"><img src="../images/userhead.jpg" alt=""/></div>
+            <div class="welcomeinfo">
+                <div class="greeting"><em>管理员</em>，下午好！</div>
+                <div class="logininfo">
+                    <p>上次登录IP：<em>10.35.51.206</em></p>
+                    <p>上次登录时间：<em>2013-08-27 15:11:10</em></p>
+                </div>
+            </div>
+        </div>
+        <!--<div class="mod-user">
+            <div class="mod-user-toggle">
+                <ul>
+                    <li>今日新增会员<p>1200</p></li>
+                    <li>昨日新增会员<p>1200</p></li>
+                    <li>会员总数<p>1200</p></li>
+                </ul>
+            </div>
+            <div class="progressbar">
+                <span style="width:50%"></span>
+                <p style="width:20%"></p>
+            </div>
+        </div>-->
+    </div>
+    <div class="incontainer">
+        <div class="col-main">
+            <table cellspacing="0" class="table table-info indextable-info">
+                <caption>待办事项</caption>
+                <tbody>
+                <tr>
+                    <th>订单</th>
+                    <td><a href="/admin/sa/order/list">总店未付款&nbsp; 5</a></td>
+                    <td><a href="/admin/sa/order/list">总店待发货 &nbsp;10</a></td>
+                    <td><a href="/admin/sa/order/orderReturnList">总店退款退货 &nbsp;16</a></td>
+                    <th>商品</th>
+                    <td><a href="/admin/sa/productManage/list?productStatusCd=2">总店已下架&nbsp; 16</a></td>
+                    <td><a href="/admin/sa/productManage/list?productStatusCd=1">总店在上架 &nbsp;31</a></td>
+                    <td><a href="/admin/sa/productManage/list?productStatusCd=1">商品总数 &nbsp;47</a></td>
+                </tr>
+                <tr>
+                    <th>会员</th>
+                    <td><a href="/admin/sa/user/userList">今日新增&nbsp; 7</a></td>
+                    <td><a href="/admin/sa/user/userList">昨日新增&nbsp; 0</a></td>
+                    <td><a href="/admin/sa/user/userList">会员总数&nbsp; 143</a></td>
+                    <th>昨日成交量</th>
+                    <td><a href="/admin/sa/user/consult">咨询&nbsp; 3</a></td>
+                    <td><a href="/admin/sa/user/review">评价&nbsp;29</a></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="volumeMain" style="height:400px;margin-top:50px;">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript">
+    BUI.use('common/page');
+
+    $(function () {
+        // 基于准备好的dom，初始化echarts图表
+        var myChart = echarts.init(document.getElementById('volumeMain'));
+
+        var option = {
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a}<br/> {b} 时<br/> {c}"
+            },
+            legend: {
+                data:['今日销量','今日销售额','昨日销量','昨日销售额']
+            },
+            xAxis : [
+                {
+                    type : 'category',
+                    data : ['0:00','1:00','2:00','3:00','4:00','5:00','6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00',' 19:00','20:00','21:00','22:00','23:00']
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    axisLabel : {
+                        formatter: function (value) {
+                            // Function formatter
+                            return value + '元'
+                        }
+                    }
+                },
+                {
+                    type : 'value',
+                    axisLabel : {
+                        formatter: function (value) {
+                            // Function formatter
+                            return value + '件'
+                        }
+                    }
+                }
+            ],
+            series : [
+                {
+                    name:'今日销量',
+                    type:'bar',
+                    itemStyle: {
+                        normal: {
+                            color: '#5cbef7'
+                        }
+                    },
+                    yAxisIndex: 1,
+                    data:[120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 121]
+                },
+                {
+                    name:'今日销售额',
+                    type:'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#f5cabf'
+                        }
+                    },
+                    yAxisIndex: 0,
+                    data:[220, 182, 191, 234, 290, 330, 310, 120, 132, 101, 134, 190, 230, 10, 190, 133, 131, 184, 290, 200, 110, 120, 192, 191]
+                },
+                {
+                    name:'昨日销量',
+                    type:'bar',
+                    itemStyle: {
+                        normal: {
+                            color: '#8dde66'
+                        }
+                    },
+                    yAxisIndex: 1,
+                    data:[150, 232, 201, 154, 190, 330, 410, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101]
+                },
+                {
+                    name:'昨日销售额',
+                    type:'line',
+                    itemStyle: {
+                        normal: {
+                            color: '#f3ce6a'
+                        }
+                    },
+                    yAxisIndex: 0,
+                    data:[320, 332, 301, 334, 390, 330, 320, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101]
+                }
+            ]
+        };
+        // 为echarts对象加载数据
+        myChart.setOption(option);
+    });
+
+</script>
+</body>
+</html>  

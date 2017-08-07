@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div class="title-bar">
+            <ul class="bui-tab nav-tabs">
+                <li class="bui-tab-item bui-tab-item-selected"><span class="bui-tab-item-text">付款减免规则</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-top">
+        <div class="tips-wrap tips tips-small tips-notice"><span class="x-icon x-icon-small x-icon-warning"><i class="icon icon-volume-up"></i></span>
+            <div class="tips-content">提示: 设置会员付款次数享受对应的折扣减免。</div>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <div class="form-horizontal">
+            <div id="grid">
+
+            </div>
+        </div>
+    </div>
+    <div class="content-foot">
+        <div class="actions-bar">
+            <button class="button button-primary button-large">保存</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript">
+    var Grid = BUI.Grid,
+            Toolbar = BUI.Toolbar,
+            Data = BUI.Data;
+    var Grid = Grid,
+            Store = Data.Store,
+            columns = [{
+                title : '状态',
+                dataIndex :'a',
+                width:100
+            },{
+                title : '会员付款次数',
+                dataIndex :'b',
+                width:200
+            },{
+                title : '减免金额',
+                dataIndex : 'c',
+                width:200
+            }],
+            data = [
+                {a:'<label><input type="checkbox">启用</label>',b:'第一次付款<div class="round"></div>',c:'5'},
+                {a:'<label><input type="checkbox">启用</label>',b:'第二次付款<div class="round green"></div>',c:'3'},
+                {a:'<label><input type="checkbox">启用</label>',b:'第三次付款',c:'2'}
+            ];
+
+    var store = new Store({
+                data : data
+            }),
+            grid = new Grid.Grid({
+                width: '100%',
+                height:getContentHeight(),
+                render:'#grid',
+                columns : columns,
+                store : store
+            });
+    grid.render();
+</script>
+</body>
+</html>  

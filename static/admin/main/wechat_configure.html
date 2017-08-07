@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div class="title-text">微信设置</div>
+    </div>
+    <form class="form-horizontal" method="post">
+        <div id="edit-div" class="form-content">
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">URL：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-large control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong"><s>*</s>Token：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-large control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong"><s>*</s>AppId：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-large control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong"><s>*</s>AppSecret：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-large control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">商户初始密钥partnerKey：</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-large control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">商户号partnerId</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-large control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">PaySignKey</label>
+                    <div class="controls">
+                        <input value="" name="name" class="input-large control-text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong"><s>*</s>微信支付：</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="default" value="1" checked="checked" />开启
+                        </label>
+                        &nbsp;&nbsp;
+                        <label class="radio">
+                            <input type="radio" name="default" value="0" />关闭
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong"><s>*</s>微信登陆：</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="active" value="1" checked="checked" />开启
+                        </label>
+                        &nbsp;&nbsp;
+                        <label class="radio">
+                            <input type="radio" name="active" value="0" />关闭
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong"><s>*</s>微信自动登陆：</label>
+                    <div class="controls">
+                        <label class="radio">
+                            <input type="radio" name="active" value="1" checked="checked" />开启
+                        </label>
+                        &nbsp;&nbsp;
+                        <label class="radio">
+                            <input type="radio" name="active" value="0" />关闭
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">微信关注渠道：</label>
+                    <div class="controls control-row-auto">
+                        <div><label><input type="checkbox">会员微店店铺的二维码:图文仅出现微店首页</label></div>
+                        <div><label><input type="checkbox">推广会员下线注册的二维码</label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">支付目录：</label>
+                    <div class="controls control-row-auto">
+                        <div class="text-red">需要在微信公众平台-微信支付-开发者配置-设置支付目录</div>
+                        <div class="text-red">为:http://mall.chinayanghe.com/wxpay/</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label control-label-maxlong">授权目录：</label>
+                    <div class="controls control-row-auto">
+                        <div class="text-red">需要在微信公众平台-开发者中心-网页授权获取用户基本信息设置为:mall.chinayanghe.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row form-actions actions-bar">
+            <div class="span13">
+                <button type="submit" class="button button-primary">保存</button>
+                <button type="reset" class="button">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+</body>
+</html>  

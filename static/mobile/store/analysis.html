@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>运营分析</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection"  content="telephone=no"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mui/mui.picker.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/store.css" />
+    <script type="text/javascript" src="../js/zepto.js"></script>
+    <script type="text/javascript" src="../js/mui.min.js"></script>
+    <script type="text/javascript" src="../js/mobile.js"></script>
+</head>
+<body>
+<div id="page">
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">运营分析</h1>
+        <a class="mui-icon"></a>
+    </header>
+    <div class="mui-content">
+        <div class="searchdate boder">
+            <div class="bd"><button class="mui-btn mui-btn-block mui-btn-primary">搜索</button></div>
+            <div class="hd">
+                <p><input type="text" data-options='{"type":"date"}' class="btn" placeholder="年/月/日"></p>
+                <span>至</span>
+                <p><input type="text" data-options='{"type":"date"}' class="btn" placeholder="年/月/日"></p>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="stockList">
+                <ul>
+                    <!--<li>
+                        <div class="hd">
+                            <div class="pic" style="background-image: url(../images/goodspic.jpg);"></div>
+                            <div class="info">
+                                <h3>商品名称商品名称商品名称商品名称商品名称商品名…</h3>
+                                <p><span>100ml;</span><span>100ml;</span><span>100ml;</span></p>
+                            </div>
+                        </div>
+                        <div class="bd">
+                            <p><span>当前库存</span><em>6800</em></p>
+                            <p><span>库存预警</span><em>10</em></p>
+                        </div>
+                    </li>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/mui/mui.picker.min.js"></script>
+<script type="text/javascript" src="../js/dropload.js"></script>
+<script>
+    (function($) {
+        $.init();
+        //var result = $('#result')[0];
+        var btns = $('.btn');
+        btns.each(function(i, btn) {
+            btn.addEventListener('tap', function() {
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var id = this.getAttribute('id');
+                var obj = this;
+                var picker = new $.DtPicker(options);
+                picker.show(function(rs) {
+                    obj.value = rs.text;
+                    picker.dispose();
+                });
+            }, false);
+        });
+    })(mui);
+
+    $(function(){
+        // 页数
+        var page = 0;
+        // 每页展示5个
+        var size = 5;
+        // dropload
+        $('.wrap').dropload({
+            scrollArea : window,
+            domDown : {
+                domClass   : 'dropload-down',
+                domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
+                domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+                domNoData  : '<div class="dropload-noData">暂无数据</div>'
+            },
+            loadDownFn : function(me){
+                page++;
+                // 拼接HTML
+                var result = '';
+                $.ajax({
+                    type: 'GET',
+                    url: '../json/stockList.json?page='+page+'&size='+size,
+                    dataType: 'json',
+                    success: function(data){
+                        var arrLen = data.lists.length;
+                        if(arrLen > 0){
+                            for(var i=0; i<data.lists.length; i++){
+                                result += '<li>';
+                                result += '<div class="hd"><div class="pic" style="background-image: url('+data.lists[i].img+');"></div><div class="info"><h3>'+data.lists[i].name+'</h3>';
+                                result += '<p>';
+                                $.each(data.lists[i].specifications, function (index, tag) {
+                                    result +='<span>'+ tag +';</span>';
+                                });
+                                result += '</p>';
+                                result += '</div></div>';
+                                result += '<div class="bd"><p><span>成交数量</span><em>'+data.lists[i].currentinventory+'</em></p>';
+                                result += '<p><span>成交金额</span><em>'+data.lists[i].warninginventory+'</em></p></div>';
+                                result += '</li>';
+                            }
+                        }else{
+                            me.lock();
+                            me.noData();
+                        }
+                        setTimeout(function(){
+                            $('.stockList ul').append(result);
+                            me.resetload();
+                        },1000);
+                    },
+                    error: function(xhr, type){
+                        me.resetload();
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

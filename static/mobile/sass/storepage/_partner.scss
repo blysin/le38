@@ -1,0 +1,13 @@
+.partner-list {background-color: $color_white;overflow: hidden;
+  li {padding: 10px 17px;border-bottom: 1px solid $color_border;overflow: hidden;line-height: 24px;}
+  a {padding: 10px 17px;display: block;margin: -10px -17px;}
+  h3 {color: $color_grey9;@include overflow-ellipsis();}
+  .t {
+    span {display: block;float: right;color:$public-color;font-size: 18px;font-weight: bold;}
+    p {@include overflow-ellipsis();}
+  }
+  .b {color: $color_grey9;
+    span {display: block;float: right;}
+    p {@include overflow-ellipsis();font-size: 12px;}
+  }
+}

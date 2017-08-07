@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../css/dpl.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/bui.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/page.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/theme-01.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="title-bar">
+        <div id="tab"></div>
+    </div>
+    <div class="content-top">
+        <div class="title-text">门店信息</div>
+        <div class="userinfo-box userinfo-box-md">
+            <div class="pic"><img src="../images/userhead.jpg"  width="100" height="100"></div>
+            <div class="code"><img src="../images/code.jpg"  width="100" height="100"></div>
+            <ul>
+                <li>门店编码：张章章</li>
+                <li>门店名称：厦门自贸区店</li>
+                <li>注册时间：2016-03-15 15:45</li>
+            </ul>
+        </div>
+    </div>
+    <div class="content-body">
+        <form class="form-horizontal" method="post">
+            <div class="row mb10">
+                <div class="control-group">
+                    <label class="control-label">广告轮播图：</label>
+                    <div class="controls control-row-auto">
+                        <div class="file-btn">
+                            <button class="button">添加一张图片</button>
+                            <input type="file" class="inp-file">
+                        </div>
+                        <div>
+                            放上传图片
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb10">
+                <div class="control-group">
+                    <label class="control-label">商家介绍：</label>
+                    <div class="controls control-row-auto">
+                        <textarea name="description" class="control-row4 input-large bui-form-field"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb10">
+                <div class="control-group">
+                    <label class="control-label">门店LOGO：</label>
+                    <div class="controls control-row-auto">
+                        <div class="file-btn">
+                            <button class="button">添加一张图片</button>
+                            <input type="file" class="inp-file">
+                        </div>
+                        <div>
+                            放上传图片
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="control-group">
+                    <label class="control-label">门店形象照：</label>
+                    <div class="controls control-row-auto">
+                        <div class="file-btn">
+                            <button class="button">添加一张图片</button>
+                            <input type="file" class="inp-file">
+                        </div>
+                        <div>
+                            放上传图片
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row form-actions actions-bar">
+            <div class="span13">
+                <button type="submit" class="button button-primary">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../js/bui.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript">
+    BUI.use('common/page');
+    var Tab = BUI.Tab;
+    var tab = new Tab.Tab({
+        render : '#tab',
+        elCls : 'nav-tabs',
+        autoRender: true,
+        children:[
+            {text:'基本信息',value:'1'},
+            {text:'门店介绍',value:'2'},
+            {text:'门店评价',value:'3'}
+        ]
+    });
+    tab.on('selectedchange',function (ev) {
+        var item = ev.item;
+        $('#log').text(item.get('text') + ' ' + item.get('value'));
+    });
+    tab.setSelected(tab.getItemAt(1));
+</script>
+</body>
+</html>  

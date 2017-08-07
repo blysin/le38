@@ -1,0 +1,32 @@
+{
+  "lists":[
+    {
+      "url":"lower_member_statement_details.html",
+      "orderId":"123456789",
+      "price":"10",
+      "time":"2017-04-24 15:53",
+      "state":"提货分润"
+    },
+    {
+      "url":"lower_member_statement_details.html",
+      "orderId":"123456789",
+      "price":"20",
+      "time":"2017-04-24 15:53",
+      "state":"提货分润"
+    },
+    {
+      "url":"lower_member_statement_details.html",
+      "orderId":"123456789",
+      "price":"30",
+      "time":"2017-04-24 15:53",
+      "state":"提货分润"
+    },
+    {
+      "url":"lower_member_statement_details.html",
+      "orderId":"123456789",
+      "price":"40",
+      "time":"2017-04-24 15:53",
+      "state":"提货分润"
+    }
+  ]
+}

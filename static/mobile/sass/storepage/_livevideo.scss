@@ -1,0 +1,4 @@
+.livevideo {margin: 10px;background-color: $color_white;padding: 30px;text-align: center;@include border-radius(4px);
+  h3 {font-size: 16px;}
+  .btn {display:block;width: 240px;height: 48px;margin:20px auto 0;background: url(../images/livevideo_btn.png) no-repeat;background-size: 240px 48px;}
+}

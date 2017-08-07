@@ -1,0 +1,421 @@
+{
+  "frame_setting": {
+    "index_head": {
+      "title": "首页头部",
+      "type": "1",
+      "data": {
+        "showHead": true,
+        "bgcolor": "#d60000",
+        "logo": "/static/mobile/images/logo-white.png",
+        "logoLink": {
+          "category": "url",
+          "url": "/m",
+          "isNew": false
+        },
+        "showSearch": true,
+        "icoColor": "#ffffff",
+        "icoList": [
+          {
+            "isImage": false,
+            "content": "&#xf0ca",
+            "link": {
+              "category": "url",
+              "url": "/m/category.html",
+              "isNew": false
+            },
+            "title": "分类"
+          }
+        ]
+      }
+    },
+    "global_foot": {
+      "title": "全局底部",
+      "type": "1",
+      "data": {
+        "show": true,
+        "bgcolor": "#eeeeee",
+        "gotop": "",
+        "content": "<p style=\"text-align:center;\">底部内容</p>"
+      }
+    },
+    "menu": {
+      "title": "菜单",
+      "type": "1",
+      "data": {
+        "showInShop": true,
+        "showInMycenter": true,
+        "bgcolor": "",
+        "icoColor": "",
+        "list": [
+          {
+            "content": "&#xf015;",
+            "link": {
+              "category": "url",
+              "url": "/m/",
+              "isNew": false
+            },
+            "title": "首页"
+          },
+          {
+            "isImage": false,
+            "content": "&#xf009",
+            "link": {
+              "category": "url",
+              "url": "/m/category.html",
+              "isNew": false
+            },
+            "title": "分类"
+          },
+          {
+            "content": "&#xf07a;",
+            "link": {
+              "category": "url",
+              "url": "/m/cart",
+              "isNew": false
+            },
+            "title": "购物车"
+          },
+          {
+            "content": "&#xf007;",
+            "link": {
+              "category": "url",
+              "url": "/m/account",
+              "isNew": false
+            },
+            "title": "我的"
+          }
+        ]
+      }
+    },
+    "category_head": {
+      "title": "分类页头部",
+      "type": "1",
+      "data": {
+        "hideInWechat": false,
+        "bgcolor": "#d60000",
+        "showSearch": false,
+        "icoColor": "#ffffff",
+        "icoList": [
+          {
+            "content": "&#xf002;",
+            "link": {
+              "category": "url",
+              "url": "/m/category.html",
+              "isNew": false
+            },
+            "title": "搜索"
+          }
+        ]
+      }
+    },
+    "list_head": {
+      "title": "列表页头部",
+      "type": "1",
+      "data": {
+        "hideInWechat": false,
+        "bgcolor": "#d60000",
+        "showSearch": true,
+        "icoColor": "#ffffff",
+        "icoList": []
+      }
+    },
+    "list_sort": {
+      "title": "列表页排序",
+      "type": "1",
+      "data": {
+        "show": true,
+        "sortItemA": "sale",
+        "sortItemB": "price",
+        "sortItemC": "time"
+      }
+    },
+    "detail_head": {
+      "title": "详情页头部",
+      "type": "1",
+      "data": {
+        "bgcolor": "#d60000",
+        "icoColor": "#ffffff",
+        "icoList": []
+      }
+    },
+    "detail_suspension": {
+      "title": "详情页悬浮条",
+      "type": "1",
+      "data": {"color": "#d60000"}
+    },
+    "myshop_head": {
+      "title": "个人微店头部",
+      "type": "1",
+      "data": {
+        "banner": "/static/mobile/images/shopInShopBanner.jpg",
+        "name": "个人微店",
+        "userImage": "/static/admin/images/userhead.jpg",
+        "font": {
+          "fontSize": "",
+          "fontWeight": "",
+          "color": ""
+        }
+      }
+    },
+    "myshop_menu": {
+      "title": "个人微店菜单",
+      "type": "1",
+      "data": {
+        "show": true,
+        "menu": {
+          "bgcolor": "#ff0000",
+          "list": [
+            {
+              "title": "宝贝分类",
+              "content": "",
+              "isImage": false,
+              "link": {
+                "category": "url",
+                "url": "/m/category.html",
+                "isNew": false
+              },
+              "submenu": [
+                {
+                  "title": "分类1",
+                  "link": {
+                    "category": "url",
+                    "url": "/m/category.html",
+                    "isNew": false
+                  },
+                  "font": {
+                    "fontSize": "18px",
+                    "fontWeight": "bold",
+                    "color": "#ff0000"
+                  }
+                },
+                {
+                  "title": "分类2",
+                  "link": {
+                    "category": "url",
+                    "url": "/m/category.html",
+                    "isNew": false
+                  },
+                  "font": {}
+                },
+                {
+                  "title": "分类3",
+                  "link": {
+                    "category": "url",
+                    "url": "/m/category.html",
+                    "isNew": false
+                  },
+                  "font": {}
+                }
+              ]
+            },
+            {
+              "title": "个人中心",
+              "content": "",
+              "isImage": false,
+              "link": {
+                "category": "url",
+                "url": "/m/account",
+                "isNew": false
+              }
+            },
+            {
+              "title": "服务中心",
+              "content": "",
+              "isImage": false,
+              "link": {
+                "category": "url",
+                "url": "/m/",
+                "isNew": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    "userindex_head": {
+      "title": "买家中心头部",
+      "type": "1",
+      "data": {
+        "bgcolor": "#d60000",
+        "userImage": "/static/admin/images/userhead.jpg",
+        "banner": "",
+        "icoColor": "#ffffff",
+        "icoList": []
+      }
+    },
+    "sellerindex_head": {
+      "title": "卖家中心头部",
+      "type": "1",
+      "data": {
+        "bgcolor": "#d60000",
+        "userImage": "/static/admin/images/userhead.jpg",
+        "icoColor": "#ffffff",
+        "icoList": []
+      }
+    },
+    "page_head": {
+      "title": "普通内页头部",
+      "type": "1",
+      "data": {
+        "title": "页面标题"
+      }
+    }
+  },
+  "color_setting": {
+    "themeColor": "#d60000"
+  },
+  "common_setting": {
+    "frame_global": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      }
+    },
+    "frame_index": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      },
+      "seo": {
+        "data": {
+          "open": false,
+          "title": "",
+          "keywords": "",
+          "description": ""
+        }
+      }
+    },
+    "frame_category": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      },
+      "seo": {
+        "data": {
+          "open": false,
+          "title": "",
+          "keywords": "",
+          "description": ""
+        }
+      }
+    },
+    "frame_list": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      },
+      "seo": {
+        "data": {
+          "open": false,
+          "title": "",
+          "keywords": "",
+          "description": ""
+        }
+      }
+    },
+    "frame_detail": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      },
+      "seo": {
+        "data": {
+          "open": false,
+          "title": "",
+          "keywords": "",
+          "description": ""
+        }
+      }
+    },
+    "frame_myshop": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      },
+      "seo": {
+        "data": {
+          "open": false,
+          "title": "",
+          "keywords": "",
+          "description": ""
+        }
+      }
+    },
+    "frame_sellerindex": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      },
+      "seo": {
+        "data": {
+          "open": false,
+          "title": "",
+          "keywords": "",
+          "description": ""
+        }
+      }
+    },
+    "frame_userindex": {
+      "customer_service": {
+        "type": 1,
+        "data": {
+          "show": false,
+          "account": "",
+          "style": "1",
+          "type": "qq",
+          "customIcon": ""
+        }
+      },
+      "seo": {
+        "data": {
+          "open": false,
+          "title": "",
+          "keywords": "",
+          "description": ""
+        }
+      }
+    }
+  }
+}

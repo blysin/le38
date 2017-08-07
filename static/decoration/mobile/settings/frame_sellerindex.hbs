@@ -1,0 +1,48 @@
+{{#with frame_setting}}
+{{#with sellerindex_head.data}}
+<div class="setting-tab-item" data-setting-title="页面设置">
+    <div class="setting-body-in">
+        <div class="form-horizontal">
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">头部背景色</label>
+                        <div class="controls">
+                            <div class="colorSelect" data-name="sellerindex_head.bgcolor" data-value="{{bgcolor}}" data-tag="sellerindex_head.bgcolor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-vertical">
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">店铺默认头像
+                            <span class="auxiliary-text">建议图片大小：140*140像素</span>
+                        </label>
+                        <div class="controls control-row-auto">
+                            <div class="imageSelect" data-name="imgPath_user" data-tag="sellerindex_head.userImage" data-value="{{userImage}}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span24">
+                    <div class="control-group">
+                        <label class="control-label">右上角图标
+                            <span class="auxiliary-text">每个图标2个字以内</span>
+                        </label>
+
+                        <div class="controls control-row-auto">
+                            <div class="colorSelect" data-name="sellerindex_head.icoColor" data-value="{{icoColor}}" data-tag="sellerindex_head.icoColor"></div>
+                            <div class="settingTable" data-max-count="1" data-name="sellerindex_head.icoList" data-tag="sellerindex_head.icoList" data-value='{{{json icoList}}}'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{/with}}
+{{/with}}
