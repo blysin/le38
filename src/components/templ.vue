@@ -1,8 +1,6 @@
 <template>
-    <div id="products">
-        <div id="page">
+    <div>
 
-        </div>
     </div>
 </template>
 <script>

@@ -3,7 +3,7 @@
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
             <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
-            <h1 class="mui-title">商品分类</h1>
+            <h1 class="mui-title partner">商品分类</h1>
             <a class="mui-icon"></a>
         </header>
         <div class="mui-content">

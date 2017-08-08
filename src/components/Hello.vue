@@ -1,53 +1,14 @@
 <template>
     <div class="hello">
-    <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
         <div class='nav'>
-            <h1 @click='test'>{{ msg }}</h1>
+            <h1>{{ msg }}</h1>
         </div>
         <div class='nav'>
-            <button @click='toCategory'>category</button>
+            <ul class='live type2'>
+                <li @click='toCategory'>商品列表</li>
+                <li><router-link :to="{name:'Login'}">合伙人后台</router-link></li>
+            </ul>
         </div>
-        <button @click="showaaa()">
-            Toggle render
-        </button>
-        <transition name="slide-fade">
-            <div v-show="show" id="J_ASSpec" class="actionsheet-spec" style="display:block">
-                <div class="close" @click="showaaa()"></div>
-                <div class="prod-info">
-                    <div class="pic"><img src="images/goodspic.jpg" alt="" /></div>
-                    <div class="name">产品名称产品名称产品名称产品产品名称产品名称产品名称产品产品名称产品名称产品名称产品</div>
-                    <div class="price"><span class="price-real">￥<em>399.00</em></span></div>
-                </div>
-                <div class="spec-list">
-                    <div class="spec-item">
-                        <h3>容量</h3>
-                        <div class="prop-list">
-                            <ul>
-                                <li class="active">30ML</li>
-                                <li class="">50ML</li>
-                                <li class="disabled">70ML</li>
-                                <li class="disabled">100ML</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="spec-item">
-                        <h3>数量</h3>
-                        <div class="number-widget">
-                            <div class="number-minus disabled"></div>
-                            <input class="number-text" type="number" value="1" readonly="readonly">
-                            <div class="number-plus disabled"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="fbbwrap nofixed">
-                    <div class="ftbtnbar">
-                        <div class="button-wrap button-wrap-expand">
-                            <a href="javascript:void(0)" class="button btn-buy">确定</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </transition>
     </div>
 </template>
 <script>
@@ -59,8 +20,6 @@ export default {
     data() {
         return {
             msg: '这是首页，稍候再进行修改',
-            show: false,
-            size:'300px'
         }
     },
     methods: {
@@ -69,44 +28,7 @@ export default {
                 name: 'Category'
             });
         },
-        test() {
-            console.log($('.nav').html())
-        },
-        showaaa() {
-            this.show = !this.show;
-            $(".actionsheet-spec").show();
-            if(this.show){
-                this.coverDiv();
-            }else{
-                this.hideMask()
-            }
-        },
-        hideMask(){
-            $("div[class='xucun_content']").hide();
-            var body = document.getElementsByTagName("body");
-            $('#mask').hide()
-            this.show = false;
 
-            $(document).unbind("touchmove");
-        },
-        coverDiv(){
-            var procbg = $('#mask')[0] //首先创建一个div
-            procbg.style.background = "#000000";
-            procbg.style.width = "100%";
-            procbg.style.height = "100%";
-            procbg.style.position = "fixed";
-            procbg.style.top = "0";
-            procbg.style.left = "0";
-            procbg.style.zIndex = "500";
-            procbg.style.opacity = "0.6";
-            procbg.style.filter = "Alpha(opacity=70)";
-            $('#mask').show();
-
-
-            $(document).bind("touchmove",function(e){
-                e.preventDefault();
-            });
-        },
     }
 }
 
@@ -127,24 +49,363 @@ export default {
 
 
 
-/* 可以设置不同的进入和离开动画 */
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 
-
-/* 设置持续时间和动画函数 */
-
-.slide-fade-enter-active {
-    transition: all .5s ease;
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
 }
 
-.slide-fade-leave-active {
-    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+body {
+    margin: 0
 }
 
-.slide-fade-enter,
-.slide-fade-leave-to
-{
-    transform: translateY(292px);
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+    display: block
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+    vertical-align: baseline
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+[hidden],
+template {
+    display: none
+}
+
+a {
+    background-color: transparent
+}
+
+a:active,
+a:hover {
+    outline: 0
+}
+
+abbr[title] {
+    border-bottom: 1px dotted
+}
+
+b,
+strong {
+    font-weight: bold
+}
+
+dfn {
+    font-style: italic
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0
+}
+
+mark {
+    background: #ff0;
+    color: #000
+}
+
+small {
+    font-size: 80%
+}
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+}
+
+sup {
+    top: -0.5em
+}
+
+sub {
+    bottom: -0.25em
+}
+
+img {
+    border: 0
+}
+
+svg:not(:root) {
+    overflow: hidden
+}
+
+figure {
+    margin: 1em 40px
+}
+
+hr {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0
+}
+
+pre {
+    overflow: auto
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: monospace, monospace;
+    font-size: 1em
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0
+}
+
+button {
+    overflow: visible
+}
+
+button,
+select {
+    text-transform: none
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0
+}
+
+input {
+    line-height: normal
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    height: auto
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
+
+fieldset {
+    border: 1px solid #c0c0c0;
+    margin: 0 2px;
+    padding: 0.35em 0.625em 0.75em
+}
+
+legend {
+    border: 0;
+    padding: 0
+}
+
+textarea {
+    overflow: auto
+}
+
+optgroup {
+    font-weight: bold
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+td,
+th {
+    padding: 0
+}
+
+.live {
+    overflow: hidden;
+}
+
+.live>li {
+    list-style: none;
+    position: relative;
+    padding: 0 0 0 2em;
+    margin: 0 0 .5em 10px;
+    -webkit-transition: .12s;
+    transition: .12s;
+}
+
+.live>li::before {
+    position: absolute;
+    content: '\2022';
+    font-family: Arial;
+    color: #FFF;
+    top: 0;
+    left: 0;
+    text-align: center;
+    font-size: 2em;
+    opacity: .5;
+    line-height: .75;
+    -webkit-transition: .5s;
+    transition: .5s;
+}
+
+.live>li:hover {
+    color: #FFF;
+}
+
+.live>li:hover::before {
+    -webkit-transform: scale(2);
+    -ms-transform: scale(2);
+    transform: scale(2);
     opacity: 1;
+    text-shadow: 0 0 4px;
+    -webkit-transition: .1s;
+    transition: .1s;
+}
+
+.live.type2>li::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #FFF;
+    border-radius: 3px;
+    line-height: 0;
+    top: .27em;
+    left: 5px;
+}
+
+.live.type2>li:hover::before {
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    border-radius: 5px;
+    width: 25px;
+    left: -10px;
+    background: #BA5353;
+}
+
+.live.numbers {
+    counter-reset: xxx 0;
+}
+
+.live.numbers>li::before {
+    content: counter(xxx, decimal) ".";
+    counter-increment: xxx 1;
+    font-family: 'Roboto Condensed';
+    font-size: 1em;
+    opacity: .5;
+    line-height: 1.4;
+    -webkit-transition: .5s;
+    transition: .5s;
+}
+
+.live.numbers>li:hover:before {
+    opacity: 1;
+    left: -10px;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+    text-shadow: none;
+    -webkit-transition: .12s;
+    transition: .12s;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 400;
+    src: local("Roboto Condensed Regular"), local("RobotoCondensed-Regular"), url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v7/Zd2E9abXLFGSr9G3YK2MsFzqCfRpIA3W6ypxnPISCPA.woff) format("woff");
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    font: 1.33em 'Roboto Condensed', arial;
+    color: #FFF;
+    text-align: center;
+    background-image: -webkit-radial-gradient(circle, #3c3b52 0%, #252233 80%);
+    background-image: radial-gradient(circle, #3c3b52 0%, #252233 80%);
+}
+
+h1 {
+    margin: .5em 0 0;
+    padding: 0;
+    text-shadow: 0 4px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    -moz-box-sizing: padding-box;
+    box-sizing: padding-box;
+}
+
+ol,
+ul {
+    width: 68%;
+    display: inline-block;
+    text-align: left;
+    vertical-align: top;
+    // background: rgba(0, 0, 0, 0.2);
+    // color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    padding: 1.5em;
+    margin: 2%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
 </style>
