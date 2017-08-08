@@ -36,7 +36,7 @@
                                             <div class="intro">
                                                 <p class="name">{{pro.productName}}</p>
                                                 <div class="price">
-                                                    <p class="price-real">¥<em>{{pro.defaultPrice}}</em></p>
+                                                    <p class="price-real">¥<em>{{pro.defaultPrice | money}}</em></p>
                                                     <p class="price-origin">¥<em>{{pro.tagPrice}}</em></p>
                                                 </div>
                                             </div>

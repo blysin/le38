@@ -2,7 +2,8 @@
     <div id="detail">
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
-            <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a>
+            <!-- <a class="mui-icon mui-icon-left-nav" href='javascript:history.back(-1)'></a> -->
+            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'Category'}"></router-link>
             <h1 class="mui-title">商品详情</h1>
             <a class="mui-icon"></a>
         </header>
