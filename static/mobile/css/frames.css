@@ -1,0 +1,73 @@
+/*index_head*/
+.search button:before { font-family: "iconfont"; font-weight: normal; font-style: normal; text-decoration: inherit; -webkit-font-smoothing: antialiased; }
+
+#index_header { height: 44px; }
+
+.intoolbar { background: #fff; width: 100%; height: 44px; overflow: hidden; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: box; }
+.intoolbar .logo { height: 100%; padding: 0 10px; max-width: 100px; }
+.intoolbar .logo img { max-height: 100%; }
+.intoolbar .region { padding-right: 20px; line-height: 44px; color: #e91930; background: url(../images/icon_refresh.png) right 50% no-repeat; background-size: 20px; margin-right: 5px; }
+.intoolbar .m { display: block; -webkit-box-flex: 1; -moz-box-flex: 1; -ms-box-flex: 1; box-flex: 1; margin: 7px 10px 0 0; }
+.intoolbar .search { position: relative; overflow: hidden; height: 30px; line-height: 30px; background: #FFF; -webkit-border-radius: 5px; border-radius: 5px; -webkit-background-clip: padding-box; background-clip: padding-box; border: 1px solid #eeeeee; }
+.intoolbar .search button { position: absolute; left: 6px; height: 100%; width: 30px; top: 0; background: none; border: 0; color: #999999; font-size: 0; }
+.intoolbar .search button:before { position: absolute; content: "\f002"; font-size: 20px; left: 0; top: 0; line-height: 30px; width: 30px; }
+.intoolbar .search input { width: 100%; border: 0; padding: 0 10px 0 40px; height: 100%; color: #999999; }
+.intoolbar .r { line-height: 44px; color: #fff; height: 100%; padding-right: 10px; }
+.intoolbar .r a { color: #fff; width: 32px; height: 32px; line-height: 32px; text-align: center; position: relative; float: left; margin: 6px 0 0 10px; overflow: hidden; }
+.intoolbar .r a .iconfont { font-size: 26px; }
+.intoolbar .r a img { max-height: 100%; vertical-align: middle; }
+.intoolbar .r a i { position: absolute; right: 0; top: 0; min-width: 7px; padding: 0 3px; height: 12px; -webkit-border-radius: 6px; border-radius: 6px; -webkit-background-clip: padding-box; background-clip: padding-box; text-align: center; line-height: 12px; font-size: 10px; font-style: normal; background: #fff; color: #999; }
+
+/*userindex_head*/
+.mc-headwrap { overflow: hidden; padding-bottom: 15px; background: url(../images/mc-headwrap.png) top center no-repeat #FFF; background-size: 100% auto; margin-bottom: 10px; border-bottom: 1px solid #eee; }
+
+.mc-head { height: 100px; position: relative; }
+.mc-head .pic { width: 76px; margin: auto; }
+.mc-head .namewrap { width: 100%; text-align: center; margin-top: -12px; }
+.mc-head .namewrap .name { -webkit-border-radius: 5px; border-radius: 5px; -webkit-background-clip: padding-box; background-clip: padding-box; height: 20px; line-height: 20px; background: #148cdc; text-align: center; display: inline-block; padding: 0 15px; color: #fff; }
+.mc-head .mc-sign-in { width: 60px; height: 38px; position: absolute; top: 28px; right: 4px; display: block; background-image: url(../images/icon_mcsignin.png); background-position: 0 0; background-repeat: no-repeat; background-size: 60px auto; text-indent: -9999px; }
+.mc-head .mc-sign-in.active { background-position: 0 100%; }
+
+/*menu_1*/
+.GlobalMenu_1 { height: 44px; }
+
+.globalMenu { height: 44px; }
+
+.gbt-wrap { position: fixed; z-index: 100; bottom: 0; width: 100%; height: 44px; background: #f9f9f9; -webkit-box-shadow: 0 -3px 5px rgba(11, 3, 6, 0.1); box-shadow: 0 -3px 5px rgba(11, 3, 6, 0.1); }
+.gbt-wrap ul { display: table; width: 100%; table-layout: fixed; height: 100%; }
+.gbt-wrap li { display: table-cell; height: 100%; vertical-align: top; }
+.gbt-wrap li a { display: block; height: 100%; text-align: center; color: #555a64; padding: 0 4px; position: relative; }
+.gbt-wrap li a:active, .gbt-wrap li.current a { color: #056ebe; }
+
+.gbt-text { display: block; font-size: 9px; white-space: nowrap; width: 100%; line-height: 12px; overflow: hidden; -ms-text-overflow: ellipsis; text-overflow: ellipsis; }
+
+.gbt-ico { position: relative; padding-top: 4px; display: block; margin: auto; width: 22px; height: 30px; text-align: center; overflow: hidden; line-height: 26px; font-size: 22px; }
+
+.cartnum { display: block; position: absolute; top: 2px; left: 50%; height: 18px; font-style: normal; min-width: 8px; overflow: hidden; padding: 0 5px; font-size: 14px; line-height: 18px; text-align: center; color: #fff; background: #ff6900; -webkit-border-radius: 9px; border-radius: 9px; -webkit-background-clip: padding-box; background-clip: padding-box; }
+
+.gotop { width: 45px; height: 45px; color: #FFF; text-align: center; position: fixed; z-index: 20; bottom: 20px; right: 20px; -webkit-border-radius: 50%; border-radius: 50%; -webkit-background-clip: padding-box; background-clip: padding-box; background-color: #b1bac5; border: 1px solid #a4a4a4; }
+.gotop a { width: 100%; height: 100%; display: block; color: #FFF; }
+.gotop span { padding-top: 6px; line-height: 18px; display: block; }
+.gotop p { font-size: 10px; }
+
+/*myshop_menu_1*/
+.gbm-wechat { height: 41px; }
+.gbm-wechat .wrap { position: fixed; z-index: 99; height: 44px; width: 100%; bottom: 0; border-top: 1px solid #dfdfdf; background: #fff; font-size: 14px; }
+
+.gbm-wechat-list > ul { height: 44px; display: -webkit-box; display: -moz-box; display: -ms-flexbox; display: box; }
+.gbm-wechat-list .nav-item { position: relative; -webkit-box-flex: 1; -moz-box-flex: 1; -ms-box-flex: 1; box-flex: 1; text-align: center; line-height: 40px; /*font-family: "iconfont"*/; font-weight: normal; font-style: normal; text-decoration: inherit; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.gbm-wechat-list .nav-item a { position: relative; z-index: 99; display: block; /*border-left: 1px solid #eee;*/ background: #fff; color: #555a64;}
+/* .gbm-wechat-list .nav-item a .iconfont { font-size: 16px; margin-right: 5px; color: #d2d2d2; display: inline-block; vertical-align: middle; } */
+.gbm-wechat-list .nav-item.nav-item-home { border: 0; width: 44px; -webkit-box-flex: inherit; -moz-box-flex: inherit; -ms-box-flex: inherit; box-flex: inherit; }
+.gbm-wechat-list .nav-item.nav-item-home:before { display: none; }
+.gbm-wechat-list .nav-item.nav-item-home a { position: relative; text-indent: -9999px; }
+.gbm-wechat-list .nav-item.nav-item-home a:before { content: "\e603"; font-size: 28px; color: #999; position: absolute; left: 0; right: 0; text-indent: 0; }
+
+.gbm-wechat-sub { display: none; position: absolute; z-index: 98; width: 90px; left: 50%; margin-left: -45px; top: 40px; }
+.gbm-wechat-sub ul { width: 100%; background: #fff; text-align: center; -webkit-border-radius: 5px; border-radius: 5px; -webkit-background-clip: padding-box; background-clip: padding-box; -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); }
+.gbm-wechat-sub li { height: 39px; line-height: 39px; border-top: 1px solid #eee; white-space: nowrap; overflow: hidden; }
+.gbm-wechat-sub li:first-child { border: 0; }
+.gbm-wechat-sub li a { display: block; }
+.gbm-wechat-sub:before { position: absolute; content: ""; background: #fff; bottom: -5px; left: 50%; margin-left: -5px; width: 11px; height: 11px; -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); -webkit-transform: rotate(45deg); -moz-transform: rotate(45deg); -ms-transform: rotate(45deg); transform: rotate(45deg); }
+
+/*# sourceMappingURL=frames.css.map */
