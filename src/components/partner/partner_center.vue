@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <div class="mui-content">
             <div class="storetopbar">
                 <router-link :to="{name:'PartnerData'}">
@@ -8,11 +9,11 @@
             </div>
             <div class="partnerNavigation">
                 <ul>
-                    <li><a href="partner_wallet.html"><i class="ico ico_mcwallet"></i><p>我的钱包</p></a></li>
-                    <li><a href="shop.html"><i class="ico ico_mcshop"></i><p>我的店铺</p></a></li>
-                    <li><a href="partner.html"><i class="ico ico_mcitypartner"></i><p>城市合伙人</p></a></li>
-                    <li><a href="safe.html"><i class="ico ico_mcsecurity"></i><p>安全中心</p></a></li>
-                    <li><a href="inbox.html"><i class="ico ico_mcInbox"></i><p>收件箱</p></a></li>
+                    <li><router-link :to="{name:'PartnerWallet'}"><i class="ico ico_mcwallet"></i><p>我的钱包</p></router-link></li>
+                    <li><router-link :to="{name:'PartnerShop'}"><i class="ico ico_mcshop"></i><p>我的店铺</p></router-link></li>
+                    <li><router-link :to="{name:'PartnerList'}"><i class="ico ico_mcitypartner"></i><p>城市合伙人</p></router-link></li>
+                    <li><router-link :to="{name:'PartnerSafe'}"><i class="ico ico_mcsecurity"></i><p>安全中心</p></router-link></li>
+                    <li><router-link :to="{name:'PartnerInbox'}"><i class="ico ico_mcInbox"></i><p>收件箱</p></router-link></li>
                     <li><a href="javascript:void(0)" class="disabled"><i class="ico ico_mcexpect"></i><p>敬请期待</p></a></li>
                 </ul>
             </div>
@@ -30,7 +31,7 @@ export default {
     name: 'PartnerCenter',
     data() {
         return {
-
+            isLoading: false
         }
     },
     computed: {
@@ -55,5 +56,6 @@ export default {
 
 </script>
 <style type="text/css" scoped lang="scss">
+
 
 </style>

@@ -10,7 +10,8 @@ export default new Vuex.Store({
         },
         skuToSubmit:[],
         addressToEdit:{},
-        successUrl:''
+        successUrl:'',
+        cityPartner:{}
     },
     mutations: {
         submitOrder(state,val) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
         },
         setSuccessUrl(state,val){
             state.successUrl = val;
+        },
+        setCityPartner(state,val){
+            state.cityPartner = val;
         }
     }
 })

@@ -1,6 +1,6 @@
 <template>
     <div>
-
+        <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
     </div>
 </template>
 <script>
@@ -13,7 +13,7 @@ export default {
     name: 'products',
     data() {
         return {
-
+            isLoading: false
         }
     },
     computed: {
