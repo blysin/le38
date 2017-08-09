@@ -20,6 +20,10 @@ Vue.filter('dateformat', function (time) {
     return formatDate(date, 'yyyy-MM-dd hh:mm:ss');
 })
 
+Vue.filter('phone', function (phone) {
+    return phone.substring(0,3)+'****'+phone.substring(phone.length-4);
+})
+
 Vue.filter('money', function(val) {
     val = val.toString().replace(/\$|\,/g,'');
     if(isNaN(val)) {

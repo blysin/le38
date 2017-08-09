@@ -5,13 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        productToSubmit:{
-
-        },
+        productToSubmit:{},
         skuToSubmit:[],
         addressToEdit:{},
         successUrl:'',
-        cityPartner:{}
+        cityPartner:{},
+        data:''//存放临时参数
     },
     mutations: {
         submitOrder(state,val) {
@@ -39,6 +38,9 @@ export default new Vuex.Store({
         },
         setCityPartner(state,val){
             state.cityPartner = val;
+        },
+        setData(state,val){
+            state.data = val;
         }
     }
 })

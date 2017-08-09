@@ -84,7 +84,11 @@ export default new Router({
         },{
             path: 'inbox',
             name: 'PartnerInbox',
-            component: resolve => require(['@/components/partner/inbox'], resolve)
+            component: resolve => require(['@/components/partner/inbox/inbox'], resolve)
+        },{
+            path: 'inbox/:siteMsgId',
+            name: 'PartnerInboxDetail',
+            component: resolve => require(['@/components/partner/inbox/detail'], resolve)
         }]
     }, {
         path: '/partner/data',
