@@ -2,28 +2,22 @@
     <div>
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
-            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'PartnerCenter'}"></router-link>
-            <h1 class="mui-title">我的钱包</h1>
+            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'PartnerWithdraw'}"></router-link>
+            <h1 class="mui-title">历史提现记录</h1>
             <a class="mui-icon"></a>
         </header>
         <div class="mui-content">
             <div class="wallettop mb10">
-                <p><em>当前剩余金额(元)</em></p>
-                <h3 class="fz-32 mb10">{{balance | money}}</h3>
-                <p class="color-gray fz-12">每个月末结算该月分润</p>
-                <router-link :to='{name:"PartnerWithdraw"}' class="btn">提现</router-link>
+                <p><em>累积提现 (元)</em></p>
+                <h3>{{totalAmt | money}}</h3>
             </div>
             <div class="wrap">
-                <div class="partner-list">
+                <div class="recordList">
                     <ul>
-                        <li v-for='rebate in rebateList'>
-                            <h3>{{rebate.rebateTypeCd ==6?'门店':'合伙人'}}编号：{{rebate.sourceNumber}}</h3>
-                            <div class="t"><span>{{rebate.rebateAmt | money}}</span>
-                                <p>{{rebate.sourceName | phone}}</p>
-                            </div>
-                            <div class="b"><span>{{rebate.remark}}</span>
-                                <p>{{rebate.rebateTypeCd ==6?'开店':'创建'}}时间:{{rebate.sourceCreateTime | dateformat}}</p>
-                            </div>
+                        <li v-for='w in list'>
+                            <div class="r">-{{w.withdrawalAmt}}</div>
+                            <div class="l">{{w.withdrawalTypeCd==2?'银行提现':'微信提现'}}</div>
+                            <p>{{w.applyTime | dateformat}}</p>
                         </li>
                     </ul>
                 </div>
@@ -38,16 +32,16 @@ import router from '@/router'
 import { dropload } from 'dropload'
 
 export default {
-    name: 'Wallet',
+    name: 'WithdrawHistory',
     data() {
         return {
             isLoading: false,
-            balance: '',
-            rebateList: [{
-                rebateAmt: '',
-                rebateTypeCd: '',
-                sourceName: '',
-                sourceCreateTime: ''
+            totalAmt: 0,
+            list: [{
+                applyTime: 0,
+                withdrawalAmt: 0,
+                withdrawalDetailId: 0,
+                withdrawalTypeCd: 0
             }],
             page: -1,
             size: 8
@@ -69,13 +63,13 @@ export default {
                 },
                 loadDownFn: function(me) {
                     vm.page++;
-                    vm.$http.get('m/partner/rebates?pageIndex=' + vm.page + '&limit=' + vm.size).then(
+                    vm.$http.get('m/partner/withdraw?pageIndex=' + vm.page + '&limit=' + vm.size).then(
                         res => {
                             if (res) {
                                 console.log(res)
                                 var length = res.body.length;
                                 if (length > 0) {
-                                    vm.rebateList = vm.rebateList.concat(res.body);
+                                    vm.list = vm.list.concat(res.body);
                                     if (length < vm.size) { //如果当前结果小于size，表示已经没用多余的数据了
                                         me.lock();
                                         me.noData();
@@ -98,17 +92,12 @@ export default {
 
     },
     mounted: function() {
-        this.$http.get('m/partner/data').then(res => {
-            this.balance = res.body.cityPartnerBalance;
-        }, res => {
-            if (res.status === 401) {
-                router.push({ name: 'Login' })
-            } else {
-                this.isLoading = false;
-                mui.alert('网络出错，请稍候再试');
+        this.$http.get('m/partner/withdrawTotal').then(res => {
+            if (res.body) {
+                this.totalAmt = res.body;
             }
-        })
-        this.rebateList.splice(0, 1);
+        });
+        this.list.splice(0, 1);
         this.jsonData();
     },
     created: function() {

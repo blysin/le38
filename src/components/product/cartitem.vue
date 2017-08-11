@@ -170,9 +170,10 @@ export default {
                 setTimeout(function() {
                     //没用同步，有bug隐患
                     var item = em.itemList[index];
-                    em.updateItem(index, item.cartItemId, !item.selectedFlag, item.quantity);
+                    var falg = item.selectedFlag;
+                    em.updateItem(index, item.cartItemId, item.selectedFlag);
                     em.isChange = true;
-                }, 50);
+                }, 100);
             }
         },
         selectAllItem() {

@@ -8,20 +8,23 @@
         </header>
         <div class="mui-content">
             <div class="storetopbar">
-                <p class="info partner">城市合伙人数量：2</p>
+                <p class="info partner">城市合伙人数量：{{partners.length}}</p>
             </div>
-            <div class="iconinfo">
+            <div class="iconinfo" v-show="!isLoading && partners.length == 0">
                 <i class="ico ico-info"></i>
                 <strong>你还没有城市合伙人，要努力哦！</strong>
             </div>
-            <div class="wrap">
+            <div class="wrap" v-show="!isLoading && partners.length > 0">
                 <div class="partner-list">
                     <ul>
-                        <!---->
-                    <li>
-                        <div class="t"><span>10</span><p>180****1234</p></div>
-                        <div class="b"><span>本月营业额</span><p>申请时间:2017-04-24 15:53</p></div>
-                    </li>
+                        <li v-for='p in partners'>
+                            <div class="t"><span>{{p.totalAmt || 0}}</span>
+                                <p>{{p.telephone | phone}}</p>
+                            </div>
+                            <div class="b"><span>本月营业额</span>
+                                <p>申请时间:{{p.createTime | dateformat}}</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -38,7 +41,8 @@ export default {
     name: 'Shop',
     data() {
         return {
-            isLoading: false
+            isLoading: true,
+            partners:[]
         }
     },
     computed: {
@@ -54,7 +58,17 @@ export default {
 
     },
     created: function() {
-
+        this.$http.get('m/partner/partners').then(res => {
+            this.partners = res.body;
+            this.isLoading = false;
+        }, res => {
+            if (res.status === 401) {
+                router.push({ name: 'Login' })
+            } else {
+                this.isLoading = false;
+                mui.alert('网络出错，请稍候再试');
+            }
+        })
     },
     components: {
 

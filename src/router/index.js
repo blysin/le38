@@ -62,6 +62,18 @@ export default new Router({
             name: 'PartnerWallet',
             component: resolve => require(['@/components/partner/wallet/wallet'], resolve)
         },{
+            path: 'wallet/withdraw',
+            name: 'PartnerWithdraw',
+            component: resolve => require(['@/components/partner/wallet/withdraw'], resolve)
+        },{
+            path: 'wallet/withdraw/history',
+            name: 'PartnerWithdrawHistory',
+            component: resolve => require(['@/components/partner/wallet/withdraw_history'], resolve)
+        },{
+            path: 'wallet/withdraw/banks',
+            name: 'PartnerWithdrawBanks',
+            component: resolve => require(['@/components/partner/wallet/select_bank'], resolve)
+        },{
             path: 'shop',
             name: 'PartnerShop',
             component: resolve => require(['@/components/partner/shop/shop'], resolve)

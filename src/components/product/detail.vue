@@ -280,7 +280,7 @@ export default {
             return name.substring(0, 1) + "***" + name.substring(name.length - 1);
         }
     },
-    mounted: function() {
+    mounted() {
         this.swiper = new Swiper('.swiper-container', {
             pagination: '.swiper-pagination',
             paginationType: 'fraction',
@@ -314,13 +314,16 @@ export default {
             em.isShowMask = false
         });
     },
-    created: function() {
+    created() {
         this.$store.commit('emptyProductToSubmit');
         var loadjs = require('loadjs');
 
         loadjs([
             '../../../static/mobile/js/zepto.js'
         ]);
+    },
+    beforeDestroy() {
+        this.mask.close();
     },
     components: {
 

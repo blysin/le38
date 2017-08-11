@@ -115,7 +115,7 @@ export default {
         toCartItem(){
              this.$http.get('m/login/isLogin').then(
                 res => {
-                    console.log(res.body)
+                    // console.log(res.body)
                     this.logined = res.body;
                     if(!res.body){
                        location.href = '/m/login?successUrl='+encodeURIComponent(window.location.href);
@@ -250,7 +250,7 @@ export default {
 
         this.$http.get('m/products/categorys').then(
             res => {
-                console.log(res.body)
+                // console.log(res.body)
                 if (res) {
                     this.categorys = res.body;
                     this.isLoading = false;

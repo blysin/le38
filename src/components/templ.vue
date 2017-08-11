@@ -25,10 +25,10 @@ export default {
     filters: {
 
     },
-    mounted: function() {
+    mounted() {
 
     },
-    created: function() {
+    created() {
 
     },
     components: {

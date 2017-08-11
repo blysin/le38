@@ -14,7 +14,7 @@
                         <div class="bd">
                             <div class="info">
                                 <div class="input-wrap">
-                                    <input type="number" v-model='pwd1' :placeholder="'请输入'+msg+'纯数字密码'"><span class="delete"></span></div>
+                                    <input type="password" v-model='pwd1' :placeholder="'请输入'+msg+'纯数字密码'"><span class="delete"></span></div>
                             </div>
                         </div>
                     </li>
@@ -23,7 +23,7 @@
                         <div class="bd">
                             <div class="info">
                                 <div class="input-wrap">
-                                    <input type="number" v-model='pwd2' placeholder="请再次输入新密码"><span class="delete"></span></div>
+                                    <input type="password" v-model='pwd2' placeholder="请再次输入新密码"><span class="delete"></span></div>
                             </div>
                         </div>
                     </li>
@@ -33,7 +33,7 @@
                             <div class="info">
                                 <div class="input-wrap">
                                     <input type="number" v-model='verifyCode' placeholder="请输入验证码"><span class="delete"></span></div>
-                                <div class="code"><img src=""></div>
+                                <div class="code"><img :src="randomImage" @click='changeRandomImage'></div>
                             </div>
                         </div>
                     </li>
@@ -60,19 +60,26 @@ export default {
             pwd2: '',
             reg: /^\d{6}$/,
             msg: '6位',
+            randomImage: '/randomCaptcha',
             verifyCode: ''
         }
     },
     computed: {
         isValidate() {
-            return this.pwd1 === this.pwd2 && this.reg.test(this.pwd1) && this.reg.test(this.pwd2) && /^\d{6}$/.test(this.verifyCode)
+            return this.pwd1 === this.pwd2 && this.reg.test(this.pwd1) && this.reg.test(this.pwd2) && /^\d{5}$/.test(this.verifyCode)
         },
         isWithdraw() {
             return this.$store.state.data === 'withdraw';
+        },
+        successUrl(){
+            return this.$store.state.successUrl ;
         }
 
     },
     methods: {
+        changeRandomImage() {
+            this.randomImage = '/randomCaptcha?t=' + new Date().getTime()
+        },
         submit() {
             if (!this.isValidate) return false;
             //loginPassword  withdrawPassword
@@ -87,7 +94,12 @@ export default {
             this.$http.patch('m/partner/modifyPwd', params).then(res => {
                 if (res.status === 201) {
                     mui.toast('修改成功');
-                    router.push({ name: 'PartnerCenter' })
+                    if(this.successUrl){
+                        router.push({ name: this.successUrl })
+                        this.$store.commit('resetSuccessUrl')
+                    }else{
+                        router.push({ name: 'PartnerCenter' })
+                    }
                 } else {
                     mui.alert('修改失败');
                 }
@@ -116,7 +128,7 @@ export default {
     },
     created: function() {
         var loadjs = require('loadjs');
-//            '../../../static/mobile/js/zepto.js',
+        //            '../../../static/mobile/js/zepto.js',
         loadjs([
 
             '../../../static/mobile/js/sha1.js'

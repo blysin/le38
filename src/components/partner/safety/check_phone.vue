@@ -2,7 +2,7 @@
     <div>
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
-            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'PartnerSafe'}"></router-link>
+            <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
             <h1 class="mui-title">安全中心</h1>
             <a class="mui-icon"></a>
         </header>
@@ -96,8 +96,8 @@ export default {
         },
         sendSms() {
             if (this.timer > 0) return false;
-            if (this.verifyCode.length < 6) {
-                mui.toast('请输入验证码');
+            if (this.verifyCode.length != 5) {
+                mui.toast('验证码有误');
                 return false;
             }
             this.$http.get('m/partner/checkVerifyCode', {

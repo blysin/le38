@@ -21,7 +21,12 @@ Vue.filter('dateformat', function (time) {
 })
 
 Vue.filter('phone', function (phone) {
-    return phone.substring(0,3)+'****'+phone.substring(phone.length-4);
+    if(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone)){
+       return phone.substring(0,3)+'****'+phone.substring(phone.length-4);
+    }else{
+      return phone;
+    }
+
 })
 
 Vue.filter('money', function(val) {
