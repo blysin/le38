@@ -122,7 +122,7 @@ export default {
             isShowMask: false,
             itemList: [],
             isLoading: true,
-            isStockEnough:true
+            isStockEnough: true
         }
     },
     methods: {
@@ -164,19 +164,19 @@ export default {
             // });
         },
         toPay($event) {
-            if(this.isExpress && !this.isStockEnough){
+            if (this.isExpress && !this.isStockEnough) {
                 mui.alert('部分商品库存不足，只能到店领取');
                 return false;
             }
-            if ($($event.currentTarget).hasClass('disabled')) {
-            } else {
+            if ($($event.currentTarget).hasClass('disabled')) {} else {
                 this.isShowMask = true;
                 this.coverDiv();
             }
 
         },
         payment() {
-            // mui.toast('123')
+            this.hideMask();
+            this.isLoading = true;
             var params = {
                 remark: this.remark
             }
@@ -185,7 +185,8 @@ export default {
             }
 
             this.$http.post('m/account/orderheader/spaToCartPay', params).then(res => {
-                console.log(res)
+                // console.log(res)
+                this.isLoading = false;
                 if (res.status === 201) {
                     var appId = res.body.result.appId;
                     var getWxOpenIdUrl = res.body.result.getWxOpenIdUrl;
@@ -194,7 +195,7 @@ export default {
 
                 }
             }, res => {
-                this.hideMask();
+                this.isLoading = false;
 
                 if (res.status !== 500) {
                     mui.alert(res.body.error)
@@ -245,7 +246,7 @@ export default {
             var em = this;
             setTimeout(function() { //另启线程计算库存
                 for (var i = 0, len = em.itemList.length; i < len; i++) {
-                    if(em.itemList[i].quantity > em.itemList[i].stockNum ){
+                    if (em.itemList[i].quantity > em.itemList[i].stockNum) {
                         em.isStockEnough = false;
                         break;
                     }

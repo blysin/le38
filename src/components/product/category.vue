@@ -64,6 +64,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/m/message">
+                                <span class="gbt-ico ico-message"><em></em></span>
+                                <span class="gbt-text">消息</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href='javascript:void(0)' @click='toCartItem'>
                                 <span class="gbt-ico ico-cart"></span>
                                 <span class="gbt-text">购物车</span>
@@ -100,7 +106,7 @@ export default {
             productList: [],
             page: -1,
             size: 6,
-            mask:{}
+            mask: {}
         }
     },
     watch: {
@@ -112,15 +118,15 @@ export default {
         }
     },
     methods: {
-        toCartItem(){
-             this.$http.get('m/login/isLogin').then(
+        toCartItem() {
+            this.$http.get('m/login/isLogin').then(
                 res => {
                     // console.log(res.body)
                     this.logined = res.body;
-                    if(!res.body){
-                       location.href = '/m/login?successUrl='+encodeURIComponent(window.location.href);
-                    }else{
-                        router.push({name:'CartItem'})
+                    if (!res.body) {
+                        location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
+                    } else {
+                        router.push({ name: 'CartItem' })
                     }
                 })
 
@@ -128,7 +134,7 @@ export default {
         initProductList() {
             this.page = -1;
             this.productList = [];
-            $('.procucts .mui-scroll').css("transform","translate3d(0px, 0px, 0px)")
+            $('.procucts .mui-scroll').css("transform", "translate3d(0px, 0px, 0px)")
         },
         changeId(id, index) {
             this.currentId = id;
@@ -219,9 +225,9 @@ export default {
     created: function() {
         //判断dropload插件是否生效，如果失效了则刷新页面重新加载
         $('#page').hide()
-        if(!$('.wrap').dropload){
+        if (!$('.wrap').dropload) {
             location.reload();
-        }else{
+        } else {
             $('#page').show()
         }
 
@@ -235,10 +241,10 @@ export default {
             mui.init();
             mui.ready(function() {
                 mui('.categorynav .mui-scroll-wrapper').scroll({
-                    indicators: false//滚动条
+                    indicators: false //滚动条
                 });
                 mui('.procucts .mui-scroll-wrapper').scroll({
-                    bounce: false//回弹
+                    bounce: false //回弹
                 });
 
                 // $(document).bind("touchmove", function(e) {
@@ -256,7 +262,7 @@ export default {
                     this.isLoading = false;
                     if (res.body.length > 0) {
                         var em = this;
-                        em.currentId =res.body[0].categoryId
+                        em.currentId = res.body[0].categoryId
                     }
                 }
             })

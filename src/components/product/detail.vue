@@ -228,10 +228,12 @@ export default {
             }
             if (skus.length > 0) params.skus = JSON.stringify(skus);
 
-            console.log('购物车')
+            // console.log('购物车')
+            this.isLoading = true;
             this.$http.post('m/account/spaCartitem', params).then(
                 res => {
-                    console.log(res)
+                    this.isLoading = false;
+                    // console.log(res)
                     if (res.status === 201) {
                         this.cartItemCount = res.body.result;
                         /*购物车动画*/
@@ -260,6 +262,7 @@ export default {
                     }
                 },
                 res => {
+                    this.isLoading = false;
                     if (res.status !== 500) {
                         mui.alert(res.body.error)
                     } else {

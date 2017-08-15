@@ -144,7 +144,6 @@ export default {
         },
         hideMask() {
             $("div[class='xucun_content']").hide();
-            var body = document.getElementsByTagName("body");
             $('#mask').hide()
             this.isShowMask = false;
             $(document).unbind("touchmove");
@@ -184,6 +183,8 @@ export default {
 
         },
         payment() {
+            this.hideMask();
+            this.isLoading = true;
             var params = {
                 buyNum: this.product.buyNum,
                 productId: this.product.productId,
@@ -203,10 +204,11 @@ export default {
             }
             if (skus.length > 0) params.skus = JSON.stringify(skus);
 
-            console.log(JSON.stringify(params))
+            // console.log(JSON.stringify(params))
 
             this.$http.post('m/account/orderheader/spaToPay', params).then(res => {
-                console.log(res)
+                // console.log(res)
+                this.isLoading = false;
                 if (res.status === 201) {
                     var appId = res.body.result.appId;
                     var getWxOpenIdUrl = res.body.result.getWxOpenIdUrl;
@@ -215,7 +217,7 @@ export default {
 
                 }
             }, res => {
-                this.hideMask();
+                this.isLoading = false;
 
                 if (res.status !== 500) {
                     mui.alert(res.body.error)

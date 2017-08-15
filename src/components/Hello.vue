@@ -6,25 +6,27 @@
         <div class='nav'>
             <ul class='live type2'>
                 <li @click='toCategory'>商品列表</li>
-                <li><router-link :to="{name:'Login'}">合伙人后台</router-link></li>
+                <li>
+                    <router-link :to="{name:'Login'}">合伙人后台</router-link>
+                </li>
             </ul>
         </div>
     </div>
 </template>
 <script>
-import router from '@/router'
+// import router from '@/router'
 import $ from 'n-zepto'
 
 export default {
     name: 'hello',
     data() {
         return {
-            msg: '这是首页，稍候再进行修改',
+            msg: '这是首页，稍候再进行修改'
         }
     },
     methods: {
         toCategory() {
-            router.push({
+            this.$router.push({
                 name: 'Category'
             });
         },
@@ -35,6 +37,87 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style type="text/css" scoped="" lang="scss">
+*{
+  box-sizing: border-box;
+}
+html,body{
+  margin:0;
+  padding:0;
+  background: #EEE
+}
+.page-bubble{
+  padding: 15px;
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+  font-family:Helvetica Neue,Microsoft Yahei,sans-serif;
+  background: #000;
+  box-shadow: 0 0 3px #000
+}
+h6{
+  color: #FFF;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.page-bubble >div{
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #EEE;
+  padding:15px 15px 30px;
+}
+i.msg{
+  float: right;
+  display: inline-block;
+  height: 24px;
+  min-width: 24px;
+  background: red;
+  color:#FFF;
+  border:1px solid red;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 24px;
+  font-style: normal;
+  position: relative;
+  z-index: 1;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+.photo img{
+  width: 60px;
+  height: 60px;
+}
+.content{
+  margin-left: 15px;
+  flex:1;
+  margin-right: 15px;
+}
+.content span,.content em{
+  font-style:normal;display: block;margin-top: 10px
+}
+button {
+  margin-top:20px;
+  font-size: 20px;
+  width:100%;height: 60px;line-height: 60px;
+  border-radius:5px;
+  color:#FFF;
+  border: 0;
+  appearance: none;
+  background-color:#C60A1E;
+}
+
+
 .actionsheet-spec {
     top: auto;
     bottom: 0;
@@ -45,6 +128,7 @@ export default {
     text-align: center;
     margin-top: 50px
 }
+
 
 
 
@@ -399,8 +483,7 @@ ul {
     width: 68%;
     display: inline-block;
     text-align: left;
-    vertical-align: top;
-    // background: rgba(0, 0, 0, 0.2);
+    vertical-align: top; // background: rgba(0, 0, 0, 0.2);
     // color: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     padding: 1.5em;

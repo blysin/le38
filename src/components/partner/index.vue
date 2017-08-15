@@ -32,14 +32,16 @@ export default {
     created: function() {
         $('#page').hide()
         this.$http.get('m/login/partner/isLogin').then(res => {
+            $('#page').show()
             if (!res.body) {
                 router.push({ name: 'Login' })
-            } else {
-                $('#page').show()
             }
 
             this.isLoading = false;
-        }, res => { router.push({ name: 'Login' }) })
+        }, res => {
+            $('#page').show();
+            router.push({ name: 'Login' }) ;
+        })
     },
     components: {
 

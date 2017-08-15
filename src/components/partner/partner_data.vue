@@ -39,7 +39,10 @@ export default {
             }
 
             this.isLoading = false;
-        }, res => { router.push({ name: 'Login' }) })
+        }, res => {
+            $('#page').show();
+            router.push({ name: 'Login' });
+        })
     },
     components: {
 

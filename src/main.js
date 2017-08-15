@@ -8,7 +8,6 @@ import VueResource from 'vue-resource'
 import { formatDate } from '@/components/util/dateformat'
 // import Zepto from '../static/mobile/js/zepto.js'
 
-
 Vue.config.productionTip = false
 Vue.use(VueResource)
 
