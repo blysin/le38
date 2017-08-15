@@ -5,8 +5,15 @@
 ## 安装方法
 
 ``` bash
+# 将npm注册到淘宝镜像：
+npm config set registry https://registry.npm.taobao.org
+
 # install dependencies 安装
 npm install
+
+# 安装sass：css预处理器
+npm install node-sass --registry=http://registry.npm.taobao.org 
+npm install sass-loader --save-dev
 
 # serve with hot reload at localhost:8080 运行
 npm run dev
