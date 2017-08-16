@@ -50,7 +50,7 @@ export default {
         return {
             isLoading: true,
             phone: '',
-            randomImage: '/randomCaptcha',
+            randomImage: '',
             verifyCode: '',
             timer: 0,
             msg: '发送验证码',
@@ -133,6 +133,7 @@ export default {
             }
             this.isLoading = false;
         })
+        this.changeRandomImage();
     },
     components: {
 

@@ -60,7 +60,7 @@ export default {
             pwd2: '',
             reg: /^\d{6}$/,
             msg: '6位',
-            randomImage: '/randomCaptcha',
+            randomImage: '',
             verifyCode: ''
         }
     },
@@ -133,6 +133,7 @@ export default {
 
             '../../../static/mobile/js/sha1.js'
         ]);
+        this.changeRandomImage();
     },
     components: {
 
