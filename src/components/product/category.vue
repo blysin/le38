@@ -78,7 +78,7 @@
                         <li>
                             <a href="/m/account">
                                 <span class="gbt-ico ico-center"></span>
-                                <span class="gbt-text">个人中心</span>
+                                <span class="gbt-text">我的</span>
                             </a>
                         </li>
                     </ul>

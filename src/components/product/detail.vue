@@ -120,7 +120,7 @@ import router from '@/router'
 
 import Swiper from '../../../static/mobile/js/swiper.min'
 
-// var swiper;
+
 export default {
     name: 'detail',
     data() {
