@@ -43,3 +43,4 @@ Git提交方法：
 -   提交文件：git commit -m '备注' 
 -   可以用次命令代替以上二者：git commit -a -m '备注'
 -   推送到GitHub：git push origin master
+-   更新代码：git pull
