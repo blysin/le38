@@ -75,7 +75,7 @@ export default {
             itemList: [],
             isEditing: false,
             isChange: true,
-            isAllSelect: true,
+            isAllSelect: false,
             isLoading: true
         }
     },
@@ -162,7 +162,7 @@ export default {
             var item = this.itemList[index];
             this.updateItem(index, item.cartItemId, item.selectedFlag, item.quantity + 1);
         },
-        selectItem(index) {
+        selectItem(index) { //由于页面复选框有严重的bug，所以只能用setTimeout来延迟触发
             if (this.isChange) {
                 this.isChange = false;
 
@@ -181,17 +181,24 @@ export default {
                 this.isChange = false;
                 this.isLoading = true;
                 var em = this;
-                setTimeout(function() {
+                setTimeout(function() { //由于页面复选框有严重的bug，所以只能用setTimeout来延迟触发
+                    var a = 0;
+                    for (var i = 0; i < em.itemList.length; i++) {
+                        if (em.itemList[i].selectedFlag) {
+                            a++;
+                        }
+                    }
+                    var isAll = a !== em.itemList.length; //只有所有item都没选中，才能取消全选
                     var params = {
-                        selectAllFlag: !em.isAllSelect
+                        selectAllFlag: isAll
                     }
                     em.$http.patch('m/account/spaCartitem/all', JSON.stringify(params)).then(res => {
+                        em.isAllSelect = isAll;
+                        for (var i = 0; i < em.itemList.length; i++) {
+                            em.itemList[i].selectedFlag = isAll;
+                        }
                         em.isChange = true;
                         em.isLoading = false;
-                        em.isAllSelect = !em.isAllSelect;
-                        for (var j = 0, len = em.itemList.length; j < len; j++) {
-                            em.itemList[j].selectedFlag = em.isAllSelect;
-                        }
                     }, res => {
                         em.isChange = true;
                         em.isLoading = false;
@@ -201,17 +208,19 @@ export default {
                             mui.alert('系统出错，请稍候再试')
                         }
                     })
-                }, 50);
+                }, 100);
             }
         },
         initData() {
             this.$http.get('m/account/spaCartitem').then(res => {
+                var a = 0;
                 for (var i = 0; i < res.body.length; i++) {
-                    if (!res.body[i].selectedFlag) {
-                        this.isAllSelect = false;
-                        break;
+                    if (res.body[i].selectedFlag) {
+                        a++;
                     }
                 }
+                this.isAllSelect = a === res.body.length;
+
                 this.itemList = res.body;
                 this.isLoading = false;
                 if (res.body.length == 0) {

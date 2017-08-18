@@ -130,7 +130,6 @@ export default {
         var loadjs = require('loadjs');
         //            '../../../static/mobile/js/zepto.js',
         loadjs([
-
             '../../../static/mobile/js/sha1.js'
         ]);
         this.changeRandomImage();

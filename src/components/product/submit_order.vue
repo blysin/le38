@@ -3,7 +3,7 @@
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
         <header class="mui-bar mui-bar-nav">
-            <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
+            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'Detail',params:{productId:product.productId}}"></router-link>
             <h1 class="mui-title">提交订单</h1>
             <a class="mui-icon"></a>
         </header>
