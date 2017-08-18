@@ -64,7 +64,7 @@
 </template>
 <script>
 import $ from 'n-zepto'
-import mui from 'mui'
+// import mui from 'mui'
 import router from '@/router'
 
 
@@ -184,6 +184,7 @@ export default {
                 setTimeout(function() { //由于页面复选框有严重的bug，所以只能用setTimeout来延迟触发
                     var a = 0;
                     for (var i = 0; i < em.itemList.length; i++) {
+                        // console.log(em.itemList[i].selectedFlag)
                         if (em.itemList[i].selectedFlag) {
                             a++;
                         }
@@ -243,7 +244,7 @@ export default {
         this.initData();
     },
     created: function() {
-
+        // location.reload();
     },
     components: {
 
