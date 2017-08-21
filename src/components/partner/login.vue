@@ -63,21 +63,21 @@ export default {
                 return false;
             }
             // console.log()
-            this.$http.post('m/login/partner',{
-                loginName:this.loginName,
-                password:CryptoJS.SHA1(this.pwd).toString()
-            }).then(res =>{
-                if(res.status === 202){
+            this.$http.post('m/login/partner', {
+                loginName: this.loginName,
+                password: CryptoJS.SHA1(this.pwd).toString()
+            }).then(res => {
+                if (res.status === 202) {
                     mui.toast('登录成功');
                     router.push({
-                        name:'PartnerCenter'
+                        name: 'PartnerCenter'
                     })
                 }
-            },res=>{
-                if(res.status === 401){
+            }, res => {
+                if (res.status === 401) {
                     this.errorMsg = res.body.error;
                     this.errorPromptshow();
-                }else{
+                } else {
                     mui.alert('网络错误，请稍后再试')
                 }
             });
@@ -123,6 +123,9 @@ export default {
     mounted: function() {
         // $('.error-prompt').show()
     },
+    beforeDestroy() {
+        $('#page').removeClass('login blogo');
+    },
     created: function() {
         var loadjs = require('loadjs');
 
@@ -131,6 +134,8 @@ export default {
             '../../../static/mobile/js/sha1.js'
         ]);
         this.Mask = $("<div style='display: none;' class='mask'></div>").appendTo(document.body);
+
+        $('#page').addClass('login blogo');
     },
     components: {
 

@@ -88,7 +88,7 @@
                             <input type="password" readonly="">
                         </div>
                     </div>
-                    <div class="clear">清空密码</div>
+                    <div class="clear" @click='clearPwd()'>清空密码</div>
                 </div>
             </div>
             <div class="btnbar mlr10">
@@ -122,7 +122,7 @@ export default {
     },
     computed: {
         isFullData() {
-            return this.withdrawAmt >= 1 && this.withdrawAmt <= this.partner.cityPartnerBalance && this.bankName !== '请选择银行' && this.bankNum.length > 8 && this.bankUserName.length > 2 && /^1[3|4|5|8][0-9]\d{4,8}$/.test(this.phone);
+            return this.withdrawAmt >= 1 && this.withdrawAmt <= this.partner.cityPartnerBalance && this.bankName !== '请选择银行' && this.bankNum.length > 8 && this.bankUserName.length >= 2 && /^1[3|4|5|8][0-9]\d{4,8}$/.test(this.phone);
         }
     },
     watch: {
@@ -201,6 +201,11 @@ export default {
                 //执行其他操作
                 // mui.alert($("#pwd-input").val())
                 // em.clearPwd()
+                if (!em.isFullData) {
+                    mui.toast('请输入完整资料');
+                    em.clearPwd();
+                    return false;
+                }
                 em.$http.post('m/partner/checkWithdrawPwd', { withdrawPassword: CryptoJS.SHA1($("#pwd-input").val()).toString() }).then(res => {
                     if (res.body) {
                         em.validateFlag = true;
