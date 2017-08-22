@@ -11,7 +11,7 @@
                 <div class="reviewtop">
                     <ul class="procomment">
                         <li>
-                            <div class="fl"><span v-bind:class="'review-starbig review-starbig-'+Math.ceil(reviewList[0].avgScore)"><b></b></span><i>{{reviewList[0].avgScore?reviewList[0].avgScore.toFixed(1):'5'}}</i></div>
+                            <div class="fl"><span v-bind:class="'review-starbig review-starbig-'+Math.ceil(avgScore)"><b></b></span><i>{{avgScore.toFixed(1)}}</i></div>
                             <div class="fr">{{total}}人评价</div>
                         </li>
                     </ul>
@@ -55,7 +55,8 @@ export default {
             level: -1,
             reviewList: [],
             total: 0,
-            isLoading:true
+            isLoading:true,
+            avgScore:5
         }
     },
     methods: {
@@ -86,6 +87,9 @@ export default {
                                 // console.log(res)
                                 var length = res.body.data.length;
                                 if (length > 0) {
+                                    if(vm.reviewList.length == 0 && vm.level===-1){
+                                        vm.avgScore = res.body.data[0].avgScore;
+                                    }
                                     vm.reviewList = vm.reviewList.concat(res.body.data);
                                     if (vm.total == 0) vm.total = res.body.total;
                                     if (length < vm.size) { //如果当前结果小于size，表示已经没用多余的数据了
@@ -117,7 +121,13 @@ export default {
         console.log(Math.ceil(2.22))
     },
     created: function() {
-
+        //判断dropload插件是否生效，如果失效了则刷新页面重新加载
+        $('#page').hide()
+        if (!$('.wrap').dropload) {
+            location.reload();
+        } else {
+            $('#page').show()
+        }
     },
     components: {
 
