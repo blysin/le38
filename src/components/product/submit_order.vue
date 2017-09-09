@@ -42,23 +42,15 @@
                                 <div class="info">
                                     <h3>{{product.productName}}</h3>
                                     <p class="specifications" v-for='(sku,sIndex) in product.skuKeys'>{{sku.keyName}}：{{sku.skuValues[skuIndexs[sIndex]].skuValueName}}</p>
-                                    <p class="price"><span>x{{product.buyNum}}</span><em>￥{{product.defaultPrice}}</em></p>
+                                    <p class="price"><span>x{{product.buyNum}}</span><em>￥{{product.defaultPrice | money}}</em></p>
                                 </div>
                             </div>
-                            <!-- <div class="items">
-                                    <div class="img" style="background-image: url(../images/pic.jpg);"></div>
-                                    <div class="info">
-                                        <h3>耐克正品 2013新款FREE 5.0赤足系列男子跑步鞋 536840-003 YK</h3>
-                                        <p class="specifications">50ML</p>
-                                        <p class="price"><span>x1</span><em>￥1290.00</em></p>
-                                    </div>
-                                </div> -->
                         </div>
                         <p class="ft">共{{product.buyNum}}件商品，合计：<span class="public-color">￥{{totalAmt | money}}</span></p>
                     </li>
                 </ul>
             </div>
-            <div class="expresstext" v-show='isExpress'><span>中通（{{address.expressFee || 0}}元）</span>
+            <div class="expresstext" v-show='isExpress'><span>中通（{{address.expressFee || 0  | money}}元）</span>
                 <p>快递公司（邮费）</p>
             </div>
             <div class="restform">
@@ -168,7 +160,7 @@ export default {
         },
         toPay($event) {
             if (this.isExpress) {
-                if (this.product.buyNum >= this.product.stockNum) {
+                if (this.product.buyNum > this.product.stockNum) {
                     mui.alert('该商品库存不足，只能到店领取');
                     return false;
                 }
@@ -195,14 +187,16 @@ export default {
             }
             var skus = [];
             var skukeys = this.product.skuKeys;
-            for (var i = 0; i < skukeys.length; i++) {
-                var sku = {
-                    "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
-                    "id": skukeys[i].id
+            if (skukeys) {
+                for (var i = 0; i < skukeys.length; i++) {
+                    var sku = {
+                        "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
+                        "id": skukeys[i].id
+                    }
+                    skus.push(sku);
                 }
-                skus.push(sku);
+                if (skus.length > 0) params.skus = JSON.stringify(skus);
             }
-            if (skus.length > 0) params.skus = JSON.stringify(skus);
 
             // console.log(JSON.stringify(params))
 

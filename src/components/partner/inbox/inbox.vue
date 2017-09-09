@@ -66,7 +66,7 @@ export default {
                 this.msgList.splice(index, 1);
                 mui.toast('删除成功')
             }, res => {
-                if (res.status !== 401) {
+                if (res.status !== 401 && res.status !== 406) {
                     mui.alert('操作失败，请稍候再试');
                 }
             })
@@ -80,7 +80,7 @@ export default {
                 this.msgList = [];
                 mui.toast('删除成功')
             }, res => {
-                if (res.status !== 401) {
+                if (res.status !== 401 && res.status !== 406) {
                     mui.alert('操作失败，请稍候再试');
                 }
             })
@@ -96,7 +96,8 @@ export default {
         }, res => {
             this.isLoading = false;
             if (res.status !== 401) {
-                mui.alert('网络错误');
+                if (res.status === 406)
+                    mui.alert('网络错误');
             } else {
                 router.push({ name: 'Login' })
             }

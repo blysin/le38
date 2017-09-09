@@ -21,7 +21,7 @@
                         <a href="javascript:void(0)" @click='selectAddress'>
                                 <span class="name">{{address.receiverName}}</span>
                                 <span class="phone">{{address.receiverTel}}</span>
-                                <address>{{address.cityName +' '+address.countyName+' '+address.provinceName+' '+address.receiverAddr}}</address>
+                                <address>{{address.provinceName +' '+address.cityName+' '+address.countyName+' '+address.receiverAddr}}</address>
                             </a>
                     </div>
                     <a class="no-address" href="javascript:void(0)" v-show='!address.addrId' @click='addAddress'><i></i>暂无收货地址，请添加</a>
@@ -42,7 +42,7 @@
                                 <div class="info">
                                     <h3>{{item.productName}}</h3>
                                     <p class="specifications" v-for='sku in item.skuKeys'>{{sku.keyName}}：{{sku.skuValues[0].skuValueName}}</p>
-                                    <p class="price"><span>x{{item.quantity}}</span><em>￥{{item.currentPrice}}</em></p>
+                                    <p class="price"><span>x{{item.quantity}}</span><em>￥{{item.currentPrice | money}}</em></p>
                                 </div>
                             </div>
                         </div>
@@ -252,6 +252,10 @@ export default {
                     }
                 }
             }, 1)
+        },res=>{
+            if (res.status === 406) {
+                mui.alert('你被冻结了')
+            }
         });
 
         this.$http.get('m/account/userAddress/spa/getAddress', {

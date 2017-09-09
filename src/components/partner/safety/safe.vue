@@ -17,7 +17,7 @@
                         </li>
                         <li>
                             <a class="itemlink" href="javascript:void(0)" @click='login'>
-                                <div class="c">修改登密码</div>
+                                <div class="c">修改登录密码</div>
                             </a>
                         </li>
                     </ul>
@@ -46,11 +46,11 @@ export default {
     methods: {
         withdraw() {
             this.$store.commit('setData', 'withdraw');
-            router.push({name:'PartnerCheckPhone'})
+            router.push({ name: 'PartnerCheckPhone' })
         },
         login() {
             this.$store.commit('setData', 'login');
-            router.push({name:'PartnerCheckPhone'})
+            router.push({ name: 'PartnerCheckPhone' })
         }
     },
     filters: {
@@ -66,7 +66,8 @@ export default {
         }, res => {
             this.isLoading = false;
             if (res.status !== 401) {
-                mui.alert('网络错误');
+                if (res.status !== 406)
+                    mui.alert('网络错误');
             } else {
                 router.push({ name: 'Login' })
             }

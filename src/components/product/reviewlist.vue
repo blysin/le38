@@ -16,10 +16,10 @@
                         </li>
                     </ul>
                     <ul class="return-type">
-                        <li v-bind:class="level==-1?'selected':''" @click='change(-1)'>全部</li>
-                        <li v-bind:class="level==1?'selected':''" @click='change(1)'>好评</li>
-                        <li v-bind:class="level==2?'selected':''" @click='change(2)'>中评</li>
-                        <li v-bind:class="level==3?'selected':''" @click='change(3)'>差评</li>
+                        <li v-bind:class="level==-1?'selected':''" @click='change(-1)'>全部{{total}}</li>
+                        <li v-bind:class="level==1?'selected':''" @click='change(1)'>好评{{goodNum}}</li>
+                        <li v-bind:class="level==2?'selected':''" @click='change(2)'>中评{{midNum}}</li>
+                        <li v-bind:class="level==3?'selected':''" @click='change(3)'>差评{{badNum}}</li>
                     </ul>
                 </div>
             </div>
@@ -55,6 +55,9 @@ export default {
             level: -1,
             reviewList: [],
             total: 0,
+            goodNum:0,
+            midNum:0,
+            badNum:0,
             isLoading:true,
             avgScore:5
         }
@@ -77,7 +80,7 @@ export default {
                     domClass: 'dropload-down',
                     domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                    domNoData: '<div class="dropload-noData">无更多数据</div>'
                 },
                 loadDownFn: function(me) {
                     vm.page++;
@@ -128,6 +131,17 @@ export default {
         } else {
             $('#page').show()
         }
+
+        this.$http.get('m/review/count/' + this.$route.params.productId).then(
+                        res => {
+                            if (res) {
+                                this.goodNum = res.body.goodNum;
+                                this.midNum = res.body.midNum;
+                                this.badNum = res.body.badNum;
+                            }
+                        })
+
+
     },
     components: {
 

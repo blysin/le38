@@ -1,61 +1,61 @@
 <template>
     <div>
-            <header class="mui-bar mui-bar-nav">
-                <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
-                <h1 class="mui-title">收货地址</h1>
-                <a class="mui-icon"></a>
-            </header>
-            <div class="mui-content">
-                <ul class="tbviewlist">
-                    <li class="input-wrap">
-                        <div class="hd">收货人</div>
-                        <div class="bd">
-                            <input type="text" id="receiverName" placeholder="填写收件人姓名" v-model="receiverName" />
-                        </div>
-                        <span class="delete"></span>
-                    </li>
-                    <li class="input-wrap">
-                        <div class="hd">联系电话</div>
-                        <div class="bd">
-                            <input id="receiverTel" type="number" v-model="receiverTel" placeholder="填写收件人手机号码" />
-                        </div>
-                        <span class="delete"></span>
-                    </li>
+        <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
+        <header class="mui-bar mui-bar-nav">
+            <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
+            <h1 class="mui-title">收货地址</h1>
+            <a class="mui-icon"></a>
+        </header>
+        <div class="mui-content">
+            <ul class="tbviewlist">
+                <li class="input-wrap">
+                    <div class="hd">收货人</div>
+                    <div class="bd">
+                        <input type="text" id="receiverName" placeholder="填写收件人姓名" v-model="receiverName" />
+                    </div>
+                    <span class="delete"></span>
+                </li>
+                <li class="input-wrap">
+                    <div class="hd">联系电话</div>
+                    <div class="bd">
+                        <input id="receiverTel" type="number" v-model="receiverTel" placeholder="填写收件人手机号码" />
+                    </div>
+                    <span class="delete"></span>
+                </li>
+                <li>
+                    <div class="hd">选择地址</div>
+                    <div class="bd">
+                        <input type="hidden" id="province" name="province" v-model="receiverProvinceId" />
+                        <input type="hidden" id="city" name="city" v-model="receiverCityId" />
+                        <input type="hidden" id="county" name="county" v-model="receiverCountyId" />
+                        <input id="showCityPicker" v-model="combineAddr" type="text" placeholder="省-市-区/县">
+                    </div>
+                </li>
+                <li>
+                    <div class="hd">详细地址</div>
+                    <div class="bd">
+                        <textarea id="receiverAddr" placeholder="详细地址（街道/门牌号）" v-model="receiverAddr"></textarea>
+                    </div>
+                </li>
+            </ul>
+            <div class="tbviewlist">
+                <ul>
                     <li>
-                        <div class="hd">选择地址</div>
-                        <div class="bd">
-                            <input type="hidden" id="province" name="province" v-model="receiverProvinceId" />
-                            <input type="hidden" id="city" name="city" v-model="receiverCityId" />
-                            <input type="hidden" id="county" name="county" v-model="receiverCountyId" />
-                            <input id="showCityPicker" v-model="combineAddr" type="text" placeholder="省-市-区/县">
-                        </div>
-                    </li>
-                    <li>
-                        <div class="hd">详细地址</div>
-                        <div class="bd">
-                            <textarea id="receiverAddr" placeholder="详细地址（街道/门牌号）" v-model="receiverAddr"></textarea>
-                        </div>
+                        <a href="javascript:void(0);" @click="isDefaultAddr= (isDefaultAddr == 0?1:0)">
+                            <div class="r">
+                                <div class="mui-switch mui-switch-mini" v-bind:class="{'mui-active':isDefaultAddr == 1 ? true:false}" id="isDefault">
+                                    <div class="mui-switch-handle"></div>
+                                </div>
+                            </div>
+                            <div class="c">设置默认地址</div>
+                        </a>
                     </li>
                 </ul>
-                <div class="tbviewlist">
-                    <ul>
-                        <li>
-                            <a href="javascript:void(0);" @click="isDefaultAddr= (isDefaultAddr == 0?1:0)">
-                                <div class="r">
-                                    <div class="mui-switch mui-switch-mini" v-bind:class="{'mui-active':isDefaultAddr == 1 ? true:false}" id="isDefault">
-                                        <div class="mui-switch-handle"></div>
-                                    </div>
-                                </div>
-                                <div class="c">设置默认地址</div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="btnbar">
-                    <a class="mui-btn mui-btn-block mui-btn-primary" href="javascript:void(0);" id="saveBtn" @click="save">保存</a>
-                </div>
             </div>
-
+            <div class="btnbar">
+                <a class="mui-btn mui-btn-block mui-btn-primary" href="javascript:void(0);" id="saveBtn" @click="save">保存</a>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -75,7 +75,8 @@ export default {
             receiverCountyId: '',
             combineAddr: '',
             receiverAddr: '',
-            isDefaultAddr: 0
+            isDefaultAddr: 0,
+            isLoading:true
         }
     },
     methods: {
@@ -168,6 +169,7 @@ export default {
             '../../../static/mobile/js/mui/city.data-1.js'
         ]);
 
+
         setTimeout(function() {
             mui.init();
             mui.ready(function() {
@@ -192,7 +194,8 @@ export default {
                         em.receiverCityId = (items[1] || {}).value;
                     });
                 }, false);
-            })
+            });
+            em.isLoading = false;
         }, 1000);
 
         if (this.addressToEdit && this.addressToEdit.addrId) {
@@ -222,5 +225,5 @@ export default {
 </script>
 <style type="text/css" scoped="" lang="scss">
 
-
+.scloading { position: fixed; z-index: 500; background: rgba(230, 230, 230, 0.3); left: 0; top: 0; bottom: 0; right: 0; }
 </style>

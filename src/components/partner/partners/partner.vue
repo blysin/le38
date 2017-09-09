@@ -42,7 +42,7 @@ export default {
     data() {
         return {
             isLoading: true,
-            partners:[]
+            partners: []
         }
     },
     computed: {
@@ -64,7 +64,7 @@ export default {
         }, res => {
             if (res.status === 401) {
                 router.push({ name: 'Login' })
-            } else {
+            } else if (res.status === 406) {} else {
                 this.isLoading = false;
                 mui.alert('网络出错，请稍候再试');
             }

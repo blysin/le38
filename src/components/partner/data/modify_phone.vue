@@ -43,30 +43,31 @@ export default {
         }
     },
     computed: {
-        cityPartner(){
+        cityPartner() {
             return this.$store.state.cityPartner;
         },
-        validatePhone(){
+        validatePhone() {
             return (/^1[34578]\d{9}$/.test(this.cityPartner.telephone))
         }
 
     },
     methods: {
-        submit(){
-            if(!this.validatePhone){
+        submit() {
+            if (!this.validatePhone) {
                 mui.toast('请输入正确的手机号');
                 return false;
             }
 
-            this.$http.patch('m/partner/data',JSON.stringify(this.cityPartner)).then(res=>{
-                if(res.status === 201){
+            this.$http.patch('m/partner/data', JSON.stringify(this.cityPartner)).then(res => {
+                if (res.status === 201) {
                     mui.toast('修改成功')
-                    router.push({name:'CityPartnerDetail'})
-                }else{
+                    router.push({ name: 'CityPartnerDetail' })
+                } else {
                     mui.toast('修改失败');
                 }
-            },res=>{
-                mui.alert('网络出错，请稍后再试');
+            }, res => {
+                if (res.status !== 406)
+                    mui.alert('网络出错，请稍后再试');
             })
         }
     },

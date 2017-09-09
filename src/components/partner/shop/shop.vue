@@ -66,8 +66,10 @@ export default {
             if (res.status === 401) {
                 router.push({ name: 'Login' })
             } else {
-                this.isLoading = false;
-                mui.alert('网络出错，请稍候再试');
+                if (res.status !== 406) {
+                    this.isLoading = false;
+                    mui.alert('网络出错，请稍候再试');
+                }
             }
         })
     },

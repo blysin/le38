@@ -24,16 +24,16 @@ export default {
     data() {
         return {
             isLoading: true,
-            bankList:[]
+            bankList: []
         }
     },
     computed: {
 
     },
     methods: {
-        select(name){
-            this.$store.commit('setData',"bank:"+name);
-            router.push({name:'PartnerWithdraw'})
+        select(name) {
+            this.$store.commit('setData', "bank:" + name);
+            router.push({ name: 'PartnerWithdraw' })
         }
     },
     filters: {
@@ -50,8 +50,10 @@ export default {
             if (res.status === 401) {
                 router.push({ name: 'Login' })
             } else {
-                this.isLoading = false;
-                mui.alert('网络出错，请稍候再试');
+                if (res.status !== 406) {
+                    this.isLoading = false;
+                    mui.alert('网络出错，请稍候再试');
+                }
             }
         })
     },

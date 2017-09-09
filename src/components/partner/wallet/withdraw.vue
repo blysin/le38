@@ -161,7 +161,8 @@ export default {
                 withdrawalAmt: this.withdrawAmt,
                 openingBankName: this.bankName,
                 openingAccountName: this.bankUserName,
-                openingAccountNo: this.bankNum
+                openingAccountNo: this.bankNum,
+                reservedPhone: this.phone
             }
             console.log(JSON.stringify(params));
             this.$http.post('m/partner/withdraw', JSON.stringify(params)).then(res => {
@@ -174,8 +175,10 @@ export default {
                 if (res.status === 401) {
                     router.push({ name: 'Login' })
                 } else {
-                    this.isLoading = false;
-                    mui.alert('网络出错，请稍候再试');
+                    if (res.status !== 406) {
+                        this.isLoading = false;
+                        mui.alert('网络出错，请稍候再试');
+                    }
                 }
             })
         }
@@ -206,7 +209,7 @@ export default {
                     em.clearPwd();
                     return false;
                 }
-                em.$http.post('m/partner/checkWithdrawPwd', { withdrawPassword: CryptoJS.SHA1($("#pwd-input").val()).toString() }).then(res => {
+                em.$http.post('m/partner/checkWithdrawPwd', { withdrawPassword: $("#pwd-input").val() }).then(res => {
                     if (res.body) {
                         em.validateFlag = true;
                     } else {
@@ -226,18 +229,14 @@ export default {
             if (res.status === 401) {
                 router.push({ name: 'Login' })
             } else {
-                this.isLoading = false;
-                this.isLoading = false;
-                mui.alert('网络出错，请稍候再试');
+                if (res.status !== 406) {
+                    this.isLoading = false;
+                    mui.alert('网络出错，请稍候再试');
+                }
             }
         })
     },
     created: function() {
-        var loadjs = require('loadjs');
-
-        loadjs([
-            '../../../static/mobile/js/sha1.js'
-        ]);
         if (this.$store.state.data.indexOf('bank:') == 0) {
             this.bankName = this.$store.state.data.substring(5);
             this.$store.commit('setData', '');

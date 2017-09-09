@@ -1,9 +1,9 @@
 <template>
     <div id="cartItem">
         <header class="mui-bar mui-bar-nav">
-            <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
+            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'Category'}"></router-link>
             <h1 class="mui-title">购物车</h1>
-            <a class="mui-icon" id="J_EditBtn"><span @click='isEditing = !isEditing'>编辑</span></a>
+            <a class="mui-icon" id="J_EditBtn"><span @click='isEditing = !isEditing'>{{isEditing?'完成':'编辑'}}</span></a>
         </header>
         <div class="mui-content">
             <div class="iconinfo" v-show="!isLoading && itemList.length == 0">
@@ -29,7 +29,7 @@
                             <div class="price">
                                 <div class="number-widget">
                                     <div class="number-minus" :class='item.quantity<=1?"disabled":""' @click='decNum(index)'></div>
-                                    <input class="number-text" type="number" v-bind:value="item.quantity" readonly="readonly">
+                                    <input class="number-text" type="number" v-model="item.quantity" @change='changeNum(index)'>
                                     <div class="number-plus" @click='incNum(index)'></div>
                                 </div>
                                 <div class="price-real">￥<span>{{item.currentPrice | money}}</span></div>
@@ -48,7 +48,7 @@
                                 </label>
                             </div>
                             <div class="r">
-                                <div class="main-info"><span v-show='!isEditing'>￥<em>{{totalAmt | money}}</em></span></div>
+                                <div class="main-info" v-show='!isEditing'>合计：<span>￥<em>{{totalAmt | money}}</em></span></div>
                             </div>
                         </div>
                     </div>
@@ -101,6 +101,16 @@ export default {
         }
     },
     methods: {
+        changeNum(index){
+            // console.log(this.itemList[index].quantity)
+            if(!/^[1-9]+\d*$/.test(this.itemList[index].quantity)){
+                mui.toast('数字不合法！');
+                this.initData();
+            }else{
+                var item = this.itemList[index];
+                this.updateItem(index,item.cartItemId,true,item.quantity);//直接设置选中
+            }
+        },
         submit() {
             if (this.selectNum > 0) {
                 router.push({
@@ -254,5 +264,15 @@ export default {
 </script>
 <style type="text/css" scoped="" lang="scss">
 
-
+.number-widget .number-plus {
+    right: 0;
+    color: #444;
+}
+.number-widget .number-minus {
+    left: 0;
+    color: #444;
+}
+.number-widget .number-minus.disabled {
+    color: #dddddd;
+}
 </style>

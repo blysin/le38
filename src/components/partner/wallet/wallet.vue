@@ -65,7 +65,7 @@ export default {
                     domClass: 'dropload-down',
                     domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                    domNoData: '<div class="dropload-noData">无更多数据</div>'
                 },
                 loadDownFn: function(me) {
                     vm.page++;
@@ -104,8 +104,10 @@ export default {
             if (res.status === 401) {
                 router.push({ name: 'Login' })
             } else {
-                this.isLoading = false;
-                mui.alert('网络出错，请稍候再试');
+                if (res.status !== 406) {
+                    this.isLoading = false;
+                    mui.alert('网络出错，请稍候再试');
+                }
             }
         })
         this.rebateList.splice(0, 1);

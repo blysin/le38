@@ -59,7 +59,7 @@ export default {
                     domClass: 'dropload-down',
                     domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                    domNoData: '<div class="dropload-noData">无更多数据</div>'
                 },
                 loadDownFn: function(me) {
                     vm.page++;
@@ -116,6 +116,5 @@ export default {
 
 </script>
 <style type="text/css" scoped="" lang="scss">
-
 
 </style>

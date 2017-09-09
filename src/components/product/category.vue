@@ -37,7 +37,7 @@
                                                 <p class="name">{{pro.productName}}</p>
                                                 <div class="price">
                                                     <p class="price-real">¥<em>{{pro.defaultPrice | money}}</em></p>
-                                                    <p class="price-origin">¥<em>{{pro.tagPrice}}</em></p>
+                                                    <p class="price-origin" v-show='pro.isShowTagPrice'>¥<em>{{pro.tagPrice}}</em></p>
                                                 </div>
                                             </div>
                                         </a>
@@ -164,7 +164,8 @@ export default {
                 path: 'products',
                 query: {
                     categoryId: -1,
-                    keywords: this.keywords
+                    keywords: this.keywords,
+                    brandId: -1
                 }
             });
         },
@@ -186,7 +187,7 @@ export default {
                     domClass: 'dropload-down',
                     domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                    domNoData: '<div class="dropload-noData">无更多数据</div>'
                 },
                 loadDownFn: function(me) {
                     vm.page++;
@@ -233,9 +234,9 @@ export default {
 
         var loadjs = require('loadjs');
         var em = this;
-        loadjs([
-            '../../../static/mobile/js/mui.min.js'
-        ]);
+        // loadjs([
+        //     '../../../static/mobile/js/mui.min.js'
+        // ]);
 
         setTimeout(function() {
             mui.init();
@@ -246,26 +247,21 @@ export default {
                 mui('.procucts .mui-scroll-wrapper').scroll({
                     bounce: false //回弹
                 });
-
-                // $(document).bind("touchmove", function(e) {
-                //     e.preventDefault();
-                // });
             })
-        }, 800);
 
+        }, 200);
 
-        this.$http.get('m/products/categorys').then(
-            res => {
-                // console.log(res.body)
-                if (res) {
-                    this.categorys = res.body;
-                    this.isLoading = false;
-                    if (res.body.length > 0) {
-                        var em = this;
-                        em.currentId = res.body[0].categoryId
+        em.$http.get('m/products/categorys').then(
+                res => {
+                    // console.log(res.body)
+                    if (res) {
+                        em.categorys = res.body;
+                        em.isLoading = false;
+                        if (res.body.length > 0) {
+                            em.currentId = res.body[0].categoryId
+                        }
                     }
-                }
-            })
+                })
     }
 }
 

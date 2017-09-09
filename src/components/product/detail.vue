@@ -21,11 +21,11 @@
             <div class="sku-detail-top">
                 <div class="sku-intro">
                     <h1 class="sku-name">{{product.productName}}</h1>
-                    <p class="sku-custom-info"><em>已售{{product.productSaleCnt}}</em><span>￥{{product.tagPrice}}</span></p>
+                    <p class="sku-custom-info"><em>已售{{product.productSaleCnt||0}}</em><span v-show='isShowTagPrice'>￥{{product.tagPrice | money}}</span></p>
                 </div>
                 <div class="sku-price">
                     <div class="price-real">
-                        ￥<strong>{{product.defaultPrice}}</strong>
+                        ￥<strong>{{product.defaultPrice | money}}</strong>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                 <div class="prod-info">
                     <div class="pic"><img v-bind:src="picUrls[0]" alt="" /></div>
                     <div class="name">{{product.productName}}</div>
-                    <div class="price"><span class="price-real">￥<em>{{product.defaultPrice}}</em></span></div>
+                    <div class="price"><span class="price-real">￥<em>{{product.defaultPrice | money}}</em></span></div>
                 </div>
                 <div class="spec-list">
                     <div class="spec-item" v-for='(sku,sIndex) in product.skuKeys'>
@@ -126,7 +126,10 @@ export default {
     data() {
         return {
             swiper: {},
-            product: {},
+            product: {
+                tagPrice: 0,
+                defaultPrice: 0
+            },
             picUrls: [],
             isShowMask: false,
             skuIndexs: [0, 0, 0, 0, 0],
@@ -135,7 +138,8 @@ export default {
             cartItemCount: 0,
             isLoading: true,
             logined: true,
-            mask: {}
+            mask: {},
+            isShowTagPrice: false
         }
     },
     methods: {
@@ -219,14 +223,17 @@ export default {
             }
             var skus = [];
             var skukeys = this.product.skuKeys;
-            for (var i = 0; i < skukeys.length; i++) {
-                var sku = {
-                    "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
-                    "id": skukeys[i].id
+            if (skukeys) {
+                for (var i = 0; i < skukeys.length; i++) {
+                    var sku = {
+                        "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
+                        "id": skukeys[i].id
+                    }
+                    skus.push(sku);
                 }
-                skus.push(sku);
+                if (skus.length > 0) params.skus = JSON.stringify(skus);
             }
-            if (skus.length > 0) params.skus = JSON.stringify(skus);
+
 
             // console.log('购物车')
             this.isLoading = true;
@@ -295,11 +302,10 @@ export default {
         this.$http.get('m/products/' + this.$route.params.productId).then(
             res => {
                 if (res) {
-                    console.log(res.body)
+                    // console.log(res.body)
                     this.product = res.body;
                     //格式化小数，特么过滤器竟然用不了
-                    this.product.defaultPrice = this.product.defaultPrice.toFixed(2);
-                    this.product.tagPrice = this.product.tagPrice.toFixed(2);
+                    this.isShowTagPrice = this.product.isShowTagPrice || false;
                     if (res.body.picUrls) {
                         this.picUrls = res.body.picUrls.split(";;");
                         //加载结束后初始化图片插件
@@ -357,6 +363,20 @@ export default {
 .actionsheet-spec {
     top: auto;
     bottom: 0;
+}
+
+.number-widget .number-plus {
+    right: 0;
+    color: #444;
+}
+
+.number-widget .number-minus {
+    left: 0;
+    color: #444;
+}
+
+.number-widget .number-minus.disabled {
+    color: #dddddd;
 }
 
 </style>

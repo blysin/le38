@@ -7,7 +7,7 @@
             <a class="mui-icon"></a>
         </header>
         <div class="mui-content">
-            <p class="inputNum">已绑定门店联系方式： {{phone | phone}}</p>
+            <p class="inputNum">已绑定城市合伙人联系方式： {{phone | phone}}</p>
             <div class="restform">
                 <ul>
                     <li>

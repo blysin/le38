@@ -5,11 +5,11 @@
                 <ul>
                     <li>
                         <div class="input-wrap">
-                            <input type="text" v-model='loginName' placeholder="请输入账号"><span class="delete"></span></div>
+                            <input type="text" v-model='loginName' placeholder="请输入账号"><span @click='loginName=""' class="delete" :class='loginName?"cls":""'></span></div>
                     </li>
                     <li>
                         <div class="input-wrap">
-                            <input type="password" v-model='pwd' placeholder="请输入密码"><span class="delete"></span></div>
+                            <input type="password" v-model='pwd' placeholder="请输入密码"><span @click='pwd=""' class="delete" :class='pwd?"cls":""'></span></div>
                     </li>
                 </ul>
             </div>
@@ -48,7 +48,7 @@ export default {
     },
     computed: {
         validate() {
-            if (this.loginName.length > 3 && this.pwd.length > 3) {
+            if (this.loginName.length >= 1 && this.pwd.length > 3) {
                 return true;
             } else {
                 return false;
@@ -65,7 +65,7 @@ export default {
             // console.log()
             this.$http.post('m/login/partner', {
                 loginName: this.loginName,
-                password: CryptoJS.SHA1(this.pwd).toString()
+                password: this.pwd
             }).then(res => {
                 if (res.status === 202) {
                     mui.toast('登录成功');
@@ -121,7 +121,10 @@ export default {
 
     },
     mounted: function() {
-        // $('.error-prompt').show()
+        if(this.$route.query.s === 'block'){
+            this.errorMsg = '该用户已被冻结，请重新登录！';
+            this.errorPromptshow();
+        }
     },
     beforeDestroy() {
         $('#page').removeClass('login blogo');
@@ -130,8 +133,7 @@ export default {
         var loadjs = require('loadjs');
 
         loadjs([
-            '../../../static/mobile/js/zepto.js',
-            '../../../static/mobile/js/sha1.js'
+            '../../../static/mobile/js/zepto.js'
         ]);
         this.Mask = $("<div style='display: none;' class='mask'></div>").appendTo(document.body);
 
@@ -144,6 +146,8 @@ export default {
 
 </script>
 <style type="text/css" scoped="" lang="scss">
-
+.cls{
+    display: inline; transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);
+}
 
 </style>

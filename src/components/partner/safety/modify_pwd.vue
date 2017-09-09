@@ -71,8 +71,8 @@ export default {
         isWithdraw() {
             return this.$store.state.data === 'withdraw';
         },
-        successUrl(){
-            return this.$store.state.successUrl ;
+        successUrl() {
+            return this.$store.state.successUrl;
         }
 
     },
@@ -84,8 +84,8 @@ export default {
             if (!this.isValidate) return false;
             //loginPassword  withdrawPassword
             var params = {
-                pwd1: CryptoJS.SHA1(this.pwd1).toString(),
-                pwd2: CryptoJS.SHA1(this.pwd2).toString(),
+                pwd1: this.pwd1,
+                pwd2: this.pwd2,
                 verifyCode: this.verifyCode,
                 isWithdraw: this.isWithdraw
             }
@@ -94,10 +94,10 @@ export default {
             this.$http.patch('m/partner/modifyPwd', params).then(res => {
                 if (res.status === 201) {
                     mui.toast('修改成功');
-                    if(this.successUrl){
+                    if (this.successUrl) {
                         router.push({ name: this.successUrl })
                         this.$store.commit('resetSuccessUrl')
-                    }else{
+                    } else {
                         router.push({ name: 'PartnerCenter' })
                     }
                 } else {
@@ -108,6 +108,8 @@ export default {
                     mui.alert(res.body.error);
                 } else if (res.status === 401) {
                     router.push({ name: 'Login' })
+                } else if (res.status === 406) {
+
                 } else {
                     mui.alert('网络出错，请稍候再试');
                 }
@@ -127,11 +129,6 @@ export default {
         }
     },
     created: function() {
-        var loadjs = require('loadjs');
-        //            '../../../static/mobile/js/zepto.js',
-        loadjs([
-            '../../../static/mobile/js/sha1.js'
-        ]);
         this.changeRandomImage();
     },
     components: {

@@ -14,7 +14,7 @@
                 </div>
                 <div class="article-main">
                     <img :src="msg.coverImageUrl">
-                    <p>{{msg.msgContent}}</p>
+                    <p v-html='msg.msgContent'></p>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@ export default {
             this.isLoading = false;
         }, res => {
             this.isLoading = false;
-            if (res.status !== 401) {
+            if (res.status !== 401 && res.status !== 406) {
                 mui.alert('网络错误');
             }
         })

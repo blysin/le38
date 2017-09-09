@@ -43,25 +43,26 @@ export default {
         }
     },
     computed: {
-        cityPartner(){
+        cityPartner() {
             return this.$store.state.cityPartner;
         }
     },
     methods: {
-        submit(){
-            if(!this.cityPartner.contacts){
+        submit() {
+            if (!this.cityPartner.contacts) {
                 mui.toast('请输入联系人名称');
                 return false;
             }
-            this.$http.patch('m/partner/data',JSON.stringify(this.cityPartner)).then(res=>{
-                if(res.status === 201){
+            this.$http.patch('m/partner/data', JSON.stringify(this.cityPartner)).then(res => {
+                if (res.status === 201) {
                     mui.toast('修改成功')
-                    router.push({name:'CityPartnerDetail'})
-                }else{
+                    router.push({ name: 'CityPartnerDetail' })
+                } else {
                     mui.toast('修改失败');
                 }
-            },res=>{
-                mui.alert('网络出错，请稍后再试');
+            }, res => {
+                if (res.status !== 406)
+                    mui.alert('网络出错，请稍后再试');
             })
         }
     },

@@ -2,7 +2,7 @@
     <div id="products">
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
-            <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
+            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'Category'}"></router-link>
             <h1 class="mui-title">搜索结果</h1>
             <a class="mui-icon"></a>
         </header>
@@ -18,7 +18,7 @@
                                     <!-- <p class="specification">50ML</p> -->
                                     <div class="price">
                                         <p class="price-real">¥<em>{{pro.defaultPrice}}</em></p>
-                                        <p class="price-origin">¥<em>{{pro.tagPrice}}</em></p>
+                                        <p class="price-origin" v-show='pro.isShowTagPrice'>¥<em>{{pro.tagPrice}}</em></p>
                                     </div>
                                 </div>
                             </a>
@@ -65,11 +65,11 @@ export default {
                     domClass: 'dropload-down',
                     domRefresh: '<div class="dropload-refresh">↑上拉加载更多</div>',
                     domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
-                    domNoData: '<div class="dropload-noData">暂无数据</div>'
+                    domNoData: '<div class="dropload-noData">无更多数据</div>'
                 },
                 loadDownFn: function(me) {
                     vm.page++;
-                    vm.$http.get('m/products/list/' + vm.$route.query.categoryId + '?page=' + vm.page + '&size=' + vm.size + "&keyWords=" + vm.$route.query.keywords).then(
+                    vm.$http.get('m/products/list/' + vm.$route.query.categoryId + '?page=' + vm.page + '&size=' + vm.size + "&keyWords=" + vm.$route.query.keywords+ "&brandId=" + vm.$route.query.brandId).then(
                         res => {
                             if (res) {
                                 // console.log(res)

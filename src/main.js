@@ -14,37 +14,37 @@ Vue.use(VueResource)
 /**
  * 全局过滤器
  */
-Vue.filter('dateformat', function (time) {
+Vue.filter('dateformat', function(time) {
     var date = new Date(time);
     return formatDate(date, 'yyyy-MM-dd hh:mm:ss');
 })
 
-Vue.filter('phone', function (phone) {
-    if(/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone)){
-       return phone.substring(0,3)+'****'+phone.substring(phone.length-4);
-    }else{
-      return phone;
+Vue.filter('phone', function(phone) {
+    if (/^1[3|4|5|8][0-9]\d{4,8}$/.test(phone)) {
+        return phone.substring(0, 3) + '****' + phone.substring(phone.length - 4);
+    } else {
+        return phone;
     }
 
 })
 
 Vue.filter('money', function(val) {
-    val = val.toString().replace(/\$|\,/g,'');
-    if(isNaN(val)) {
-      val = "0";
+    val = val.toString().replace(/\$|\,/g, '');
+    if (isNaN(val)) {
+        val = "0";
     }
     let sign = (val == (val = Math.abs(val)));
-    val = Math.floor(val*100+0.50000000001);
-    let cents = val%100;
-    val = Math.floor(val/100).toString();
-    if(cents<10) {
-       cents = "0" + cents
+    val = Math.floor(val * 100 + 0.50000000001);
+    let cents = val % 100;
+    val = Math.floor(val / 100).toString();
+    if (cents < 10) {
+        cents = "0" + cents
     }
-    for (var i = 0; i < Math.floor((val.length-(1+i))/3); i++) {
-        val = val.substring(0,val.length-(4*i+3))+',' + val.substring(val.length-(4*i+3));
+    for (var i = 0; i < Math.floor((val.length - (1 + i)) / 3); i++) {
+        val = val.substring(0, val.length - (4 * i + 3)) + ',' + val.substring(val.length - (4 * i + 3));
     }
 
-    return (((sign)?'':'-') + val + '.' + cents);
+    return (((sign) ? '' : '-') + val + '.' + cents);
 })
 
 /**
@@ -59,12 +59,26 @@ window.apiUrlPrefix = isProduction ? '/' : '/api' // 这里决定是否使用代
  * 资源通讯
  */
 Vue.http.options.emulateJSON = true //全局配置vue.resource数据格式
-Vue.http.options.root= window.apiUrlPrefix
+Vue.http.options.root = window.apiUrlPrefix
+
+// 全局异常过滤
+Vue.http.interceptors.push(function(request, next) {
+    next(function(response) {
+        var status = response.status;
+        if(status === 406){
+            router.push({
+                name: 'Login',
+                query: { s: 'block' }
+             });
+        }
+    });
+});
+
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+    el: '#app',
+    router,
+    store,
+    render: h => h(App)
 })
