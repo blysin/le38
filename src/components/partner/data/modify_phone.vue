@@ -66,8 +66,11 @@ export default {
                     mui.toast('修改失败');
                 }
             }, res => {
-                if (res.status !== 406)
+                if(res.status === 422){
+                    mui.alert(res.body.error);
+                }else if (res.status !== 406){
                     mui.alert('网络出错，请稍后再试');
+                }
             })
         }
     },

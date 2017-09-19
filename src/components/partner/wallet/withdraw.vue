@@ -27,10 +27,10 @@
                 <div class="tbviewlist" v-show='!isLoading && !partner.withdrawPwdFlag'>
                     <ul>
                         <li>
-                            <router-link class="itemlink" :to="{name:'PartnerWithdrawBanks'}">
+                            <a class="itemlink" @click='selectBank'>
                                 <div class="r">{{bankName}}</div>
                                 <div class="c">提现银行</div>
-                            </router-link>
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -122,7 +122,7 @@ export default {
     },
     computed: {
         isFullData() {
-            return this.withdrawAmt >= 1 && this.withdrawAmt <= this.partner.cityPartnerBalance && this.bankName !== '请选择银行' && this.bankNum.length > 8 && this.bankUserName.length >= 2 && /^1[3|4|5|8][0-9]\d{4,8}$/.test(this.phone);
+            return this.withdrawAmt >= 1 && this.withdrawAmt <= this.partner.cityPartnerBalance && this.bankName !== '请选择银行' && this.bankNum.length > 3 && this.bankUserName.length >= 2 && /^1[3|4|5|8][0-9]\d{4,8}$/.test(this.phone);
         }
     },
     watch: {
@@ -135,6 +135,18 @@ export default {
         }
     },
     methods: {
+        selectBank() {
+            var params = {
+                withdrawalAmt: this.withdrawAmt,
+                openingAccountName: this.bankUserName,
+                openingAccountNo: this.bankNum,
+                reservedPhone: this.phone
+            }
+
+            this.$store.commit('setParams', params);
+
+            router.push({ name: 'PartnerWithdrawBanks' })
+        },
         setPwd() {
             this.$store.commit('setSuccessUrl', "PartnerWithdraw");
             this.$store.commit('setData', "withdraw");
@@ -164,7 +176,7 @@ export default {
                 openingAccountNo: this.bankNum,
                 reservedPhone: this.phone
             }
-            console.log(JSON.stringify(params));
+            // console.log(JSON.stringify(params));
             this.$http.post('m/partner/withdraw', JSON.stringify(params)).then(res => {
                 if (res.status === 201) {
                     mui.alert('提现申请成功，请等待审核', function() {
@@ -174,6 +186,8 @@ export default {
             }, res => {
                 if (res.status === 401) {
                     router.push({ name: 'Login' })
+                } else if (res.status === 422) {
+                    mui.alert(res.body.error);
                 } else {
                     if (res.status !== 406) {
                         this.isLoading = false;
@@ -204,6 +218,11 @@ export default {
                 //执行其他操作
                 // mui.alert($("#pwd-input").val())
                 // em.clearPwd()
+                if (em.withdrawAmt < 1) {
+                    mui.toast('最小提现金额为1元');
+                    return false;
+                }
+
                 if (!em.isFullData) {
                     mui.toast('请输入完整资料');
                     em.clearPwd();
@@ -224,6 +243,16 @@ export default {
             if (!this.partner.cityPartnerBalance) {
                 this.partner.cityPartnerBalance = 0;
             }
+
+            var params = this.$store.state.params;
+            if (params) {
+                if (params.withdrawalAmt) this.withdrawAmt = params.withdrawalAmt;
+                if (params.openingAccountName) this.bankUserName = params.openingAccountName;
+                if (params.openingAccountNo) this.bankNum = params.openingAccountNo;
+                if (params.reservedPhone) this.phone = params.reservedPhone;
+                this.$store.commit('setParams', {});
+            }
+
             this.isLoading = false;
         }, res => {
             if (res.status === 401) {
@@ -237,9 +266,12 @@ export default {
         })
     },
     created: function() {
-        if (this.$store.state.data.indexOf('bank:') == 0) {
-            this.bankName = this.$store.state.data.substring(5);
-            this.$store.commit('setData', '');
+        var data = this.$store.state.data;
+        if (data) {
+            if (data.indexOf('bank:') == 0) {
+                this.bankName = this.$store.state.data.substring(5);
+                this.$store.commit('setData', '');
+            }
         }
     },
     components: {

@@ -10,7 +10,8 @@ export default new Vuex.Store({
         addressToEdit:{},
         successUrl:'',
         cityPartner:{},
-        data:''//存放临时参数
+        data:'',//存放临时参数
+        params:{}
     },
     mutations: {
         submitOrder(state,val) {
@@ -41,6 +42,9 @@ export default new Vuex.Store({
         },
         setData(state,val){
             state.data = val;
+        },
+        setParams(state,val){
+            state.params = val;
         }
     }
 })

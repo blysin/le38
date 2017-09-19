@@ -21,7 +21,7 @@
                         <a href="javascript:void(0)" @click='selectAddress'>
                                 <span class="name">{{address.receiverName}}</span>
                                 <span class="phone">{{address.receiverTel}}</span>
-                                <address>{{address.cityName +' '+address.countyName+' '+address.provinceName+' '+address.receiverAddr}}</address>
+                                <address>{{address.provinceName+' '+address.cityName+' '+address.countyName+' '+address.receiverAddr}}</address>
                             </a>
                     </div>
                     <a class="no-address" href="javascript:void(0)" v-show='!address.addrId' @click='addAddress'><i></i>暂无收货地址，请添加</a>
@@ -258,8 +258,12 @@ export default {
         }).then(
             res => {
                 if (res) {
-                    console.log(res)
-                    if (res.body) this.address = res.body;
+                    // console.log(res)
+                    if (res.body) {
+                        this.address = res.body;
+                        if(!this.address.countyName) this.address.countyName = '';
+                    }
+
 
                 }
                 this.isLoading = false;

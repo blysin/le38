@@ -17,12 +17,13 @@
                 <div class="partner-list">
                     <ul>
                         <li v-for='rebate in rebateList'>
-                            <h3>{{rebate.rebateTypeCd ==6?'门店':'合伙人'}}编号：{{rebate.sourceNumber}}</h3>
+                            <h3>{{rebate.rebateTypeCd ==5?'门店':'合伙人'}}编号：{{rebate.sourceNumber}}</h3>
                             <div class="t"><span>{{rebate.rebateAmt | money}}</span>
                                 <p>{{rebate.sourceName | phone}}</p>
                             </div>
                             <div class="b"><span>{{rebate.remark}}</span>
-                                <p>{{rebate.rebateTypeCd ==6?'开店':'创建'}}时间:{{rebate.sourceCreateTime | dateformat}}</p>
+                                <p>{{rebate.sourceCreateTime | dateformat}}</p>
+                                <!-- {{rebate.rebateTypeCd ==6?'开店':'创建'}}时间: -->
                             </div>
                         </li>
                     </ul>

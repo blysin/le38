@@ -21,7 +21,7 @@
             <div class="sku-detail-top">
                 <div class="sku-intro">
                     <h1 class="sku-name">{{product.productName}}</h1>
-                    <p class="sku-custom-info"><em>已售{{product.productSaleCnt||0}}</em><span v-show='isShowTagPrice'>￥{{product.tagPrice | money}}</span></p>
+                    <p class="sku-custom-info"><em>销量：{{product.productSaleCnt||0}}</em><span v-show='isShowTagPrice'>￥{{product.tagPrice | money}}</span></p>
                 </div>
                 <div class="sku-price">
                     <div class="price-real">
@@ -191,7 +191,7 @@ export default {
                     console.log(res.body)
                     this.logined = res.body;
                     if (!res.body) {
-                        mui.confirm('', '请先登录', ['确定', '取消'], function(e) {
+                        mui.confirm('', '您还未注册，请先注册', ['确定', '取消'], function(e) {
                             if (e.index === 0) {
                                 location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
                             }

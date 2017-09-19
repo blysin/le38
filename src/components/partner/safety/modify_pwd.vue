@@ -3,7 +3,7 @@
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
             <router-link class="mui-icon mui-icon-left-nav" :to="{name:'PartnerSafe'}"></router-link>
-            <h1 class="mui-title">安全中心</h1>
+            <h1 class="mui-title">{{isWithdraw?'提现密码修改':'登录密码修改'}}</h1>
             <a class="mui-icon"></a>
         </header>
         <div class="mui-content">
@@ -89,7 +89,6 @@ export default {
                 verifyCode: this.verifyCode,
                 isWithdraw: this.isWithdraw
             }
-            console.log(JSON.stringify(params))
 
             this.$http.patch('m/partner/modifyPwd', params).then(res => {
                 if (res.status === 201) {

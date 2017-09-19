@@ -18,7 +18,7 @@
                 <div class="partner-list">
                     <ul>
                         <li v-for='p in partners'>
-                            <div class="t"><span>{{p.totalAmt || 0}}</span>
+                            <div class="t"><span>￥{{p.totalAmt || 0}}</span>
                                 <p>{{p.telephone | phone}}</p>
                             </div>
                             <div class="b"><span>本月营业额</span>

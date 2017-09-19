@@ -19,11 +19,11 @@
                     <ul>
                         <!---->
                         <li v-for='s in stores'>
-                            <div class="t"><span>{{s.totalAmt || '0'}}</span>
-                                <p>{{s.storeName}}</p>
+                            <div class="t"><span>￥{{s.totalAmt || '0' | money}}</span>
+                                <p>{{s.storeName || '' | phone}}</p>
                             </div>
                             <div class="b"><span>本月营业额</span>
-                                <p>申请时间:{{s.createTime | dateformat}}</p>
+                                <p>开店时间:{{s.createTime | dateformat}}</p>
                             </div>
                         </li>
                     </ul>

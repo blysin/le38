@@ -3,7 +3,7 @@
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
             <a class="mui-icon mui-icon-left-nav" href="javascript:history.back(-1)"></a>
-            <h1 class="mui-title">安全中心</h1>
+            <h1 class="mui-title">{{isWithdraw?'提现密码修改':'登录密码修改'}}</h1>
             <a class="mui-icon"></a>
         </header>
         <div class="mui-content">
@@ -72,7 +72,9 @@ export default {
         }
     },
     computed: {
-
+        isWithdraw() {
+            return this.$store.state.data === 'withdraw';
+        }
     },
     methods: {
         validateSmsCode() {
@@ -84,7 +86,7 @@ export default {
             }).then(res => {
                 if (res.body) {
                     router.push({
-                        name:'PartnerModifyPwd'
+                        name: 'PartnerModifyPwd'
                     })
                 } else {
                     mui.alert('短信验证码错误');
