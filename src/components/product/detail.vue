@@ -119,6 +119,7 @@ import mui from 'mui'
 import router from '@/router'
 
 import Swiper from '../../../static/mobile/js/swiper.min'
+import '../util/cookies'
 
 
 export default {
@@ -205,12 +206,48 @@ export default {
             this.hideMask();
             this.isLogin();
             if (!this.logined) return false;
-            this.product.buyNum = this.buyNum;
-            this.$store.commit('submitOrder', this.product);
-            this.$store.commit('selectSku', this.skuIndexs);
-            router.push({
-                name: 'Submit'
-            })
+            // this.product.buyNum = this.buyNum;
+            // this.$store.commit('submitOrder', this.product);
+            // this.$store.commit('selectSku', this.skuIndexs);
+
+
+            var productId = this.$route.params.productId;
+
+            var skus = [];
+            var skukeys = this.product.skuKeys;
+            var skuStr;
+            if (skukeys) {
+                for (var i = 0; i < skukeys.length; i++) {
+                    var sku = {
+                        "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
+                        "id": skukeys[i].id
+                    }
+                    skus.push(sku);
+                }
+                if (skus.length > 0) skuStr = JSON.stringify(skus);
+            }
+
+            console.log(skuStr)
+            // return false;
+
+            this.$http.get('m/products/detail', {
+                params: {
+                    skuStr: skuStr,
+                    productId:productId
+                }
+            }).then(
+                res => {
+                    if (res) {
+                        setCookie('productId', res.body.productId, 1);
+                        setCookie('buyNum', this.buyNum, 1);
+                        router.push({
+                            name: 'Submit'
+                        })
+                    }
+                })
+
+
+
         },
         submitCart() {
             this.isShowMask = false;

@@ -146,6 +146,49 @@ export default {
                     })
                 }
             })
+        },
+        initPicker(){
+            var em = this;
+            setTimeout(function() {
+                mui.init();
+                mui.ready(function() {
+                    try{
+                        var cityPicker = new mui.PopPicker({
+                            layer: 3
+                        });
+                    }catch(e){
+                        console.error('初始化错误')
+                        // em.initPicker();
+                        mui.toast('数据错误，请重试！');
+                        router.push({
+                            name: 'Address'
+                        })
+
+                    }finally{
+
+
+                    }
+                    cityPicker.setData(cityData3);
+                    var showCityPickerButton = document.getElementById('showCityPicker');
+                    showCityPickerButton.addEventListener('tap', function(event) {
+                        var obj = this;
+                        var province = document.getElementById('province');
+                        var city = document.getElementById('city');
+                        var county = document.getElementById('county');
+                        var items2 = '';
+
+                        cityPicker.show(function(items) {
+                            items2 = (items[2] || {}).text ? "-" + (items[2] || {}).text : '';
+                            obj.value = (items[0] || {}).text + " - " + (items[1] || {}).text + items2;
+                            em.combineAddr = obj.value;
+                            em.receiverCountyId = (items[2] || {}).value ? (items[2] || {}).value : '';
+                            em.receiverProvinceId = (items[0] || {}).value;
+                            em.receiverCityId = (items[1] || {}).value;
+                        });
+                    }, false);
+                });
+                em.isLoading = false;
+            }, 800);
         }
     },
     filters: {
@@ -159,9 +202,9 @@ export default {
     mounted: function() {
 
         var loadjs = require('loadjs');
-        var em = this;
+
         loadjs([
-            '../../../static/mobile/js/mui.min.js',
+            // '../../../static/mobile/js/mui.min.js',
             '../../../static/mobile/css/mui/mui.picker.css',
             '../../../static/mobile/css/mui/mui.poppicker.css',
             '../../../static/mobile/js/mui/mui.picker.js',
@@ -169,34 +212,7 @@ export default {
             '../../../static/mobile/js/mui/city.data-1.js'
         ]);
 
-
-        setTimeout(function() {
-            mui.init();
-            mui.ready(function() {
-                var cityPicker = new mui.PopPicker({
-                    layer: 3
-                });
-                cityPicker.setData(cityData3);
-                var showCityPickerButton = document.getElementById('showCityPicker');
-                showCityPickerButton.addEventListener('tap', function(event) {
-                    var obj = this;
-                    var province = document.getElementById('province');
-                    var city = document.getElementById('city');
-                    var county = document.getElementById('county');
-                    var items2 = '';
-
-                    cityPicker.show(function(items) {
-                        items2 = (items[2] || {}).text ? "-" + (items[2] || {}).text : '';
-                        obj.value = (items[0] || {}).text + " - " + (items[1] || {}).text + items2;
-                        em.combineAddr = obj.value;
-                        em.receiverCountyId = (items[2] || {}).value ? (items[2] || {}).value : '';
-                        em.receiverProvinceId = (items[0] || {}).value;
-                        em.receiverCityId = (items[1] || {}).value;
-                    });
-                }, false);
-            });
-            em.isLoading = false;
-        }, 1000);
+        this.initPicker();
 
         if (this.addressToEdit && this.addressToEdit.addrId) {
             this.addrId = this.addressToEdit.addrId;
@@ -207,6 +223,7 @@ export default {
             this.receiverCountyId = this.addressToEdit.receiverCountyId || '';
             this.receiverAddr = this.addressToEdit.receiverAddr;
             this.isDefaultAddr = this.addressToEdit.isDefaultAddr;
+            if(!this.addressToEdit.countyName) this.addressToEdit.countyName = this.addressToEdit.receiverCityName;
             this.combineAddr = this.addressToEdit.receiverProvinceName + '-' + this.addressToEdit.receiverCityName + '-' + this.addressToEdit.countyName;
             this.$store.commit('emptyAddressToEdit')
         }

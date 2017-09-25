@@ -113,6 +113,7 @@ export default {
         },
         submit() {
             if (this.selectNum > 0) {
+                this.$store.commit('setParams',{cartItemCount:this.selectNum});
                 router.push({
                     name: 'SubmitCart'
                 })

@@ -178,7 +178,8 @@ export default {
             this.hideMask();
             this.isLoading = true;
             var params = {
-                remark: this.remark
+                remark: this.remark,
+                cartItemsCount: this.itemList.length
             }
             if (this.isExpress) {
                 params.addrId = this.address.addrId
@@ -197,12 +198,58 @@ export default {
             }, res => {
                 this.isLoading = false;
 
-                if (res.status !== 500) {
-                    mui.alert(res.body.error)
+                if (res.status === 409) {
+                    mui.alert(res.body.error, function() {
+                        router.push({
+                            name: 'CartItem'
+                        })
+                    })
                 } else {
-                    mui.alert('系统出错，请稍候再试')
+                    mui.alert('',res.body.error || '系统出错，请稍候再试')
                 }
             })
+        },
+        successCallback(data){
+            this.itemList = data;
+                this.isLoading = false;
+                if (!this.itemList || this.itemList.length == 0) {
+                    mui.alert('', '当前购物车无商品', function() {
+                        router.push({
+                            name: 'CartItem'
+                        })
+                    })
+                }
+                var em = this;
+                setTimeout(function() { //另启线程计算库存
+                    for (var i = 0, len = em.itemList.length; i < len; i++) {
+                        if (em.itemList[i].quantity > em.itemList[i].stockNum) {
+                            em.isStockEnough = false;
+                            break;
+                        }
+                    }
+                }, 1)
+        },
+        initDate() {
+            var params = {
+                selectedFlag: 1
+            }
+            var cartItemsCount = this.$store.state.params.cartItemCount || 0;
+            if (cartItemsCount) {
+                params.cartItemsCount = cartItemsCount;
+                this.$store.commit('setParams', {})
+            }
+            this.$http.get('m/account/spaCartitem', {
+                params:params
+            }).then(res => {
+                this.successCallback(res.body);
+            }, res => {
+                if (res.status === 406) {
+                    mui.alert('你被冻结了')
+                }else if(res.status === 409){
+                    mui.alert(res.body.error);
+                    this.successCallback(res.body.result);
+                }
+            });
         }
     },
     filters: {
@@ -238,25 +285,7 @@ export default {
 
     },
     created: function() {
-        this.$http.get('m/account/spaCartitem', {
-            params: { selectedFlag: 1 }
-        }).then(res => {
-            this.itemList = res.body;
-            this.isLoading = false;
-            var em = this;
-            setTimeout(function() { //另启线程计算库存
-                for (var i = 0, len = em.itemList.length; i < len; i++) {
-                    if (em.itemList[i].quantity > em.itemList[i].stockNum) {
-                        em.isStockEnough = false;
-                        break;
-                    }
-                }
-            }, 1)
-        }, res => {
-            if (res.status === 406) {
-                mui.alert('你被冻结了')
-            }
-        });
+        this.initDate();
 
         this.$http.get('m/account/userAddress/spa/getAddress', {
             params: {
@@ -264,9 +293,9 @@ export default {
             }
         }).then(res => {
                 if (res) {
-                   if (res.body) {
+                    if (res.body) {
                         this.address = res.body;
-                        if(!this.address.countyName) this.address.countyName = '';
+                        if (!this.address.countyName) this.address.countyName = '';
                     }
                 }
                 this.isLoading = false;

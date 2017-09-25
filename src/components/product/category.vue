@@ -65,7 +65,7 @@
                         </li>
                         <li>
                             <a href="/m/message">
-                                <span class="gbt-ico ico-message"><em></em></span>
+                                <span class="gbt-ico ico-message"><!-- <em></em> --></span>
                                 <span class="gbt-text">消息</span>
                             </a>
                         </li>

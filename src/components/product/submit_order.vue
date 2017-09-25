@@ -41,12 +41,12 @@
                                 <div class="img" v-bind:style="'background-image: url('+picUrl+');'"></div>
                                 <div class="info">
                                     <h3>{{product.productName}}</h3>
-                                    <p class="specifications" v-for='(sku,sIndex) in product.skuKeys'>{{sku.keyName}}：{{sku.skuValues[skuIndexs[sIndex]].skuValueName}}</p>
-                                    <p class="price"><span>x{{product.buyNum}}</span><em>￥{{product.defaultPrice | money}}</em></p>
+                                    <p class="specifications" v-for='(sku,sIndex) in product.skuKeys'>{{sku.keyName}}：{{sku.skuValues[0].skuValueName}}</p>
+                                    <p class="price"><span>x{{product.buyNum}}</span><em>￥{{product.defaultPrice || 0 | money}}</em></p>
                                 </div>
                             </div>
                         </div>
-                        <p class="ft">共{{product.buyNum}}件商品，合计：<span class="public-color">￥{{totalAmt | money}}</span></p>
+                        <p class="ft">共{{product.buyNum}}件商品，合计：<span class="public-color">￥{{totalAmt || 0 | money}}</span></p>
                     </li>
                 </ul>
             </div>
@@ -71,7 +71,7 @@
                 <div class="ftbtnbar">
                     <div class="content-wrap">
                         <div class="content-wrap-in content-cartwrap-in">
-                            <div class="r">合计：<span class="public-color">¥{{totalAmtWithExpress | money}}</span></div>
+                            <div class="r">合计：<span class="public-color">¥{{totalAmtWithExpress || 0 | money}}</span></div>
                         </div>
                     </div>
                     <div class="button-wrap">
@@ -90,7 +90,7 @@
                 <ul class="tbviewlist">
                     <li @click='payment'>
                         <a href="javascript:void(0)" class="itemlink">
-                            <div class="r public-color">￥{{totalAmtWithExpress | money}}</div>
+                            <div class="r public-color">￥{{totalAmtWithExpress || 0 | money}}</div>
                             <div class="c">微信支付</div>
                         </a>
                     </li>
@@ -110,6 +110,7 @@
 import $ from 'n-zepto'
 import mui from 'mui'
 import router from '@/router'
+import '../util/cookies'
 
 
 export default {
@@ -120,6 +121,7 @@ export default {
             address: {},
             remark: '',
             isShowMask: false,
+            product: {},
             isLoading: true
         }
     },
@@ -185,18 +187,6 @@ export default {
             if (this.isExpress) {
                 params.addrId = this.address.addrId
             }
-            var skus = [];
-            var skukeys = this.product.skuKeys;
-            if (skukeys) {
-                for (var i = 0; i < skukeys.length; i++) {
-                    var sku = {
-                        "skuValues": skukeys[i].skuValues[this.skuIndexs[i]].id,
-                        "id": skukeys[i].id
-                    }
-                    skus.push(sku);
-                }
-                if (skus.length > 0) params.skus = JSON.stringify(skus);
-            }
 
             // console.log(JSON.stringify(params))
 
@@ -213,10 +203,10 @@ export default {
             }, res => {
                 this.isLoading = false;
 
-                if (res.status !== 500) {
+                if (res.status === 422) {
                     mui.alert(res.body.error)
                 } else {
-                    mui.alert('系统出错，请稍候再试')
+                    mui.alert(res.body.error || '系统出错，请稍候再试')
                 }
             })
         }
@@ -225,12 +215,6 @@ export default {
 
     },
     computed: {
-        product() {
-            return this.$store.state.productToSubmit;
-        },
-        skuIndexs() {
-            return this.$store.state.skuToSubmit;
-        },
         picUrl() {
             var picUrls = this.product.picUrls ? this.product.picUrls.split(";;") : '';
             return picUrls[0];
@@ -251,31 +235,58 @@ export default {
 
     },
     created: function() {
-        this.$http.get('m/account/userAddress/spa/getAddress', {
-            params: {
-                addrId: this.$route.query.addrId
-            }
-        }).then(
-            res => {
-                if (res) {
-                    // console.log(res)
-                    if (res.body) {
-                        this.address = res.body;
-                        if(!this.address.countyName) this.address.countyName = '';
+        var em = this;
+        var productId = getCookie('productId');
+        var buyNum = getCookie('buyNum');
+        if (!productId || !buyNum) {
+            mui.alert('请重新提交订单！', function() {
+                router.push({ name: 'Category' })
+            });
+        } else {
+            this.$http.get('m/products/details',{
+                params:{
+                    productId:productId
+                }
+            }).then(
+                res => {
+                    if (res) {
+                        this.product = res.body;
+                        this.product.buyNum = buyNum;
                     }
+                })
 
 
+            this.$http.get('m/account/userAddress/spa/getAddress', {
+                params: {
+                    addrId: this.$route.query.addrId
                 }
-                this.isLoading = false;
-            },
-            res => {
-                if (res) {
-                    if (res.status == 401) {
-                        location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
+            }).then(
+                res => {
+                    if (res) {
+                        // console.log(res)
+                        if (res.body) {
+                            this.address = res.body;
+                            if (!this.address.countyName) this.address.countyName = '';
+                        }
+
                     }
-                }
-                this.isLoading = false;
-            })
+                    this.isLoading = false;
+                },
+                res => {
+                    if (res) {
+                        if (res.status == 401) {
+                            location.href = '/m/login?successUrl=' + encodeURIComponent(window.location.href);
+                        }
+                    }
+                    this.isLoading = false;
+                })
+        }
+
+
+
+
+
+
     },
     components: {
 
