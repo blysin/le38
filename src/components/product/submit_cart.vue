@@ -50,7 +50,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="expresstext" v-show='isExpress'><span>中通（{{address.expressFee || 0}}元）</span>
+            <div class="expresstext" v-show='isExpress'><span>快递费用（{{address.expressFee || 0}}元）</span>
                 <p>快递公司（邮费）</p>
             </div>
             <div class="restform">
@@ -169,8 +169,9 @@ export default {
                 return false;
             }
             if ($($event.currentTarget).hasClass('disabled')) {} else {
-                this.isShowMask = true;
-                this.coverDiv();
+                // this.isShowMask = true;
+                // this.coverDiv();
+                this.payment();
             }
 
         },

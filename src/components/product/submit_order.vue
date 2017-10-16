@@ -3,7 +3,7 @@
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <div id='mask' style='display: none;' class='mask' @click='hideMask'></div>
         <header class="mui-bar mui-bar-nav">
-            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'Detail',params:{productId:product.productId}}"></router-link>
+            <router-link class="mui-icon mui-icon-left-nav" :to="{name:'Detail',params:{productId:product.masterProductId}}"></router-link>
             <h1 class="mui-title">提交订单</h1>
             <a class="mui-icon"></a>
         </header>
@@ -50,7 +50,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="expresstext" v-show='isExpress'><span>中通（{{address.expressFee || 0  | money}}元）</span>
+            <div class="expresstext" v-show='isExpress'><span>快递费用（{{address.expressFee || 0  | money}}元）</span>
                 <p>快递公司（邮费）</p>
             </div>
             <div class="restform">
@@ -171,8 +171,9 @@ export default {
                 // mui.toast('不能支付')
             } else {
                 // mui.toast('可以支付')
-                this.isShowMask = true;
-                this.coverDiv();
+                // this.isShowMask = true;
+                // this.coverDiv();
+                this.payment();
             }
 
         },

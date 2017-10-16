@@ -44,3 +44,17 @@ Git提交方法：
 -   可以用次命令代替以上二者：git commit -a -m '备注'
 -   推送到GitHub：git push origin master
 -   更新代码：git pull
+
+
+config/index文件中可以配置后台接口地址
+``
+proxyTable: {
+        "/api": {        
+            target:"http://le38.dayang1.cn",
+            changeOrigin: true,
+            pathRewrite: {
+              '^/api': '/'
+            }
+        }
+    },
+``
