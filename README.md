@@ -5,27 +5,39 @@
 ## 安装方法
 
 ``` bash
-# 将npm注册到淘宝镜像：
-npm config set registry https://registry.npm.taobao.org
+# 首先需要先安装node.js和python2.7
 
-# install dependencies 安装
-npm install
+# 将npm注册到淘宝镜像：
+npm config set registry https://registry.npm.taobao.org 
+
+# 进入到项目目录
 
 # 安装sass：css预处理器
 npm install node-sass --registry=http://registry.npm.taobao.org 
+# 如果安装sass报错,执行：
+npm install --save node-sass --registry=https://registry.npm.taobao.org --disturl=https://npm.taobao.org/dist --sass-binary-site=http://npm.taobao.org/mirrors/node-sass
+
+# 安装sass-loader
 npm install sass-loader --save-dev
+
+# install dependencies 安装
+npm install
 
 # serve with hot reload at localhost:8080 运行
 npm run dev
 
 # build for production with minification 打包编译
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+1、打包后生成的文件在/dist目录下，将/dist/static/js及/dist/static/css中的文件复制到后台项目中（文件名相同的表示没改变过，可以不复制）
+2、 修改vue.ftl，将/dist/index.html文件中的依赖替换到vue.ftl中
+
+``` html
+    <script type=text/javascript src=/static/js/manifest.14efc1f1559e086ee3a9.js></script>
+    <script type=text/javascript src=/static/js/vendor.ee7fbd3d9cada6c29d43.js></script>
+    <script type=text/javascript src=/static/js/app.e316ff7df043a3aa26e7.js></script>
+```
 
 
 
