@@ -50,8 +50,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="expresstext" v-show='isExpress'><span>快递费用（{{address.expressFee || 0  | money}}元）</span>
-                <p>快递公司（邮费）</p>
+            <div class="expresstext" v-show='isExpress'><span>{{address.expressFee || 0  | money}}元</span>
+                <p>快递公司（邮费）：</p>
             </div>
             <div class="restform">
                 <ul>

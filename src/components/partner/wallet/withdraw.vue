@@ -5,6 +5,7 @@
             <router-link class="mui-icon mui-icon-left-nav" :to="{name:'PartnerWallet'}"></router-link>
             <h1 class="mui-title">提现</h1>
             <router-link :to="{name:'PartnerWithdrawHistory'}" class="mui-icon"><span>历史</span></router-link>
+            <!-- <router-link :to="{name:'WithdrawSuccess'}" class="mui-icon"><span>测试</span></router-link> -->
         </header>
         <div class="mui-content">
             <div class="prompt-text alignleft">提现需要收取0.6%税点</div>
@@ -135,6 +136,15 @@ export default {
         }
     },
     methods: {
+        // test() {
+        //     router.push({
+        //         name: 'WithdrawSuccess',
+        //         query: {
+        //             withdrawalAmt: this.withdrawalAmt,
+        //             openingAccountNo: this.bankNum.substring(this.bankNum.length-4)
+        //         }
+        //     })
+        // },
         selectBank() {
             var params = {
                 withdrawalAmt: this.withdrawAmt,
@@ -179,8 +189,16 @@ export default {
             // console.log(JSON.stringify(params));
             this.$http.post('m/partner/withdraw', JSON.stringify(params)).then(res => {
                 if (res.status === 201) {
-                    mui.alert('提现申请成功，请等待审核', function() {
-                        router.push({ name: 'PartnerWallet' })
+                    // mui.alert('提现申请成功，请等待审核', function() {
+                    //     router.push({ name: 'PartnerWallet' })
+                    // })
+                    router.push({
+                        name: 'WithdrawSuccess',
+                        query: {
+                            withdrawalAmt: params.withdrawalAmt,
+                            openingAccountNo: params.openingAccountNo.substring(params.openingAccountNo.length-4),
+                            openingBankName:params.openingBankName
+                        }
                     })
                 }
             }, res => {

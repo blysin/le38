@@ -15,8 +15,8 @@
                 <div class="recordList">
                     <ul>
                         <li v-for='w in list'>
-                            <div class="r">-{{w.withdrawalAmt}}</div>
-                            <div class="l">{{w.withdrawalTypeCd==2?'银行提现':'微信提现'}}</div>
+                            <div class="r">{{w.applyStatusCd===3?'+':'-'}}{{w.withdrawalAmt}}</div>
+                            <div class="l">{{w.withdrawalTypeCd==2?'银行提现':'微信提现'}}---{{w.applyStatusCd | applyStatus}}</div>
                             <p>{{w.applyTime | dateformat}}</p>
                         </li>
                     </ul>
@@ -89,7 +89,21 @@ export default {
         }
     },
     filters: {
-
+        applyStatus:function(data){
+            switch(data){
+                case 1:
+                    return "待转"
+                    break;
+                case 2:
+                    return "已转"
+                    break;
+                case 3:
+                    return "拒绝转账"
+                    break;
+                default:
+                    return ""
+            }
+        }
     },
     mounted: function() {
         this.$http.get('m/partner/withdrawTotal').then(res => {

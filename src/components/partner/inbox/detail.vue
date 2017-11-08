@@ -3,7 +3,7 @@
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
             <router-link class="mui-icon mui-icon-left-nav" :to="{name:'PartnerInbox'}"></router-link>
-            <h1 class="mui-title">详情</h1>
+            <h1 class="mui-title">邮件内容</h1>
             <a class="mui-icon"></a>
         </header>
         <div class="mui-content">

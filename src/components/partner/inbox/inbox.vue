@@ -3,7 +3,7 @@
         <div class="scloading" v-show='isLoading'><span class="mui-spinner"></span></div>
         <header class="mui-bar mui-bar-nav">
             <router-link class="mui-icon mui-icon-left-nav" :to="{name:'PartnerCenter'}"></router-link>
-            <h1 class="mui-title">收件箱</h1>
+            <h1 class="mui-title">我的收件箱</h1>
             <a class="mui-icon"></a>
         </header>
         <div class="mui-content">
