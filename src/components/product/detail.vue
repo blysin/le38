@@ -233,7 +233,7 @@ export default {
             this.$http.get('m/products/detail', {
                 params: {
                     skuStr: skuStr,
-                    productId:productId
+                    productId: productId
                 }
             }).then(
                 res => {
@@ -351,6 +351,53 @@ export default {
                             this.isLoading = false;
                         });
                     }
+
+                    var vm = this;
+
+                    var shareUrl = 'http://' + window.location.host + '/m/products#/detail/' + this.product.productId;
+                    this.$http.get('m/weixin/injection/config', {
+                        params: {
+                            url: shareUrl
+                        }
+                    }).then(function(data) {
+                        wx.config({
+                            debug: false,
+                            appId: data.body.appId, // 必填，公众号的唯一标识
+                            timestamp: data.body.timestamp, // 必填，生成签名的时间戳
+                            nonceStr: data.body.noncestr, // 必填，生成签名的随机串
+                            signature: data.body.signature, // 必填，签名，见附录1
+                            jsApiList: [
+                                'onMenuShareTimeline',
+                                'onMenuShareAppMessage'
+                            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        });
+
+                        wx.ready(function() {
+                            wx.onMenuShareAppMessage({
+                                title: vm.product.productName, // 分享标题
+                                desc: vm.product.productSubTitle, // 分享描述
+                                link: shareUrl, // 分享链接
+                                imgUrl: 'http://' + window.location.host + vm.picUrls[0], // 分享图标
+                                success: function() {
+                                    // 用户确认分享后执行的回调函数
+                                },
+                                cancel: function() {}
+                            });
+                            wx.onMenuShareTimeline({
+                                title: vm.product.productName, // 分享标题
+                                link: shareUrl, // 分享链接
+                                imgUrl: 'http://' + window.location.host + vm.picUrls[0], // 分享图标
+                                success: function() {
+                                    // 用户确认分享后执行的回调函数
+                                },
+                                cancel: function() {
+                                    // 用户取消分享后执行的回调函数
+                                }
+                            });
+                        });
+
+
+                    })
                 }
             })
 
@@ -367,6 +414,22 @@ export default {
         loadjs([
             '../../../static/mobile/js/zepto.js'
         ]);
+
+
+
+
+        // (function(cache_data) {
+        //     var url = "${shareUrl!}";
+        //     console.log("shareUrl=" + url);
+        //     console.log("window.location.host=" + window.location.host);
+        //     console.log("cache_data._mobileLogo=" + cache_data._mobileLogo);
+        //     window.wxData = {
+        //         img_url: ['http://' + window.location.host, cache_data._mobileLogo].join(""),
+        //         link: url,
+        //         title: "title",
+        //         desc: "desc"
+        //     };
+        // }(window.cache_data));
     },
     beforeDestroy() {
         this.mask.close();
